@@ -134,6 +134,7 @@ bool IsMaster();	//判断主备机
 void write_fhzg_step(const char* groupid, const char* table_name, list<list<MAP_SO_NODE> > lst_step, FDIR_R2* fdir_r, list<FAULT_ITEM> &lst_ld, list<long> lstIsolate/*用于保存母线负荷转供时需要断开的进线开关*/, bool bStation);
 void HandlerMessage(void *para);
 void thread_get_ivalue(void *param);
+void thread_simu_return(void* param);
 void fill_fhzg_db(const long cb_id, const char *fhzg_id, FHZG *fhzg, bool has_fhzg_cb);	//写负荷转供关系库表
 int GetFHZGLeftStep(const char *FHZG_id, list<CB_CONTROL> &lstcb);
 bool AddTask(FDIR_TASK *newtask);
@@ -4269,7 +4270,6 @@ void thread_process(void *param)
 									it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.head.fault_id);
 								ExecSQL(sql);
 
-								//pthread_mutex_lock(&simu_sync_mutex);
 								g_is_write_to_lib = true;
 								pthread_mutex_unlock(&simu_sync_mutex);
 							}
@@ -7474,9 +7474,11 @@ else
 
 		numthread = newsockfd;
 
+		//yangyong 20150623
 		if (pthread_id[numthread].fdinThread == -1)
 		{
 			pthread_id[numthread].fdinThread = newsockfd;
+			pthread_id[numthread + 1].fdinThread = newsockfd;
 		}
 
 		if (newsockfd == -1 && numthread == -1)
@@ -7492,8 +7494,15 @@ else
 			printf("Create Failed!!!\n");
 #endif
 		}
+		else if((ret = pthread_create(&pthread_id[numthread + 1].thread_id, &attr, (pthread_startroutine_t) thread_simu_return, (pthread_addr_t) &newsockfd)) < 0)
+		{
+#ifdef _DEBUG_
+			TRACE("Create Failed!!!\n");
+#endif
+		}
 
 		pthread_detach(pthread_id[numthread].thread_id);
+		pthread_detach(pthread_id[numthread + 1].thread_id);
 	}
 
 	return 0;
@@ -9821,154 +9830,6 @@ void HandlerMessage(void *para)
 
 			printf(">>>>>>>>%sprocessed, total cost:%.2fs\r\n", ctime(&(now = time(NULL))), cost / 1000 / 1000);
 		}
-		
-		pthread_mutex_lock(&simu_sync_mutex);	
-		if (g_is_write_to_lib)
-		{
-			int rec_num, attr_num;
-			char* buf = NULL;
-			struct ORA_ATTR *attrs = NULL;
-			int his_count = 0;
-			sprintf(sql, "SELECT ID FROM PMS_PARAM.FDIR_FDIRECT ORDER BY ID DESC");
-			pthread_mutex_lock(&oci_mutex);
-			int ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
-			pthread_mutex_unlock(&oci_mutex);
-			std::string cur_fault_id;
-			int query_count = 0;
-
-			if (ret != OCI_ERROR && rec_num > 0)
-			{
-				cur_fault_id = buf;
-			}
-
-			//通过故障ID查找故障信号，若其对应的故障信号包含了机器名发出的所有故障信号，视为故障处理方案计算完成，向人机返回报文
-			buf = NULL;
-			attrs = NULL;
-			char return_str[1024] = {0};
-			sprintf(sql, "SELECT TM_ADD, KEY_ID FROM PMS_PARAM.FDIR_ALARM WHERE ID=\'%s\'", cur_fault_id.c_str());
-			FDIR_POINT_TRIG_LIST pt_trig;
-			pthread_mutex_lock(&oci_mutex);
-			ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
-			pthread_mutex_unlock(&oci_mutex);
-
-			if (ret > 0 && rec_num > 0)
-			{
-				for (int i = 0; i < rec_num; i++)
-				{
-					FDIR_POINT_TRIG his_trig = {0};
-					his_trig.tm_add = *(timeval*)(buf + i * (attrs[0].col_width + attrs[1].col_width));
-					his_trig.alarm.key_id = *(long*)(buf + i * (attrs[0].col_width + attrs[1].col_width) + attrs[0].col_width);
-					pt_trig.push_back(his_trig);
-				}
-			}
-
-			if (simu_mac_trig.size() > 0 && pt_trig.size() > 0)
-			{
-				std::map<std::string, FDIR_POINT_TRIG_LIST>::iterator it_map = simu_mac_trig.begin();
-				std::list<FDIR_POINT_TRIG>::iterator it_trig = pt_trig.begin();
-				for (;it_map != simu_mac_trig.end(); it_map++)
-				{
-					std::list<FDIR_POINT_TRIG>::iterator it_map_trig = it_map->second.begin();
-					for (; it_trig != pt_trig.end(); it_trig++)
-					{
-						for (; it_map_trig != it_map->second.end();)
-						{
-							if (it_trig->tm_add.tv_sec == it_map_trig->tm_add.tv_sec && it_trig->alarm.key_id == it_map_trig->alarm.key_id)
-							{
-								it_map->second.erase(it_map_trig++);
-							} 
-							else
-							{
-								continue;
-							}
-						}
-
-						string cur_machine = it_map->first;
-						if (it_map->second.size() == 0)
-						{
-							//获取模拟方案信息
-							buf = NULL;
-							attrs = NULL;
-							sprintf(sql, "SELECT T1.ID, T1.TYPE, T1.NAME, T1.USERID FROM PMS_PARAM.FDIR_SIG_SUMMARY T1, PMS_PARAM.FDIR_SIG_FAULT T2 WHERE T2.FAULT_ID=\'%s\' AND T1.ID=T2.ID", 
-								cur_fault_id.c_str());
-							pthread_mutex_lock(&oci_mutex);
-							ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
-							pthread_mutex_unlock(&oci_mutex);
-							if (ret > 0 && rec_num > 0)
-							{
-								char cur_plan_id[50] = {0};
-								memcpy(cur_plan_id, buf, attrs[0].col_width);
-								int plan_type = *(int*)(buf + attrs[0].col_width);
-								char plan_name[100] = {0};
-								char cur_usr[50] = {0};
-								memcpy(plan_name, buf + attrs[0].col_width + attrs[1].col_width, attrs[2].col_width);
-								memcpy(cur_usr, buf + attrs[0].col_width + attrs[1].col_width + attrs[2].col_width, attrs[3].col_width);
-								//发送XML响应头
-								cout << head_xml_simu_exec << endl;
-								ret = tcptools->Send(newsockfd, head_xml_simu_exec, strlen(head_xml_simu_exec));
-								if (ret <= 0)
-								{
-									cout << "发送数据失败，" << strerror(errno) << endl;
-									goto RE_RECV;
-								}
-
-								//查找group_id
-								sprintf(sql, "SELECT GROUPID FROM PMS_PARAM.FDIR_FDIRECT WHERE ID=\'%s\'", cur_fault_id.c_str());
-								buf = NULL;
-								attrs = NULL;
-								pthread_mutex_lock(&oci_mutex);
-								int ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
-								pthread_mutex_unlock(&oci_mutex);
-								std::string cur_group_id;
-
-								if (ret != OCI_ERROR && rec_num > 0)
-								{
-									cur_group_id = buf;
-								}
-
-								//发送响应请求上下文信息
-								sprintf(return_str, "<Simu_Plan  id=\"%s\" group_id=\"%s\" type=\"%d\" name=\"%s\" machine=\"%s\" user=\"%s\">\r\n", 
-									cur_plan_id, cur_group_id.c_str(), plan_type, plan_name, cur_machine.c_str(), cur_usr);
-
-								cout << return_str << endl;
-								ret = tcptools->Send(newsockfd, return_str, strlen(return_str));
-								if (ret <= 0)
-								{
-									cout << "发送数据失败，" << strerror(errno) << endl;
-									goto RE_RECV;
-								}
-
-								//发送XML响应尾										
-								cout << tail_xml_simu << endl;
-								ret = tcptools->Send(newsockfd, tail_xml_simu, strlen(tail_xml_simu));
-								if (ret <= 0)
-								{
-									cout << "发送数据失败，" << strerror(errno) << endl;
-									goto RE_RECV;
-								}
-								
-								g_is_write_to_lib = false;								
-
-								//删除临时创建但不保存的方案
-								if (strstr(cur_plan_id, "1970/01/01") != NULL)
-								{
-									sprintf(sql, "DELETE FROM PMS_PARAM.FDIR_SIG_SUMMARY WHERE ID=\'%s\'", cur_plan_id);
-									ExecSQL(sql);
-								}	
-
-							}
-							else
-							{		
-								TRACE("故障模拟失败！\r\n");
-							}
-
-						}
-					}
-
-				}
-			}			
-		}
-		pthread_mutex_unlock(&simu_sync_mutex);
 
 	} //while(GDI_TRUE)
 
@@ -12010,6 +11871,161 @@ bool GetCode(const long id, string &code)
 
 	return true;
 }
+
+//返回故障模拟方案执行后向人机返回的报文
+void thread_simu_return(void* param)
+{
+	int newsockfd = *((int*)param);
+
+	pthread_mutex_lock(&simu_sync_mutex);
+	if (g_is_write_to_lib)
+	{
+		int rec_num, attr_num;
+		char* buf = NULL;
+		struct ORA_ATTR *attrs = NULL;
+		int his_count = 0;
+		sprintf(sql, "SELECT ID FROM PMS_PARAM.FDIR_FDIRECT ORDER BY ID DESC");
+		pthread_mutex_lock(&oci_mutex);
+		int ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
+		pthread_mutex_unlock(&oci_mutex);
+		std::string cur_fault_id;
+		int query_count = 0;
+
+		if (ret != OCI_ERROR && rec_num > 0)
+		{
+			cur_fault_id = buf;
+		}
+
+		//通过故障ID查找故障信号，若其对应的故障信号包含了机器名发出的所有故障信号，视为故障处理方案计算完成，向人机返回报文
+		buf = NULL;
+		attrs = NULL;
+		char return_str[1024] = {0};
+		sprintf(sql, "SELECT TM_ADD, KEY_ID FROM PMS_PARAM.FDIR_ALARM WHERE ID=\'%s\'", cur_fault_id.c_str());
+		FDIR_POINT_TRIG_LIST pt_trig;
+		pthread_mutex_lock(&oci_mutex);
+		ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
+		pthread_mutex_unlock(&oci_mutex);
+
+		if (ret > 0 && rec_num > 0)
+		{
+			for (int i = 0; i < rec_num; i++)
+			{
+				FDIR_POINT_TRIG his_trig = {0};
+				his_trig.tm_add = *(timeval*)(buf + i * (attrs[0].col_width + attrs[1].col_width));
+				his_trig.alarm.key_id = *(long*)(buf + i * (attrs[0].col_width + attrs[1].col_width) + attrs[0].col_width);
+				pt_trig.push_back(his_trig);
+			}
+		}
+
+		if (simu_mac_trig.size() > 0 && pt_trig.size() > 0)
+		{
+			std::map<std::string, FDIR_POINT_TRIG_LIST>::iterator it_map = simu_mac_trig.begin();
+			std::list<FDIR_POINT_TRIG>::iterator it_trig = pt_trig.begin();
+			for (;it_map != simu_mac_trig.end(); it_map++)
+			{
+				std::list<FDIR_POINT_TRIG>::iterator it_map_trig = it_map->second.begin();
+				for (; it_trig != pt_trig.end(); it_trig++)
+				{
+					for (; it_map_trig != it_map->second.end();)
+					{
+						if (it_trig->tm_add.tv_sec == it_map_trig->tm_add.tv_sec && it_trig->alarm.key_id == it_map_trig->alarm.key_id)
+						{
+							it_map->second.erase(it_map_trig++);
+						}
+						else
+						{
+							continue;
+						}
+					}
+
+					string cur_machine = it_map->first;
+					if (it_map->second.size() == 0)
+					{
+						//获取模拟方案信息
+						buf = NULL;
+						attrs = NULL;
+						sprintf(sql, "SELECT T1.ID, T1.TYPE, T1.NAME, T1.USERID FROM PMS_PARAM.FDIR_SIG_SUMMARY T1, PMS_PARAM.FDIR_SIG_FAULT T2 WHERE T2.FAULT_ID=\'%s\' AND T1.ID=T2.ID",
+							cur_fault_id.c_str());
+						pthread_mutex_lock(&oci_mutex);
+						ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
+						pthread_mutex_unlock(&oci_mutex);
+						if (ret > 0 && rec_num > 0)
+						{
+							char cur_plan_id[50] = {0};
+							memcpy(cur_plan_id, buf, attrs[0].col_width);
+							int plan_type = *(int*)(buf + attrs[0].col_width);
+							char plan_name[100] = {0};
+							char cur_usr[50] = {0};
+							memcpy(plan_name, buf + attrs[0].col_width + attrs[1].col_width, attrs[2].col_width);
+							memcpy(cur_usr, buf + attrs[0].col_width + attrs[1].col_width + attrs[2].col_width, attrs[3].col_width);
+							//发送XML响应头
+							cout << head_xml_simu_exec << endl;
+							ret = tcptools->Send(newsockfd, head_xml_simu_exec, strlen(head_xml_simu_exec));
+							if (ret <= 0)
+							{
+								cout << "发送数据失败，" << strerror(errno) << endl;
+								goto RE_RECV;
+							}
+
+							//查找group_id
+							sprintf(sql, "SELECT GROUPID FROM PMS_PARAM.FDIR_FDIRECT WHERE ID=\'%s\'", cur_fault_id.c_str());
+							buf = NULL;
+							attrs = NULL;
+							pthread_mutex_lock(&oci_mutex);
+							int ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
+							pthread_mutex_unlock(&oci_mutex);
+							std::string cur_group_id;
+
+							if (ret != OCI_ERROR && rec_num > 0)
+							{
+								cur_group_id = buf;
+							}
+
+							//发送响应请求上下文信息
+							sprintf(return_str, "<Simu_Plan  id=\"%s\" group_id=\"%s\" type=\"%d\" name=\"%s\" machine=\"%s\" user=\"%s\">\r\n",
+								cur_plan_id, cur_group_id.c_str(), plan_type, plan_name, cur_machine.c_str(), cur_usr);
+
+							cout << return_str << endl;
+							ret = tcptools->Send(newsockfd, return_str, strlen(return_str));
+							if (ret <= 0)
+							{
+								cout << "发送数据失败，" << strerror(errno) << endl;
+								goto RE_RECV;
+							}
+
+							//发送XML响应尾
+							cout << tail_xml_simu << endl;
+							ret = tcptools->Send(newsockfd, tail_xml_simu, strlen(tail_xml_simu));
+							if (ret <= 0)
+							{
+								cout << "发送数据失败，" << strerror(errno) << endl;
+								goto RE_RECV;
+							}
+
+							g_is_write_to_lib = false;
+
+							//删除临时创建但不保存的方案
+							if (strstr(cur_plan_id, "1970/01/01") != NULL)
+							{
+								sprintf(sql, "DELETE FROM PMS_PARAM.FDIR_SIG_SUMMARY WHERE ID=\'%s\'", cur_plan_id);
+								ExecSQL(sql);
+							}
+
+						}
+						else
+						{
+							TRACE("故障模拟失败！\r\n");
+						}
+
+					}
+				}
+
+			}
+		}
+	}
+	pthread_mutex_unlock(&simu_sync_mutex);
+}
+
 
 //创建开关电流值读取线程，用于计算恢复策略时读取开关电流平均值,
 //具体方法是每10秒读取一次开关电流瞬时值，该值为开关三相电流值的最大值，随后取这6个值的平均值

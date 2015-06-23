@@ -12024,6 +12024,8 @@ void thread_simu_return(void* param)
 		}
 	}
 	pthread_mutex_unlock(&simu_sync_mutex);
+
+	pthread_exit(0);
 }
 
 

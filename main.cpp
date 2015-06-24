@@ -115,7 +115,7 @@ int iProcess;
 char sqltemp[1024] = {0};
 FDIR_R2 *array_fdir_r[MAX_FAULT];		//¹ÊÕÏÊı×é£¬Ã¿¸ö¹ÊÕÏÏî¶ÔÓ¦Êı×éÖĞµÄÒ»Ïî
 bool	map_idle_fdir_r[MAX_FAULT];		//Ë÷Òı¹ÊÕÏÊı×éÖĞµÄÃ¿¸öÏîµÄÕ¼ÓÃÇé¿ö
-bool	g_is_write_to_lib = false;		//¹ÊÕÏÄ£ÄâĞ´¿â±êÖ¾				
+bool	g_is_write_to_lib = false;		//¹ÊÕÏÄ£ÄâĞ´¿â±êÖ¾
 
 //ÑîÓÂ ÓÃÓÚ´æ´¢¿ª¹ØµçÁ÷Æ½¾ùÖµ
 std::map<long,float> g_mapIValue;
@@ -1521,7 +1521,7 @@ bool FormFdirStep(const char *group_id)
 			memcpy(operation, buf + i * (attrs[0].col_width + attrs[1].col_width + attrs[2].col_width + attrs[3].col_width) + attrs[0].col_width, attrs[1].col_width);
 			memcpy(so_id, buf + i * (attrs[0].col_width + attrs[1].col_width + attrs[2].col_width + attrs[3].col_width) + attrs[0].col_width + attrs[1].col_width, attrs[2].col_width);
 			memcpy(control, buf + i * (attrs[0].col_width + attrs[1].col_width + attrs[2].col_width + attrs[3].col_width) + attrs[0].col_width + attrs[1].col_width + attrs[2].col_width,
-					attrs[3].col_width);
+				   attrs[3].col_width);
 
 			long id = *(long*) cb_id;
 
@@ -1603,25 +1603,25 @@ void UpdateExtStatus(const char *group_id)
 
 			switch (*(int*)status)
 			{
-			case STATUS_FDIR_STEP_WAIT:
-				cnt_wait++;
-				break;
+				case STATUS_FDIR_STEP_WAIT:
+					cnt_wait++;
+					break;
 
-			case STATUS_FDIR_STEP_EXEC:
-				cnt_exec++;
-				break;
+				case STATUS_FDIR_STEP_EXEC:
+					cnt_exec++;
+					break;
 
-			case STATUS_FDIR_STEP_FAIL:
-				cnt_failed++;
-				break;
+				case STATUS_FDIR_STEP_FAIL:
+					cnt_failed++;
+					break;
 
-			case STATUS_FDIR_STEP_PASS:
-			case STATUS_FDIR_STEP_OK:
-				cnt_succeed++;
-				break;
+				case STATUS_FDIR_STEP_PASS:
+				case STATUS_FDIR_STEP_OK:
+					cnt_succeed++;
+					break;
 
-			default:
-				break;
+				default:
+					break;
 			}
 		}
 
@@ -1679,25 +1679,25 @@ void UpdateExtStatus(const char *group_id)
 
 			switch (*(int*)status)
 			{
-			case STATUS_FDIR_STEP_WAIT:
-				cnt_wait++;
-				break;
+				case STATUS_FDIR_STEP_WAIT:
+					cnt_wait++;
+					break;
 
-			case STATUS_FDIR_STEP_EXEC:
-				cnt_exec++;
-				break;
+				case STATUS_FDIR_STEP_EXEC:
+					cnt_exec++;
+					break;
 
-			case STATUS_FDIR_STEP_FAIL:
-				cnt_failed++;
-				break;
+				case STATUS_FDIR_STEP_FAIL:
+					cnt_failed++;
+					break;
 
-			case STATUS_FDIR_STEP_PASS:
-			case STATUS_FDIR_STEP_OK:
-				cnt_succeed++;
-				break;
+				case STATUS_FDIR_STEP_PASS:
+				case STATUS_FDIR_STEP_OK:
+					cnt_succeed++;
+					break;
 
-			default:
-				break;
+				default:
+					break;
 			}
 		}
 
@@ -1755,25 +1755,25 @@ void UpdateExtStatus(const char *group_id)
 
 			switch (*(int*)status)
 			{
-			case STATUS_FDIR_STEP_WAIT:
-				cnt_wait++;
-				break;
+				case STATUS_FDIR_STEP_WAIT:
+					cnt_wait++;
+					break;
 
-			case STATUS_FDIR_STEP_EXEC:
-				cnt_exec++;
-				break;
+				case STATUS_FDIR_STEP_EXEC:
+					cnt_exec++;
+					break;
 
-			case STATUS_FDIR_STEP_FAIL:
-				cnt_failed++;
-				break;
+				case STATUS_FDIR_STEP_FAIL:
+					cnt_failed++;
+					break;
 
-			case STATUS_FDIR_STEP_PASS:
-			case STATUS_FDIR_STEP_OK:
-				cnt_succeed++;
-				break;
+				case STATUS_FDIR_STEP_PASS:
+				case STATUS_FDIR_STEP_OK:
+					cnt_succeed++;
+					break;
 
-			default:
-				break;
+				default:
+					break;
 			}
 		}
 
@@ -1830,99 +1830,99 @@ bool ControlSucceed(const char *group_id, const long point_name, const int stage
 	//Ğ´³É¹¦×´Ì¬µ½¿â
 	switch (stage)
 	{
-	case STAGE_FDIR_STEP_ISOLATE:
-	{
-		MLang::ULong dev_id;
-
-		ks.field_id = 0;
-		CCommon::keyid_to_long(&ks, &dev_id);
-
-		if (AddToken(group_id, dev_id, 0) < 0)
+		case STAGE_FDIR_STEP_ISOLATE:
 		{
-			TRACE("Îª¹ÊÕÏ%sµÄ¸ôÀë¿ª¹Ø%ld¹ÒÅÆÊ§°Ü£¡\r\n", group_id, point_name);
-		}
+			MLang::ULong dev_id;
 
-		sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and (cb=\'%ld\' or cb=\'%ld\') and ctrl_type=0", STATUS_ISOLATE_OK, group_id, point_name, uid);
-		ExecSQL(sql);
+			ks.field_id = 0;
+			CCommon::keyid_to_long(&ks, &dev_id);
 
-		if (!jxcb)
-		{
-			//¸üĞÂ¿ª¹Ø×´Ì¬£¬Ğ£ÑéÊ±ĞèÒª
-			sprintf(sql, "update FDIR_CB_STATUS set status=%d where id=\'%s\' and (pt_id=\'%ld\' or pt_id=\'%ld\')", 0, group_id, point_name, uid);
+			if (AddToken(group_id, dev_id, 0) < 0)
+			{
+				TRACE("Îª¹ÊÕÏ%sµÄ¸ôÀë¿ª¹Ø%ld¹ÒÅÆÊ§°Ü£¡\r\n", group_id, point_name);
+			}
+
+			sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and (cb=\'%ld\' or cb=\'%ld\') and ctrl_type=0", STATUS_ISOLATE_OK, group_id, point_name, uid);
 			ExecSQL(sql);
+
+			if (!jxcb)
+			{
+				//¸üĞÂ¿ª¹Ø×´Ì¬£¬Ğ£ÑéÊ±ĞèÒª
+				sprintf(sql, "update FDIR_CB_STATUS set status=%d where id=\'%s\' and (pt_id=\'%ld\' or pt_id=\'%ld\')", 0, group_id, point_name, uid);
+				ExecSQL(sql);
+			}
+
+			break;
 		}
 
-		break;
-	}
-
-	case STAGE_FDIR_STEP_RE_ISOLATE:
-	{
-		sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and (cb=\'%ld\' or cb=\'%ld\') and ctrl_type=0", STATUS_ISOLATE_OK, group_id, point_name, uid);
-		ExecSQL(sql);
-
-		if (!jxcb)
+		case STAGE_FDIR_STEP_RE_ISOLATE:
 		{
-			//¸üĞÂ¿ª¹Ø×´Ì¬£¬Ğ£ÑéÊ±ĞèÒª
-			sprintf(sql, "update FDIR_CB_STATUS set status=%d where id=\'%s\' and (pt_id=\'%ld\' or pt_id=\'%ld\')", 0, group_id, point_name, uid);
+			sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and (cb=\'%ld\' or cb=\'%ld\') and ctrl_type=0", STATUS_ISOLATE_OK, group_id, point_name, uid);
 			ExecSQL(sql);
+
+			if (!jxcb)
+			{
+				//¸üĞÂ¿ª¹Ø×´Ì¬£¬Ğ£ÑéÊ±ĞèÒª
+				sprintf(sql, "update FDIR_CB_STATUS set status=%d where id=\'%s\' and (pt_id=\'%ld\' or pt_id=\'%ld\')", 0, group_id, point_name, uid);
+				ExecSQL(sql);
+			}
+
+			break;
 		}
 
-		break;
-	}
-
-	case STAGE_FDIR_STEP_CUT_LD:
-	{
-		sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and (cb_id=\'%ld\' or cb_id=\'%ld\')", STATUS_FDIR_STEP_OK, group_id, point_name, uid);
-		ExecSQL(sql);
-
-		if (!jxcb)
+		case STAGE_FDIR_STEP_CUT_LD:
 		{
-		//¸üĞÂ¿ª¹Ø×´Ì¬£¬Ğ£ÑéÊ±ĞèÒª
-		sprintf(sql, "update FDIR_CB_STATUS set status=%d where id=\'%s\' and (pt_id=\'%ld\' or pt_id=\'%ld\')", 0, group_id, point_name, uid);
-		ExecSQL(sql);
+			sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and (cb_id=\'%ld\' or cb_id=\'%ld\')", STATUS_FDIR_STEP_OK, group_id, point_name, uid);
+			ExecSQL(sql);
+
+			if (!jxcb)
+			{
+				//¸üĞÂ¿ª¹Ø×´Ì¬£¬Ğ£ÑéÊ±ĞèÒª
+				sprintf(sql, "update FDIR_CB_STATUS set status=%d where id=\'%s\' and (pt_id=\'%ld\' or pt_id=\'%ld\')", 0, group_id, point_name, uid);
+				ExecSQL(sql);
+			}
+
+			break;
 		}
 
-		break;
-	}
-
-	case STAGE_FDIR_STEP_TRANSFER:
-	{
-		sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and (cb_id=\'%ld\' or cb_id=\'%ld\')", STATUS_FDIR_STEP_OK, group_id, point_name, uid);
-		ExecSQL(sql);
-
-		if (!jxcb)
+		case STAGE_FDIR_STEP_TRANSFER:
 		{
-		//¸üĞÂ¿ª¹Ø×´Ì¬£¬Ğ£ÑéÊ±ĞèÒª
-		sprintf(sql, "update FDIR_CB_STATUS set status=%d where id=\'%s\' and (pt_id=\'%ld\' or pt_id=\'%ld\')", 1, group_id, point_name, uid);
-		ExecSQL(sql);
+			sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and (cb_id=\'%ld\' or cb_id=\'%ld\')", STATUS_FDIR_STEP_OK, group_id, point_name, uid);
+			ExecSQL(sql);
+
+			if (!jxcb)
+			{
+				//¸üĞÂ¿ª¹Ø×´Ì¬£¬Ğ£ÑéÊ±ĞèÒª
+				sprintf(sql, "update FDIR_CB_STATUS set status=%d where id=\'%s\' and (pt_id=\'%ld\' or pt_id=\'%ld\')", 1, group_id, point_name, uid);
+				ExecSQL(sql);
+			}
+
+			break;
 		}
 
-		break;
-	}
-
-	case STAGE_FDIR_STEP_RESTORE:
-	{
-		sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and (cb_id=\'%ld\' or cb_id=\'%ld\')", STATUS_FDIR_STEP_OK, group_id, point_name, uid);
-		ExecSQL(sql);
-
-		if (!jxcb)
+		case STAGE_FDIR_STEP_RESTORE:
 		{
-		//¸üĞÂ¿ª¹Ø×´Ì¬£¬Ğ£ÑéÊ±ĞèÒª
-		sprintf(sql, "update FDIR_CB_STATUS set status=%d where id=\'%s\' and (pt_id=\'%ld\' or pt_id=\'%ld\')", 1, group_id, point_name, uid);
-		ExecSQL(sql);
+			sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and (cb_id=\'%ld\' or cb_id=\'%ld\')", STATUS_FDIR_STEP_OK, group_id, point_name, uid);
+			ExecSQL(sql);
+
+			if (!jxcb)
+			{
+				//¸üĞÂ¿ª¹Ø×´Ì¬£¬Ğ£ÑéÊ±ĞèÒª
+				sprintf(sql, "update FDIR_CB_STATUS set status=%d where id=\'%s\' and (pt_id=\'%ld\' or pt_id=\'%ld\')", 1, group_id, point_name, uid);
+				ExecSQL(sql);
+			}
+			sprintf(sql, "update fdir_fdirect set manual_restore=replace(manual_restore,\'%ld[0]\',\'%ld[3]\') where groupid =\'%s\' and (manual_restore like \'%%%ld[_]%%\' or manual_restore like \'%%%ld[_]%%\')", uid, uid, group_id,
+					point_name, uid);
+			ExecSQL(sql);
+			sprintf(sql, "update fdir_fdirect set manual_restore=replace(manual_restore,\'%ld[1]\',\'%ld[3]\') where groupid =\'%s\' and (manual_restore like \'%%%ld[_]%%\' or manual_restore like \'%%%ld[_]%%\')", uid, uid, group_id,
+					point_name, uid);
+			ExecSQL(sql);
+
+			break;
 		}
-		sprintf(sql, "update fdir_fdirect set manual_restore=replace(manual_restore,\'%ld[0]\',\'%ld[3]\') where groupid =\'%s\' and (manual_restore like \'%%%ld[_]%%\' or manual_restore like \'%%%ld[_]%%\')", uid, uid, group_id,
-				point_name, uid);
-		ExecSQL(sql);
-		sprintf(sql, "update fdir_fdirect set manual_restore=replace(manual_restore,\'%ld[1]\',\'%ld[3]\') where groupid =\'%s\' and (manual_restore like \'%%%ld[_]%%\' or manual_restore like \'%%%ld[_]%%\')", uid, uid, group_id,
-				point_name, uid);
-		ExecSQL(sql);
 
-		break;
-	}
-
-	default:
-		break;
+		default:
+			break;
 	}
 
 	sprintf(sql, "update FDIR_STEP set status=%d,endtime=sysdate where id=\'%s\' and (cb_id=\'%ld\' or cb_id=\'%ld\') and stage=%d and status=%d", STATUS_FDIR_STEP_OK, group_id, point_name, uid, stage, STATUS_FDIR_STEP_EXEC);
@@ -2161,68 +2161,68 @@ bool ControlFailed(const char *group_id, const long point_name/*D5000ºóÃæµÄ%sÒª¸
 	//Ğ´Ê§°Ü×´Ì¬µ½¿â
 	switch (stage)
 	{
-	case STAGE_FDIR_STEP_ISOLATE:
-	{
-		sprintf(sql, "update FDIR_FDIRECT set status=%d,status_isolate=%d where groupid=\'%s\'", STATUS_FDIRECT_RE_ISO, EXT_STATUS_FDIRECT_FAILED, group_id);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_ISOLATE:
+		{
+			sprintf(sql, "update FDIR_FDIRECT set status=%d,status_isolate=%d where groupid=\'%s\'", STATUS_FDIRECT_RE_ISO, EXT_STATUS_FDIRECT_FAILED, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and (cb=\'%ld\' or cb=\'%ld\') and ctrl_type=0", STATUS_ISOLATE_FAIL, group_id, point_name, uid);
-		ExecSQL(sql);
+			sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and (cb=\'%ld\' or cb=\'%ld\') and ctrl_type=0", STATUS_ISOLATE_FAIL, group_id, point_name, uid);
+			ExecSQL(sql);
 
-		break;
-	}
+			break;
+		}
 
-	case STAGE_FDIR_STEP_RE_ISOLATE:
-	{
-		sprintf(sql, "update FDIR_FDIRECT set status=%d,status_isolate=%d where groupid=\'%s\'", STATUS_FDIRECT_RE_ISO, EXT_STATUS_FDIRECT_FAILED, group_id);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_RE_ISOLATE:
+		{
+			sprintf(sql, "update FDIR_FDIRECT set status=%d,status_isolate=%d where groupid=\'%s\'", STATUS_FDIRECT_RE_ISO, EXT_STATUS_FDIRECT_FAILED, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and (cb=\'%ld\' or cb=\'%ld\') and ctrl_type=0", STATUS_ISOLATE_FAIL, group_id, point_name, uid);
-		ExecSQL(sql);
-		break;
-	}
+			sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and (cb=\'%ld\' or cb=\'%ld\') and ctrl_type=0", STATUS_ISOLATE_FAIL, group_id, point_name, uid);
+			ExecSQL(sql);
+			break;
+		}
 
-	case STAGE_FDIR_STEP_CUT_LD:
-	{
-		sprintf(sql, "update FDIR_FDIRECT set status=%d,status_fhzg=%d where groupid=\'%s\'", STATUS_FDIRECT_RE_TRANSFER, EXT_STATUS_FDIRECT_FAILED, group_id);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_CUT_LD:
+		{
+			sprintf(sql, "update FDIR_FDIRECT set status=%d,status_fhzg=%d where groupid=\'%s\'", STATUS_FDIRECT_RE_TRANSFER, EXT_STATUS_FDIRECT_FAILED, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and (cb_id=\'%ld\' or cb_id=\'%ld\')", STATUS_FDIR_STEP_FAIL, group_id, point_name, uid);
-		ExecSQL(sql);
-		break;
-	}
+			sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and (cb_id=\'%ld\' or cb_id=\'%ld\')", STATUS_FDIR_STEP_FAIL, group_id, point_name, uid);
+			ExecSQL(sql);
+			break;
+		}
 
-	case STAGE_FDIR_STEP_TRANSFER:
-	{
-		sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and (cb_id=\'%ld\' or cb_id=\'%ld\')", STATUS_FDIR_STEP_FAIL, group_id, point_name, uid);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_TRANSFER:
+		{
+			sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and (cb_id=\'%ld\' or cb_id=\'%ld\')", STATUS_FDIR_STEP_FAIL, group_id, point_name, uid);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FDIR_FDIRECT set status=%d,status_fhzg=%d where groupid=\'%s\'", STATUS_FDIRECT_RE_TRANSFER, EXT_STATUS_FDIRECT_FAILED, group_id);
-		ExecSQL(sql);
+			sprintf(sql, "update FDIR_FDIRECT set status=%d,status_fhzg=%d where groupid=\'%s\'", STATUS_FDIRECT_RE_TRANSFER, EXT_STATUS_FDIRECT_FAILED, group_id);
+			ExecSQL(sql);
 
-		break;
-	}
+			break;
+		}
 
-	case STAGE_FDIR_STEP_RESTORE:
-	{
-		sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and (cb_id=\'%ld\' or cb_id=\'%ld\')", STATUS_FDIR_STEP_FAIL, group_id, point_name, uid);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_RESTORE:
+		{
+			sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and (cb_id=\'%ld\' or cb_id=\'%ld\')", STATUS_FDIR_STEP_FAIL, group_id, point_name, uid);
+			ExecSQL(sql);
 
-		sprintf(sql, "update fdir_fdirect set status_restore=%d where groupid =\'%s\'", EXT_STATUS_FDIRECT_FAILED, group_id);
-		ExecSQL(sql);
+			sprintf(sql, "update fdir_fdirect set status_restore=%d where groupid =\'%s\'", EXT_STATUS_FDIRECT_FAILED, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update fdir_fdirect set manual_restore=replace(manual_restore,\'%ld[0]\',\'%ld[2]\') where groupid =\'%s\' and (manual_restore like \'%%%ld[_]%%\' or manual_restore like \'%%%ld[_]%%\')"
-				, uid, uid, group_id, point_name, uid);
-		ExecSQL(sql);
-		sprintf(sql, "update fdir_fdirect set manual_restore=replace(manual_restore,\'%ld[1]\',\'%ld[2]\') where groupid =\'%s\' and (manual_restore like \'%%%ld[_]%%\' or manual_restore like \'%%%ld[_]%%\')"
-				, uid, uid, group_id, point_name, uid);
-		ExecSQL(sql);
+			sprintf(sql, "update fdir_fdirect set manual_restore=replace(manual_restore,\'%ld[0]\',\'%ld[2]\') where groupid =\'%s\' and (manual_restore like \'%%%ld[_]%%\' or manual_restore like \'%%%ld[_]%%\')"
+					, uid, uid, group_id, point_name, uid);
+			ExecSQL(sql);
+			sprintf(sql, "update fdir_fdirect set manual_restore=replace(manual_restore,\'%ld[1]\',\'%ld[2]\') where groupid =\'%s\' and (manual_restore like \'%%%ld[_]%%\' or manual_restore like \'%%%ld[_]%%\')"
+					, uid, uid, group_id, point_name, uid);
+			ExecSQL(sql);
 
-		break;
-	}
+			break;
+		}
 
-	default:
-		break;
+		default:
+			break;
 	}
 
 	sprintf(sql, "update FDIR_STEP set status=%d,endtime=sysdate where id=\'%s\' and (cb_id=\'%ld\' or cb_id=\'%ld\') and stage=%d and status=%d", STATUS_FDIR_STEP_FAIL, group_id, point_name, uid, stage, STATUS_FDIR_STEP_EXEC);
@@ -2256,62 +2256,62 @@ bool AddReturnControl(const char *group_id, const long point_name, const bool bO
 
 	switch (stage)
 	{
-	case STAGE_FDIR_STEP_ISOLATE:
-	{
-		sprintf(sql, "update fdir_fdirect set status=(case status when %d then %d else status end) where groupid=\'%s\'", STATUS_FDIRECT_DIRECT_OK, STATUS_FDIRECT_ISO, group_id);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_ISOLATE:
+		{
+			sprintf(sql, "update fdir_fdirect set status=(case status when %d then %d else status end) where groupid=\'%s\'", STATUS_FDIRECT_DIRECT_OK, STATUS_FDIRECT_ISO, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and cb=\'%ld\' and ctrl_type=0", STATUS_ISOLATE_EXEC, group_id, point_name);
-		ExecSQL(sql);
+			sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and cb=\'%ld\' and ctrl_type=0", STATUS_ISOLATE_EXEC, group_id, point_name);
+			ExecSQL(sql);
 
-		break;
-	}
+			break;
+		}
 
-	case STAGE_FDIR_STEP_RE_ISOLATE:
-	{
-		sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RE_ISO, group_id);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_RE_ISOLATE:
+		{
+			sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RE_ISO, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and cb=\'%ld\' and ctrl_type=0", STATUS_ISOLATE_EXEC, group_id, point_name);
-		ExecSQL(sql);
-		break;
-	}
+			sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and cb=\'%ld\' and ctrl_type=0", STATUS_ISOLATE_EXEC, group_id, point_name);
+			ExecSQL(sql);
+			break;
+		}
 
-	case STAGE_FDIR_STEP_CUT_LD:
-	{
-		sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RES, group_id);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_CUT_LD:
+		{
+			sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RES, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and cb_id=\'%ld\'", STATUS_FDIR_STEP_EXEC, group_id, point_name);
-		ExecSQL(sql);
-		break;
-	}
+			sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and cb_id=\'%ld\'", STATUS_FDIR_STEP_EXEC, group_id, point_name);
+			ExecSQL(sql);
+			break;
+		}
 
-	case STAGE_FDIR_STEP_TRANSFER:
-	{
-		sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RES, group_id);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_TRANSFER:
+		{
+			sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RES, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and cb_id=\'%ld\'", STATUS_FDIR_STEP_EXEC, group_id, point_name);
-		ExecSQL(sql);
-		break;
-	}
+			sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and cb_id=\'%ld\'", STATUS_FDIR_STEP_EXEC, group_id, point_name);
+			ExecSQL(sql);
+			break;
+		}
 
-	case STAGE_FDIR_STEP_RESTORE:
-	{
-		sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RES, group_id);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_RESTORE:
+		{
+			sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RES, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and cb_id=\'%ld\'", STATUS_FDIR_STEP_EXEC, group_id, point_name);
-		ExecSQL(sql);
+			sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and cb_id=\'%ld\'", STATUS_FDIR_STEP_EXEC, group_id, point_name);
+			ExecSQL(sql);
 
-		sprintf(sql, "update fdir_fdirect set manual_restore=replace(manual_restore,\'%ld[0]\',\'%ld[1]\') where groupid =\'%s\' and manual_restore like \'%%%ld[_]%%\'", point_name, point_name, group_id, point_name);
-		ExecSQL(sql);
-		break;
-	}
+			sprintf(sql, "update fdir_fdirect set manual_restore=replace(manual_restore,\'%ld[0]\',\'%ld[1]\') where groupid =\'%s\' and manual_restore like \'%%%ld[_]%%\'", point_name, point_name, group_id, point_name);
+			ExecSQL(sql);
+			break;
+		}
 
-	default:
-		break;
+		default:
+			break;
 	}
 
 	sprintf(sql, "update FDIR_STEP set status=%d,starttime=sysdate where id=\'%s\' and cb_id=\'%ld\' and stage=%d and status=%d", STATUS_FDIR_STEP_EXEC, group_id, point_name, stage, STATUS_FDIR_STEP_WAIT);
@@ -2351,68 +2351,68 @@ bool SetPassControl(const char *group_id, const long point_name, int op_type, co
 
 	switch (stage)
 	{
-	case STAGE_FDIR_STEP_ISOLATE:
-	{
-		sprintf(sql, "update fdir_fdirect set status=(case status when %d then %d else status end) where groupid=\'%s\'", STATUS_FDIRECT_DIRECT_OK, STATUS_FDIRECT_ISO, group_id);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_ISOLATE:
+		{
+			sprintf(sql, "update fdir_fdirect set status=(case status when %d then %d else status end) where groupid=\'%s\'", STATUS_FDIRECT_DIRECT_OK, STATUS_FDIRECT_ISO, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and cb=\'%ld\' and ctrl_type=0", op_type, group_id, point_name);
-		ExecSQL(sql);
+			sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and cb=\'%ld\' and ctrl_type=0", op_type, group_id, point_name);
+			ExecSQL(sql);
 
-		break;
-	}
+			break;
+		}
 
-	case STAGE_FDIR_STEP_RE_ISOLATE:
-	{
-		sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RE_ISO, group_id);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_RE_ISOLATE:
+		{
+			sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RE_ISO, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and cb=\'%ld\' and ctrl_type=0", op_type, group_id, point_name);
-		ExecSQL(sql);
+			sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and cb=\'%ld\' and ctrl_type=0", op_type, group_id, point_name);
+			ExecSQL(sql);
 
-		break;
-	}
+			break;
+		}
 
-	case STAGE_FDIR_STEP_CUT_LD:
-	{
-		sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RES, group_id);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_CUT_LD:
+		{
+			sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RES, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and cb_id=\'%ld\'", op_type, group_id, point_name);
-		ExecSQL(sql);
+			sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and cb_id=\'%ld\'", op_type, group_id, point_name);
+			ExecSQL(sql);
 
-		break;
-	}
+			break;
+		}
 
-	case STAGE_FDIR_STEP_TRANSFER:
-	{
-		sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RES, group_id);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_TRANSFER:
+		{
+			sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RES, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and cb_id=\'%ld\'", op_type, group_id, point_name);
-		ExecSQL(sql);
+			sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and cb_id=\'%ld\'", op_type, group_id, point_name);
+			ExecSQL(sql);
 
-		break;
-	}
+			break;
+		}
 
-	case STAGE_FDIR_STEP_RESTORE:
-	{
-		sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RES, group_id);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_RESTORE:
+		{
+			sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RES, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and cb_id=\'%ld\'", op_type, group_id, point_name);
-		ExecSQL(sql);
+			sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and cb_id=\'%ld\'", op_type, group_id, point_name);
+			ExecSQL(sql);
 
-		sprintf(sql, "update fdir_fdirect set manual_restore=replace(manual_restore,\'%ld[0]\',\'%ld[4]\') where groupid =\'%s\' and manual_restore like \'%%%ld[_]%%\'", point_name, point_name, group_id, point_name);
-		ExecSQL(sql);
-		sprintf(sql, "update fdir_fdirect set manual_restore=replace(manual_restore,\'%ld[1]\',\'%ld[4]\') where groupid =\'%s\' and manual_restore like \'%%%ld[_]%%\'", point_name, point_name, group_id, point_name);
-		ExecSQL(sql);
+			sprintf(sql, "update fdir_fdirect set manual_restore=replace(manual_restore,\'%ld[0]\',\'%ld[4]\') where groupid =\'%s\' and manual_restore like \'%%%ld[_]%%\'", point_name, point_name, group_id, point_name);
+			ExecSQL(sql);
+			sprintf(sql, "update fdir_fdirect set manual_restore=replace(manual_restore,\'%ld[1]\',\'%ld[4]\') where groupid =\'%s\' and manual_restore like \'%%%ld[_]%%\'", point_name, point_name, group_id, point_name);
+			ExecSQL(sql);
 
-		break;
-	}
+			break;
+		}
 
-	default:
-		break;
+		default:
+			break;
 	}
 
 	sprintf(sql, "update FDIR_STEP set status=%d,starttime=sysdate,endtime=sysdate where id=\'%s\' and cb_id=\'%ld\' and stage=%d", op_type, group_id, point_name, stage);
@@ -2456,62 +2456,62 @@ bool AddControlItem(const char *group_id, const long point_name, const bool bOpe
 
 	switch (stage)
 	{
-	case STAGE_FDIR_STEP_ISOLATE:
-	{
-		sprintf(sql, "update fdir_fdirect set status=(case status when %d then %d else status end) where groupid=\'%s\'", STATUS_FDIRECT_DIRECT_OK, STATUS_FDIRECT_ISO, group_id);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_ISOLATE:
+		{
+			sprintf(sql, "update fdir_fdirect set status=(case status when %d then %d else status end) where groupid=\'%s\'", STATUS_FDIRECT_DIRECT_OK, STATUS_FDIRECT_ISO, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and cb=\'%ld\' and ctrl_type=0", STATUS_ISOLATE_EXEC, group_id, point_name);
-		ExecSQL(sql);
+			sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and cb=\'%ld\' and ctrl_type=0", STATUS_ISOLATE_EXEC, group_id, point_name);
+			ExecSQL(sql);
 
-		break;
-	}
+			break;
+		}
 
-	case STAGE_FDIR_STEP_RE_ISOLATE:
-	{
-		sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RE_ISO, group_id);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_RE_ISOLATE:
+		{
+			sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RE_ISO, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and cb=\'%ld\' and ctrl_type=0", STATUS_ISOLATE_EXEC, group_id, point_name);
-		ExecSQL(sql);
-		break;
-	}
+			sprintf(sql, "update FDIR_ISOLATE set status=%d where id=\'%s\' and cb=\'%ld\' and ctrl_type=0", STATUS_ISOLATE_EXEC, group_id, point_name);
+			ExecSQL(sql);
+			break;
+		}
 
-	case STAGE_FDIR_STEP_CUT_LD:
-	{
-		sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RES, group_id);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_CUT_LD:
+		{
+			sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RES, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and cb_id=\'%ld\'", STATUS_FDIR_STEP_EXEC, group_id, point_name);
-		ExecSQL(sql);
-		break;
-	}
+			sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and cb_id=\'%ld\'", STATUS_FDIR_STEP_EXEC, group_id, point_name);
+			ExecSQL(sql);
+			break;
+		}
 
-	case STAGE_FDIR_STEP_TRANSFER:
-	{
-		sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RES, group_id);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_TRANSFER:
+		{
+			sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RES, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and cb_id=\'%ld\'", STATUS_FDIR_STEP_EXEC, group_id, point_name);
-		ExecSQL(sql);
-		break;
-	}
+			sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and cb_id=\'%ld\'", STATUS_FDIR_STEP_EXEC, group_id, point_name);
+			ExecSQL(sql);
+			break;
+		}
 
-	case STAGE_FDIR_STEP_RESTORE:
-	{
-		sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RES, group_id);
-		ExecSQL(sql);
+		case STAGE_FDIR_STEP_RESTORE:
+		{
+			sprintf(sql, "update FDIR_FDIRECT set status=%d where groupid=\'%s\'", STATUS_FDIRECT_RES, group_id);
+			ExecSQL(sql);
 
-		sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and cb_id=\'%ld\'", STATUS_FDIR_STEP_EXEC, group_id, point_name);
-		ExecSQL(sql);
+			sprintf(sql, "update FHZG_STEP set status=%d where id like \'%s%%\' and cb_id=\'%ld\'", STATUS_FDIR_STEP_EXEC, group_id, point_name);
+			ExecSQL(sql);
 
-		sprintf(sql, "update fdir_fdirect set manual_restore=replace(manual_restore,\'%ld[0]\',\'%ld[1]\') where groupid =\'%s\' and manual_restore like \'%ld%%[_]%%\'", point_name, point_name, group_id, point_name);
-		ExecSQL(sql);
-		break;
-	}
+			sprintf(sql, "update fdir_fdirect set manual_restore=replace(manual_restore,\'%ld[0]\',\'%ld[1]\') where groupid =\'%s\' and manual_restore like \'%ld%%[_]%%\'", point_name, point_name, group_id, point_name);
+			ExecSQL(sql);
+			break;
+		}
 
-	default:
-		break;
+		default:
+			break;
 	}
 
 	sprintf(sql, "update FDIR_STEP set status=%d,starttime=sysdate where id=\'%s\' and cb_id=\'%ld\' and stage=%d and status=%d", STATUS_FDIR_STEP_EXEC, group_id, point_name, stage, STATUS_FDIR_STEP_WAIT);
@@ -3024,7 +3024,7 @@ bool Check_Simu_Data(CHECK_LIST& lst_data)
 			if (oodbread_rk(&chk_cb, &cb_id, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(PSBOB::CB)) > 0)
 			{
 				//»¹Î´Ìí¼Ó¹ÒÅÆĞÅÏ¢µÄĞ£Ñé£¬´ıÈË»ú¿ªÊ¼¿ª·¢ºóÉÌÒé
-				if (chk_cb.point == it_chk->status && fabs(chk_cb.i_a_value - it_chk->Ia) < 0.01 && fabs(chk_cb.i_b_value - it_chk->Ib) < 0.01 
+				if (chk_cb.point == it_chk->status && fabs(chk_cb.i_a_value - it_chk->Ia) < 0.01 && fabs(chk_cb.i_b_value - it_chk->Ib) < 0.01
 					&& fabs(chk_cb.i_c_value - it_chk->Ic) < 0.01 && fabs(chk_cb.p - it_chk->p) < 0.01 && fabs(chk_cb.q - it_chk->q) < 0.01)
 				{
 					std::list<CHECK_DATA>::iterator it_chk_tmp = it_chk;
@@ -3051,7 +3051,7 @@ bool Check_Simu_Data(CHECK_LIST& lst_data)
 		}
 
 		return true;
-	} 
+	}
 	else
 	{
 		TRACE("Ä£ÄâĞÅºÅ¶ÔÓ¦µÄ¿ª¹ØÁĞ±íÎª¿Õ£¡Ğ£ÑéÊ§°Ü£¡\r\n");
@@ -3207,7 +3207,7 @@ int get_dv_cb(int izone, const long fathercb, TreeNode<CB_INFO> *father, Tree<CB
 					}
 
 				}
-				//ÆÕÍ¨¿ª¹Øµİ¹éµ÷ÓÃ±éÀúËùÓĞÏàÁ¬µÄ¿ª¹Ø
+					//ÆÕÍ¨¿ª¹Øµİ¹éµ÷ÓÃ±éÀúËùÓĞÏàÁ¬µÄ¿ª¹Ø
 				else
 				{
 
@@ -3245,7 +3245,7 @@ bool save_simu_cb_info(long sig_id, char* plan_id)
 	PSBOB::PROTECT protect = {0};
 	PSBOB::CB sig_cb = {0};
 
-	if (oodbread_rk(&protect, &sig_id, const_cast<TB_DESCR*>(g_db_psbob->GetTB("relaysig")), sizeof(PSBOB::PROTECT)) > 0 || 
+	if (oodbread_rk(&protect, &sig_id, const_cast<TB_DESCR*>(g_db_psbob->GetTB("relaysig")), sizeof(PSBOB::PROTECT)) > 0 ||
 		oodbread_rk(&sig_cb, &sig_id, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(PSBOB::CB)) > 0)
 	{
 		long cb_id = 0;
@@ -3327,7 +3327,7 @@ bool save_simu_cb_info(long sig_id, char* plan_id)
 					if (oodbread_rk(&simu_dv, &dv_id, const_cast<TB_DESCR*>(g_db_psbob->GetTB("subcontrolarea")), sizeof(PSBOB::DV)) > 0)
 					{
 						sprintf(sql, "INSERT INTO PMS_PARAM.FDIR_SIG_DV (ID, DV_ID, DV_NAME, LMTNORM) VALUES (\'%s\', %ld, \'%s\', %f)",
-							plan_id, dv_id, simu_dv.name, simu_dv.lmtnorm);
+								plan_id, dv_id, simu_dv.name, simu_dv.lmtnorm);
 						ExecSQL(sql);
 					}
 
@@ -3343,7 +3343,7 @@ bool save_simu_cb_info(long sig_id, char* plan_id)
 						if (oodbread_rk(&tree_cb, &brk_id, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(PSBOB::CB)) > 0)
 						{
 							sprintf(sql, "INSERT INTO PMS_PARAM.FDIR_SIG_BREAKER(ID, CB_ID, CB_NAME, STATUS, IA, IB, IC, P, Q) VALUES (\'%s\', %ld, \'%s\', %d, %f, %f, %f, %f, %f)",
-								plan_id, brk_id, tree_cb.name, tree_cb.point, tree_cb.i_a_value, tree_cb.i_b_value, tree_cb.i_c_value, tree_cb.p, tree_cb.q);
+									plan_id, brk_id, tree_cb.name, tree_cb.point, tree_cb.i_a_value, tree_cb.i_b_value, tree_cb.i_c_value, tree_cb.p, tree_cb.q);
 							ExecSQL(sql);
 
 							//Ìí¼Ó¹ÒÅÆĞÅÏ¢
@@ -3356,20 +3356,20 @@ bool save_simu_cb_info(long sig_id, char* plan_id)
 								{
 									sprintf(sql, "INSERT INTO PMS_PARAM.FDIR_SIG_TOKEN(ID, CB_ID, TOKEN_TYPE, TOKEN_NAME)VALUES(\'%s\', %ld, %d, \'%s\')", plan_id, brk_id, token_def.token_type, token_def.name);
 									ExecSQL(sql);
-								}								
+								}
 							}
 						}
 					}
 				}
 			}
-			
+
 		}
 		else
 		{
 			TRACE("»ñÈ¡½øÏß¿ª¹ØµÄÏÂÓÎÇø¶ÎÊ§°Ü\n");
 			return false;
 		}
-	} 
+	}
 	else
 	{
 		TRACE("²éÑ¯±£»¤ĞÅºÅ±íºÍ¶ÏÂ·Æ÷±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", sig_id);
@@ -3386,8 +3386,8 @@ void thread_alarm_process(void *param)
 	bool bCanScan = true;		//ÅĞ¶ÏÕıÔÚ¶¨Î»µÄ¹ÊÕÏÊÇ·ñ¶¨Î»Íê³É£¬ÊÇ·ñ¿ÉÒÔ¿ªÊ¼ĞÂÒ»ÂÖµÄÉ¨Ãè
 	while (true)
 	{
-		bCanScan = true;			
-		pthread_mutex_lock(&task_list_mutex);	
+		bCanScan = true;
+		pthread_mutex_lock(&task_list_mutex);
 		//TRACE("$$$$$$$$$NO deadlock!!!\r\n");
 		for (FDIR_TASK_LIST::iterator it = g_lstTask.begin(); it != g_lstTask.end(); it++)
 		{
@@ -3401,18 +3401,18 @@ void thread_alarm_process(void *param)
 				}
 			}
 		}
-		pthread_mutex_unlock(&task_list_mutex);		
+		pthread_mutex_unlock(&task_list_mutex);
 
 		if (bCanScan)
 		{
-			pthread_mutex_lock(&trig_list_mutex);			
+			pthread_mutex_lock(&trig_list_mutex);
 			for (FDIR_POINT_TRIG_LIST::iterator it = g_lstTrig.begin(); it != g_lstTrig.end(); it++)
 			{
 				//·¢ÏÖÎ´±»¶¨Î»µÄ¹ÊÕÏĞÅºÅ(¹ÊÕÏÌøÕ¢£¬¶¯×÷,Ä¸Ïß)
 				if (it->lst_fault.size() == 0/* && (strcmp(it->alarm.fault_info, key[1]) == 0 || strcmp(it->alarm.fault_info, key[2]) == 0)*/)	//D5000ÔİÊ±Ö»ÊÕ¼¯ÊÂ¹ÊÌøÕ¢
 				{
 					if(it->alarm.dev == ALARM_SGZ || it->alarm.dev == ALARM_FAULTINFO_JD || it->alarm.dev == ALARM_FAULTINFO_DL	|| it->alarm.dev == ALARM_BUS//Ä¸Ïß¹ÊÕÏ¡¢ÊÂ¹Ê×Ü¶¯×÷¡¢¹ÊÕÏÖ¸Ê¾Æ÷¶¯×÷
-						/* ||it->alarm.type == SG_WARN_TYPE*/ || it->alarm.type == D_SG_WARN_TYPE || strcmp(it->alarm.tabname,"bus") == 0)	//¿ª¹ØÊÂ¹ÊÌøÕ¢
+					   /* ||it->alarm.type == SG_WARN_TYPE*/ || it->alarm.type == D_SG_WARN_TYPE || strcmp(it->alarm.tabname,"bus") == 0)	//¿ª¹ØÊÂ¹ÊÌøÕ¢
 					{
 					}
 					else	//²»ÊÇ¹ÊÕÏÆô¶¯ĞÅºÅ
@@ -3446,18 +3446,18 @@ void thread_alarm_process(void *param)
 					}
 
 					//D5000ÔİÊ±Ö»ÊÕ¼¯ÊÂ¹ÊÌøÕ¢
-		//		if (it->alarm.datatype & (POINT_BPCB | POINT_GCB | POINT_BPDS | POINT_GDS))
-		//		{
-		//			data_task.task_data.fault.type = TASK_FAULT_LD;
-		//		}
+					//		if (it->alarm.datatype & (POINT_BPCB | POINT_GCB | POINT_BPDS | POINT_GDS))
+					//		{
+					//			data_task.task_data.fault.type = TASK_FAULT_LD;
+					//		}
 
-				if (strcmp(it->alarm.tabname, "bus") == 0)
-				{
-				    cout << "·¢ÏÖ¹ÊÕÏÄ¸Ïß" << it->alarm.key_id << endl;
-					data_task.task_data.fault.type = TASK_FAULT_BUS;
-				}
-				else
-					data_task.task_data.fault.type = TASK_FAULT_LD;
+					if (strcmp(it->alarm.tabname, "bus") == 0)
+					{
+						cout << "·¢ÏÖ¹ÊÕÏÄ¸Ïß" << it->alarm.key_id << endl;
+						data_task.task_data.fault.type = TASK_FAULT_BUS;
+					}
+					else
+						data_task.task_data.fault.type = TASK_FAULT_LD;
 
 					data_task.task_data.fault.head.type = 0;
 					data_task.task_data.fault.head.size = sizeof(FDIR_TASK_DATA_FAULT);
@@ -3537,7 +3537,7 @@ void thread_scan_bus(void *param)
 					if (rec_num > 0)
 					{
 						g_oci->Readdata_Free();
-					//	cout<<"·¢ÏÖ¹ÊÕÏÊ§Ñ¹Ä¸Ïß"<<(bus + i)->pid<<"ÒÑ¾­±»¶¨Î»´¦Àí"<<endl;
+						//	cout<<"·¢ÏÖ¹ÊÕÏÊ§Ñ¹Ä¸Ïß"<<(bus + i)->pid<<"ÒÑ¾­±»¶¨Î»´¦Àí"<<endl;
 						continue;
 					}
 					g_oci->Readdata_Free();
@@ -3601,7 +3601,7 @@ void thread_scan_bus(void *param)
 								continue;
 							}
 
-                           // Ìî³äÒ»Ğ©×Ö¶Î±íÊ¾Ä¸Ïß¹ÊÕÏĞÅÏ¢
+							// Ìî³äÒ»Ğ©×Ö¶Î±íÊ¾Ä¸Ïß¹ÊÕÏĞÅÏ¢
 							data_trig.alarm.dev = ALARM_BUS;
 							data_trig.alarm.key_id = (bus + i)->id;
 							strcpy(data_trig.alarm.fault_info,"Ä¸Ïß¹ÊÕÏ");
@@ -3657,7 +3657,7 @@ void clear_timeout_trig()
 		{
 			//ÕÒµ½¸Ã¹ÊÕÏµÄÆô¶¯¹ÊÕÏĞÅºÅÔÚ¹ÊÕÏĞÅºÅÁĞ±íÖĞµÄÎ»ÖÃ
 			if (it_trig_list->tm_add.tv_sec == it->tv_creat.tv_sec
-					&& it_trig_list->tm_add.tv_usec == it->tv_creat.tv_usec)
+				&& it_trig_list->tm_add.tv_usec == it->tv_creat.tv_usec)
 			{
 				break;
 			}
@@ -3743,7 +3743,7 @@ int conlog(const char *pointid, bool bOpen, const char *faultid, const char *ope
 int conlog(const char *pointid, const char *content, const char *faultid, const char *operstyle)
 {
 	//D5000Ò£¿ØÈÕÖ¾
-		return 1;
+	return 1;
 //	assert(pointid != NULL);
 //	assert(faultid != NULL);
 //	assert(operstyle != NULL);
@@ -3865,16 +3865,16 @@ void thread_process(void *param)
 
 				switch (it->rq_type)
 				{
-				//×öÒ£¿Ø
-				case TASK_TYPE_CB_CTRL:
-				{
-					int ph = -1;
-
-					if (it->task_data.control.status == TASK_CTL_STATUS_WAIT)
+					//×öÒ£¿Ø
+					case TASK_TYPE_CB_CTRL:
 					{
-						if (version == VERSION_REALTIME)
+						int ph = -1;
+
+						if (it->task_data.control.status == TASK_CTL_STATUS_WAIT)
 						{
-							DoControl(it->task_data.control.point_name, true, it->task_data.control.bOpen);
+							if (version == VERSION_REALTIME)
+							{
+								DoControl(it->task_data.control.point_name, true, it->task_data.control.bOpen);
 //							if ((ph = oodbget_ph(const_cast<TB_DESCR*>(g_db_psbob->GetTB("point")), it->task_data.control.point_name)) == OO_FAIL)
 //							{
 //								printf("%s »ñÈ¡%sÎïÀíºÅÊ§°Ü£¬errno:%d, line:%d\r\n", __FUNCTION__, it->task_data.control.point_name, _oodb_errno, __LINE__);
@@ -3929,40 +3929,130 @@ void thread_process(void *param)
 //								}
 //							}
 //
-							it->task_data.control.status = TASK_CTL_STATUS_RUN;
-						}
-						else
-						{
-							PSBOB::CB psbob_cb = { 0 };
-
-							if (oodbread_rk(&psbob_cb, &it->task_data.control.point_name, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(psbob_cb)) <= 0)
-							{
 								it->task_data.control.status = TASK_CTL_STATUS_RUN;
-								printf("%s(%d):¶ÁÈ¡PSBOB¿âPOINT±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¬´íÎóºÅ£º%d\r\n", __FUNCTION__, __LINE__, it->task_data.control.point_name, _oodb_errno);
 							}
 							else
 							{
-								if (HasMask(g_db_psbob->GetTB("breaker"), "status", psbob_cb.status , MENU_STATE_DEV_MANUAL))
+								PSBOB::CB psbob_cb = { 0 };
+
+								if (oodbread_rk(&psbob_cb, &it->task_data.control.point_name, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(psbob_cb)) <= 0)
 								{
 									it->task_data.control.status = TASK_CTL_STATUS_RUN;
+									printf("%s(%d):¶ÁÈ¡PSBOB¿âPOINT±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¬´íÎóºÅ£º%d\r\n", __FUNCTION__, __LINE__, it->task_data.control.point_name, _oodb_errno);
 								}
 								else
 								{
-									if (it->task_data.control.bOpen)
-									{
-										psbob_cb.point = 0;
-									}
-									else
-									{
-										psbob_cb.point = 1;
-									}
-
-									if (oodbupdate_rk(&psbob_cb, &it->task_data.control.point_name, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(psbob_cb)) == OO_FAIL)
+									if (HasMask(g_db_psbob->GetTB("breaker"), "status", psbob_cb.status , MENU_STATE_DEV_MANUAL))
 									{
 										it->task_data.control.status = TASK_CTL_STATUS_RUN;
-										printf("%s(%d):¸üĞÂPSBOB¿âPOINT±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¬´íÎóºÅ£º%d\r\n", __FUNCTION__, __LINE__, it->task_data.control.point_name, _oodb_errno);
 									}
 									else
+									{
+										if (it->task_data.control.bOpen)
+										{
+											psbob_cb.point = 0;
+										}
+										else
+										{
+											psbob_cb.point = 1;
+										}
+
+										if (oodbupdate_rk(&psbob_cb, &it->task_data.control.point_name, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(psbob_cb)) == OO_FAIL)
+										{
+											it->task_data.control.status = TASK_CTL_STATUS_RUN;
+											printf("%s(%d):¸üĞÂPSBOB¿âPOINT±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¬´íÎóºÅ£º%d\r\n", __FUNCTION__, __LINE__, it->task_data.control.point_name, _oodb_errno);
+										}
+										else
+										{
+											ControlSucceed(it->task_data.control.head.group_id, it->task_data.control.point_name, it->task_data.control.stage, false);
+
+											list<CB_CONTROL> lstCB;
+											FDIR_TASK_LIST::iterator it_fault;
+											char fault_id[FAULT_ID_LENGTH] = { 0 };
+
+											strcpy(fault_id, it->task_data.control.head.group_id);
+
+											if (GetLeftStep(fault_id, lstCB) == 0)
+											{
+												ClearFdirDB(fault_id);
+
+												sprintf(sql, "UPDATE FDIR_FDIRECT_HIS SET STATUS=%d WHERE groupid=\'%s\'", STATUS_FDIRECT_FINISH, fault_id);
+												if (ExecSQL(sql) != OCI_ERROR)
+												{
+													sprintf(sql, "UPDATE FDIR_FDIRECT SET STATUS=%d WHERE groupid=\'%s\'", STATUS_FDIRECT_FINISH, fault_id);
+													ExecSQL(sql);
+												}
+
+												RemoveTasks(fault_id);
+
+												printf("¹ÊÕÏ×é%s´¦ÀíÍê³É£¡£¡£¡£¡\r\n", fault_id);
+											}
+											else
+											{
+												for (it_fault = g_lstTask.begin(); it_fault != g_lstTask.end(); it_fault++)
+												{
+													if (it_fault->rq_type == TASK_TYPE_FAULT)
+													{
+														if (strcmp(it_fault->task_data.fault.head.group_id, it->task_data.control.head.group_id) == 0)
+														{
+															it_fault->status = 1;
+															if (it_fault->task_data.fault.bAuto == 1)
+																AddControlItem(fault_id, lstCB.begin()->point_id, lstCB.begin()->bOpen, lstCB.begin()->stage);
+															else
+															{
+																printf("Ò£¿Ø%ldËùÔÚ¹ÊÕÏ×é%s·Ç×Ô¶¯Ö´ĞĞÄ£Ê½£¡£¡\r\n", it->task_data.control.point_name, it->task_data.control.head.group_id);
+															}
+
+															for (FDIR_TASK_LIST::iterator it_temp = it_fault; it_temp != g_lstTask.end(); it_temp++)
+															{
+																if ((it_temp->rq_type == TASK_TYPE_FAULT) && (strcmp(it_temp->task_data.fault.head.group_id, it->task_data.control.head.group_id) == 0))
+																{
+																	it_temp->status = 1;
+																}
+															}
+
+															break;
+														}
+													}
+												}
+
+												if (it_fault == g_lstTask.end())
+												{
+													printf("Î´ÕÒµ½Ò£¿Ø%ldËùÔÚ¹ÊÕÏ×é%s¶ÔÓ¦µÄ¹ÊÕÏÏî£¬ÎŞ·¨ÅĞ¶ÏÆäÊÇ·ñÎª×Ô¶¯Ö´ĞĞÄ£Ê½£¡£¡£¡\r\n", it->task_data.control.point_name, it->task_data.control.head.group_id);
+												}
+											}
+
+											g_lstTask.erase(it);
+											it = g_lstTask.begin();
+										}
+									}
+								}
+							}
+						}
+						else if (it->task_data.control.status == TASK_CTL_STATUS_RUN)
+						{
+							if (cost > g_FdirConfig.TIMEOUT_CONTROL)
+							{
+								printf("[%.2fs]¹ÊÕÏ%sÒ£¿Ø%ld³¬Ê±£¬´ÓÈÎÎñÁĞ±íÉ¾³ı\r\n", cost, it->task_data.control.head.fault_id, it->task_data.control.point_name);
+
+								ControlFailed(it->task_data.control.head.group_id, it->task_data.control.point_name, it->task_data.control.stage);
+
+								g_lstTask.erase(it);
+								it = g_lstTask.begin();
+							}
+							else
+							{
+								PSBOB::CB psbob_cb = { 0 };
+
+								if (oodbread_rk(&psbob_cb, &it->task_data.control.point_name, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(psbob_cb)) <= 0)
+								{
+									TRACE("¶ÁÈ¡breaker±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", it->task_data.control.point_name);
+								}
+								else
+								{
+									//¿ª¹ØÒÑ¾­ÎªÒ£¿ØÄ¿±ê×´Ì¬
+									if ((psbob_cb.point > 0 && !it->task_data.control.bOpen) || (psbob_cb.point <= 0 && it->task_data.control.bOpen)
+										|| !IsInRegion(psbob_cb.id))	//½øÏß¿ª¹ØÎªÖ÷Íø¿ª¹Ø£¬ÎŞ·¨Ò£¿Ø
 									{
 										ControlSucceed(it->task_data.control.head.group_id, it->task_data.control.point_name, it->task_data.control.stage, false);
 
@@ -3975,7 +4065,6 @@ void thread_process(void *param)
 										if (GetLeftStep(fault_id, lstCB) == 0)
 										{
 											ClearFdirDB(fault_id);
-
 											sprintf(sql, "UPDATE FDIR_FDIRECT_HIS SET STATUS=%d WHERE groupid=\'%s\'", STATUS_FDIRECT_FINISH, fault_id);
 											if (ExecSQL(sql) != OCI_ERROR)
 											{
@@ -3984,7 +4073,6 @@ void thread_process(void *param)
 											}
 
 											RemoveTasks(fault_id);
-
 											printf("¹ÊÕÏ×é%s´¦ÀíÍê³É£¡£¡£¡£¡\r\n", fault_id);
 										}
 										else
@@ -4010,7 +4098,6 @@ void thread_process(void *param)
 																it_temp->status = 1;
 															}
 														}
-
 														break;
 													}
 												}
@@ -4022,196 +4109,109 @@ void thread_process(void *param)
 											}
 										}
 
-										g_lstTask.erase(it);
-										it = g_lstTask.begin();
+										it->task_data.control.status = TASK_CTL_STATUS_FINISH;
 									}
 								}
 							}
+
 						}
-					}
-					else if (it->task_data.control.status == TASK_CTL_STATUS_RUN)
-					{
-						if (cost > g_FdirConfig.TIMEOUT_CONTROL)
+							//ÒÔÒ£ĞÅ±äÎ»×÷ÎªÒ£¿ØÖ´ĞĞÍê³ÉµÄÌõ¼ş
+						else if (it->task_data.control.status == TASK_CTL_STATUS_FINISH)
 						{
-							printf("[%.2fs]¹ÊÕÏ%sÒ£¿Ø%ld³¬Ê±£¬´ÓÈÎÎñÁĞ±íÉ¾³ı\r\n", cost, it->task_data.control.head.fault_id, it->task_data.control.point_name);
-
-							ControlFailed(it->task_data.control.head.group_id, it->task_data.control.point_name, it->task_data.control.stage);
-
-							g_lstTask.erase(it);
-							it = g_lstTask.begin();
-						}
-						else
-						{
-							PSBOB::CB psbob_cb = { 0 };
-
-							if (oodbread_rk(&psbob_cb, &it->task_data.control.point_name, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(psbob_cb)) <= 0)
+							//½ÓÊÕËùÓĞ·µ»ØÏûÏ¢³¬Ê±
+							if (cost > g_FdirConfig.TIMEOUT_CONTROL)
 							{
-								TRACE("¶ÁÈ¡breaker±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", it->task_data.control.point_name);
+								printf("[%.2fs]¹ÊÕÏ%sÒ£¿Ø%ld½ÓÊÕÏûÏ¢Ê±ÏŞÒÑµ½£¬´ÓÈÎÎñÁĞ±íÉ¾³ı\r\n", cost, it->task_data.control.head.fault_id, it->task_data.control.point_name);
+								g_lstTask.erase(it);
+								it = g_lstTask.begin();
 							}
-							else
+						}
+
+						break;
+					}
+
+						//¹ÊÕÏÏî
+					case TASK_TYPE_FAULT:
+					{
+						switch (it->task_data.fault.next_step)
+						{
+							case TASK_FAULT_STATUS_CALC:
 							{
-								//¿ª¹ØÒÑ¾­ÎªÒ£¿ØÄ¿±ê×´Ì¬
-								if ((psbob_cb.point > 0 && !it->task_data.control.bOpen) || (psbob_cb.point <= 0 && it->task_data.control.bOpen)
-										|| !IsInRegion(psbob_cb.id))	//½øÏß¿ª¹ØÎªÖ÷Íø¿ª¹Ø£¬ÎŞ·¨Ò£¿Ø
+								if(it->task_data.fault.type == TASK_FAULT_LD || it->task_data.fault.type == TASK_FAULT_JXCB)
 								{
-									ControlSucceed(it->task_data.control.head.group_id, it->task_data.control.point_name, it->task_data.control.stage, false);
-
-									list<CB_CONTROL> lstCB;
-									FDIR_TASK_LIST::iterator it_fault;
-									char fault_id[FAULT_ID_LENGTH] = { 0 };
-
-									strcpy(fault_id, it->task_data.control.head.group_id);
-
-									if (GetLeftStep(fault_id, lstCB) == 0)
+									PSBOB::CB psbob_cb = {0};
+									if(oodbread_rk(&psbob_cb, &it->task_data.fault.point_name, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(psbob_cb)) <= 0)
 									{
-										ClearFdirDB(fault_id);
-										sprintf(sql, "UPDATE FDIR_FDIRECT_HIS SET STATUS=%d WHERE groupid=\'%s\'", STATUS_FDIRECT_FINISH, fault_id);
-										if (ExecSQL(sql) != OCI_ERROR)
-										{
-											sprintf(sql, "UPDATE FDIR_FDIRECT SET STATUS=%d WHERE groupid=\'%s\'", STATUS_FDIRECT_FINISH, fault_id);
-											ExecSQL(sql);
-										}
-
-										RemoveTasks(fault_id);
-										printf("¹ÊÕÏ×é%s´¦ÀíÍê³É£¡£¡£¡£¡\r\n", fault_id);
-									}
-									else
-									{
-										for (it_fault = g_lstTask.begin(); it_fault != g_lstTask.end(); it_fault++)
-										{
-											if (it_fault->rq_type == TASK_TYPE_FAULT)
-											{
-												if (strcmp(it_fault->task_data.fault.head.group_id, it->task_data.control.head.group_id) == 0)
-												{
-													it_fault->status = 1;
-													if (it_fault->task_data.fault.bAuto == 1)
-														AddControlItem(fault_id, lstCB.begin()->point_id, lstCB.begin()->bOpen, lstCB.begin()->stage);
-													else
-													{
-														printf("Ò£¿Ø%ldËùÔÚ¹ÊÕÏ×é%s·Ç×Ô¶¯Ö´ĞĞÄ£Ê½£¡£¡\r\n", it->task_data.control.point_name, it->task_data.control.head.group_id);
-													}
-
-													for (FDIR_TASK_LIST::iterator it_temp = it_fault; it_temp != g_lstTask.end(); it_temp++)
-													{
-														if ((it_temp->rq_type == TASK_TYPE_FAULT) && (strcmp(it_temp->task_data.fault.head.group_id, it->task_data.control.head.group_id) == 0))
-														{
-															it_temp->status = 1;
-														}
-													}
-													break;
-												}
-											}
-										}
-
-										if (it_fault == g_lstTask.end())
-										{
-											printf("Î´ÕÒµ½Ò£¿Ø%ldËùÔÚ¹ÊÕÏ×é%s¶ÔÓ¦µÄ¹ÊÕÏÏî£¬ÎŞ·¨ÅĞ¶ÏÆäÊÇ·ñÎª×Ô¶¯Ö´ĞĞÄ£Ê½£¡£¡£¡\r\n", it->task_data.control.point_name, it->task_data.control.head.group_id);
-										}
+										printf("%s(%d):¶ÁÈ¡PSBOB¿â¶ÏÂ·Æ÷±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¬´íÎóºÅÎª:%d\r\n", __FUNCTION__, __LINE__, it->task_data.fault.point_name, _oodb_errno);
 									}
 
-									it->task_data.control.status = TASK_CTL_STATUS_FINISH;
+									//ÌøÕ¢¿ª¹ØÒÑ¾­ºÏÕ¢£¬¹ÊÕÏÒÑ¾­»Ö¸´
+									if (it->task_data.fault.type == TASK_FAULT_JXCB)
+									{
+										if (psbob_cb.point == 1)
+										{
+											printf("+++++++++++++ÌøÕ¢¿ª¹Ø%ldÒÑ¾­ºÏÕ¢£¬¹ÊÕÏÒÑ¾­»Ö¸´\n", it->task_data.fault.point_name);
+											RemoveTask(it->task_data.fault.head.fault_id);
+											it = g_lstTask.begin();
+											printf("point.value is %d\n", psbob_cb.point);
+											break;
+										}
+									}
 								}
-							}
-						}
+								string lst_cb;
 
-					}
-					//ÒÔÒ£ĞÅ±äÎ»×÷ÎªÒ£¿ØÖ´ĞĞÍê³ÉµÄÌõ¼ş
-					else if (it->task_data.control.status == TASK_CTL_STATUS_FINISH)
-					{
-						//½ÓÊÕËùÓĞ·µ»ØÏûÏ¢³¬Ê±
-						if (cost > g_FdirConfig.TIMEOUT_CONTROL)
-						{
-							printf("[%.2fs]¹ÊÕÏ%sÒ£¿Ø%ld½ÓÊÕÏûÏ¢Ê±ÏŞÒÑµ½£¬´ÓÈÎÎñÁĞ±íÉ¾³ı\r\n", cost, it->task_data.control.head.fault_id, it->task_data.control.point_name);
-							g_lstTask.erase(it);
-							it = g_lstTask.begin();
-						}
-					}
+								it->task_data.fault.fdir_r->data_start.type = it->task_data.fault.type;
+								it->task_data.fault.fdir_r->data_start.source.bus_id= it->task_data.fault.point_name;
 
-					break;
-				}
+								cout << "¶¨Î»¹ÊÕÏ:" << it->task_data.fault.head.fault_id << "£¬²¢¼ÆËã¸ôÀë»Ö¸´·½°¸¡£" << endl;
 
-					//¹ÊÕÏÏî
-				case TASK_TYPE_FAULT:
-				{
-					switch (it->task_data.fault.next_step)
-					{
-					case TASK_FAULT_STATUS_CALC:
-					{
-						if(it->task_data.fault.type == TASK_FAULT_LD || it->task_data.fault.type == TASK_FAULT_JXCB)
-						{
-							PSBOB::CB psbob_cb = {0};
-							if(oodbread_rk(&psbob_cb, &it->task_data.fault.point_name, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(psbob_cb)) <= 0)
-							{
-								printf("%s(%d):¶ÁÈ¡PSBOB¿â¶ÏÂ·Æ÷±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¬´íÎóºÅÎª:%d\r\n", __FUNCTION__, __LINE__, it->task_data.fault.point_name, _oodb_errno);
-							}
+								gettimeofday(&it->tv_start, NULL);
 
-							//ÌøÕ¢¿ª¹ØÒÑ¾­ºÏÕ¢£¬¹ÊÕÏÒÑ¾­»Ö¸´
-							if (it->task_data.fault.type == TASK_FAULT_JXCB)
-							{
-								if (psbob_cb.point == 1)
+								switch (it->task_data.fault.fdir_r->FaultDetection())
 								{
-									printf("+++++++++++++ÌøÕ¢¿ª¹Ø%ldÒÑ¾­ºÏÕ¢£¬¹ÊÕÏÒÑ¾­»Ö¸´\n", it->task_data.fault.point_name);
-									RemoveTask(it->task_data.fault.head.fault_id);
-									it = g_lstTask.begin();
-									printf("point.value is %d\n", psbob_cb.point);
-									break;
-								}
-							}
-						}
-						string lst_cb;
+									case FDIR_R_SUCCEED:
+									{
+										printf("¹ÊÕÏ¶¨Î»³É¹¦\n");
 
-						it->task_data.fault.fdir_r->data_start.type = it->task_data.fault.type;
-						it->task_data.fault.fdir_r->data_start.source.bus_id= it->task_data.fault.point_name;
+										//½«¹ÊÕÏÊ¹ÓÃ¹ıµÄ¹ÊÕÏĞÅºÅÊ¹ÓÃ´ÎÊı¼Ó1
+										pthread_mutex_lock(&trig_list_mutex);
+										for (FDIR_POINT_TRIG_SECTION::iterator it_used_trig = g_lstSecTrig.begin(); it_used_trig != g_lstSecTrig.end(); it_used_trig++)
+										{
+											printf("¹ÊÕÏĞÅºÅ£ºkey_id:%ld, st_id:%ldÊ¹ÓÃ´ÎÊı¼Ó1\r\n", (*it_used_trig)->alarm.key_id, (*it_used_trig)->alarm.st_id);
+											(*it_used_trig)->lst_fault.push_back(it->task_data.fault.head.fault_id);
 
-						cout << "¶¨Î»¹ÊÕÏ:" << it->task_data.fault.head.fault_id << "£¬²¢¼ÆËã¸ôÀë»Ö¸´·½°¸¡£" << endl;
+											it->task_data.fault.trig_list.push_back(**it_used_trig);
+										}
+										pthread_mutex_unlock(&trig_list_mutex);
 
-						gettimeofday(&it->tv_start, NULL);
+										printf("¹ÊÕÏ¶¨Î»³É¹¦\n");
+										//Îª¶àÖØ¹ÊÕÏ·Ö×é£¬¹ÊÕÏÏÈÖ»¼ÆËãµ½¶¨Î»ÕâÒ»²½
+										it->task_data.fault.next_step = TASK_FAULT_STATUS_CALC_ISO;
 
-						switch (it->task_data.fault.fdir_r->FaultDetection())
-						{
-						case FDIR_R_SUCCEED:
-						{
-							printf("¹ÊÕÏ¶¨Î»³É¹¦\n");
+										//Éú³É¹ÊÕÏÃèÊöÎÄ±¾ÎÄ¼ş
+										form_fdir_txt(*it);
+										//Îª¶àÖØ¹ÊÕÏ·Ö×é£¬¹ÊÕÏÏÈÖ»¼ÆËãµ½¶¨Î»ÕâÒ»²½
+										it->task_data.fault.next_step = TASK_FAULT_STATUS_CALC_ISO;
 
-							//½«¹ÊÕÏÊ¹ÓÃ¹ıµÄ¹ÊÕÏĞÅºÅÊ¹ÓÃ´ÎÊı¼Ó1
-							pthread_mutex_lock(&trig_list_mutex);
-							for (FDIR_POINT_TRIG_SECTION::iterator it_used_trig = g_lstSecTrig.begin(); it_used_trig != g_lstSecTrig.end(); it_used_trig++)
-							{
-								printf("¹ÊÕÏĞÅºÅ£ºkey_id:%ld, st_id:%ldÊ¹ÓÃ´ÎÊı¼Ó1\r\n", (*it_used_trig)->alarm.key_id, (*it_used_trig)->alarm.st_id);
-								(*it_used_trig)->lst_fault.push_back(it->task_data.fault.head.fault_id);
+										break;
+									}
 
-								it->task_data.fault.trig_list.push_back(**it_used_trig);
-							}
-							pthread_mutex_unlock(&trig_list_mutex);
+									case FDIR_FAIL_DIRECT:
+									{
+										//½«¹ÊÕÏÊ¹ÓÃ¹ıµÄ¹ÊÕÏĞÅºÅÊ¹ÓÃ´ÎÊı¼Ó1
+										pthread_mutex_lock(&trig_list_mutex);
+										for (FDIR_POINT_TRIG_SECTION::iterator it_used_trig = g_lstSecTrig.begin(); it_used_trig != g_lstSecTrig.end(); it_used_trig++)
+										{
+											printf("¹ÊÕÏĞÅºÅ£ºkey_id:%ld, st_id:%ldÊ¹ÓÃ´ÎÊı¼Ó1\r\n", (*it_used_trig)->alarm.key_id, (*it_used_trig)->alarm.st_id);
+											(*it_used_trig)->lst_fault.push_back(it->task_data.fault.head.fault_id);
 
-							printf("¹ÊÕÏ¶¨Î»³É¹¦\n");
-							//Îª¶àÖØ¹ÊÕÏ·Ö×é£¬¹ÊÕÏÏÈÖ»¼ÆËãµ½¶¨Î»ÕâÒ»²½
-							it->task_data.fault.next_step = TASK_FAULT_STATUS_CALC_ISO;
+											it->task_data.fault.trig_list.push_back(**it_used_trig);
+										}
+										pthread_mutex_unlock(&trig_list_mutex);
 
-							//Éú³É¹ÊÕÏÃèÊöÎÄ±¾ÎÄ¼ş
-							form_fdir_txt(*it);
-							//Îª¶àÖØ¹ÊÕÏ·Ö×é£¬¹ÊÕÏÏÈÖ»¼ÆËãµ½¶¨Î»ÕâÒ»²½
-							it->task_data.fault.next_step = TASK_FAULT_STATUS_CALC_ISO;
-
-							break;
-						}
-
-						case FDIR_FAIL_DIRECT:
-						{
-							//½«¹ÊÕÏÊ¹ÓÃ¹ıµÄ¹ÊÕÏĞÅºÅÊ¹ÓÃ´ÎÊı¼Ó1
-							pthread_mutex_lock(&trig_list_mutex);
-							for (FDIR_POINT_TRIG_SECTION::iterator it_used_trig = g_lstSecTrig.begin(); it_used_trig != g_lstSecTrig.end(); it_used_trig++)
-							{
-								printf("¹ÊÕÏĞÅºÅ£ºkey_id:%ld, st_id:%ldÊ¹ÓÃ´ÎÊı¼Ó1\r\n", (*it_used_trig)->alarm.key_id, (*it_used_trig)->alarm.st_id);
-								(*it_used_trig)->lst_fault.push_back(it->task_data.fault.head.fault_id);
-
-								it->task_data.fault.trig_list.push_back(**it_used_trig);
-							}
-							pthread_mutex_unlock(&trig_list_mutex);
-
-							TRACE("it->task_data.fault.point_name:%ld\r\n", it->task_data.fault.point_name);
-							PSBOB::DV dv = { 0 };
-							oodbread_rk(&dv, &it->task_data.fault.dv, const_cast<TB_DESCR*>(g_db_psbob->GetTB("subcontrolarea")), sizeof(PSBOB::DV));
+										TRACE("it->task_data.fault.point_name:%ld\r\n", it->task_data.fault.point_name);
+										PSBOB::DV dv = { 0 };
+										oodbread_rk(&dv, &it->task_data.fault.dv, const_cast<TB_DESCR*>(g_db_psbob->GetTB("subcontrolarea")), sizeof(PSBOB::DV));
 
 //							PSBOB::ST st_info = { 0 };
 //
@@ -4224,151 +4224,151 @@ void thread_process(void *param)
 //								printf("¶ÁÈ¡stÊ§°Ü£¬dvÎª£º%ld, line:%d\r\n", dv.id, __LINE__);
 //							}
 
-							//Ğ´¹ÊÕÏĞÅºÅ±í
-							TRACE("Ğ´¹ÊÕÏĞÅºÅ±í£¡\r\n");
-							int pos = 0;
-							for (FDIR_POINT_TRIG_LIST::iterator it_trig_list = it->task_data.fault.trig_list.begin(); it_trig_list != it->task_data.fault.trig_list.end(); it_trig_list++, pos++)
-							{
-								sprintf(sql, "INSERT INTO PMS_PARAM.FDIR_ALARM (ID, TM_ADD, OCCUR_TIME, MSEC, KEY_ID, NAME, ST_ID, TYPE, STATUS) VALUES (\'%s\',%ld, %ld, %d, %ld, \'%s\', %ld, %d, %d)", it->task_data.fault.head.fault_id
-										,it_trig_list->tm_add.tv_sec, it_trig_list->alarm.occur_time, it_trig_list->alarm.msec, it_trig_list->alarm.key_id, it_trig_list->alarm.name.c_str(), it_trig_list->alarm.st_id, it_trig_list->alarm.type, it_trig_list->alarm.status);
+										//Ğ´¹ÊÕÏĞÅºÅ±í
+										TRACE("Ğ´¹ÊÕÏĞÅºÅ±í£¡\r\n");
+										int pos = 0;
+										for (FDIR_POINT_TRIG_LIST::iterator it_trig_list = it->task_data.fault.trig_list.begin(); it_trig_list != it->task_data.fault.trig_list.end(); it_trig_list++, pos++)
+										{
+											sprintf(sql, "INSERT INTO PMS_PARAM.FDIR_ALARM (ID, TM_ADD, OCCUR_TIME, MSEC, KEY_ID, NAME, ST_ID, TYPE, STATUS) VALUES (\'%s\',%ld, %ld, %d, %ld, \'%s\', %ld, %d, %d)", it->task_data.fault.head.fault_id
+													,it_trig_list->tm_add.tv_sec, it_trig_list->alarm.occur_time, it_trig_list->alarm.msec, it_trig_list->alarm.key_id, it_trig_list->alarm.name.c_str(), it_trig_list->alarm.st_id, it_trig_list->alarm.type, it_trig_list->alarm.status);
 
-								ExecSQL(sql);
-							}
+											ExecSQL(sql);
+										}
 
-							sprintf(sql, "Insert into PMS_PARAM.FDIR_FDIRECT (ID, GROUPID, STATUS, TYPE, STUDY_EQ, FD, FD_DESCR, ST_ID) Values (\'%s\', \'%s\', 0, 0, \'%ld\', \'%ld\', \'%s\', \'%ld\')",
-									it->task_data.fault.head.fault_id, it->task_data.fault.head.fault_id, it->task_data.fault.point_name, dv.id, dv.name, it->task_data.fault.st);
+										sprintf(sql, "Insert into PMS_PARAM.FDIR_FDIRECT (ID, GROUPID, STATUS, TYPE, STUDY_EQ, FD, FD_DESCR, ST_ID) Values (\'%s\', \'%s\', 0, 0, \'%ld\', \'%ld\', \'%s\', \'%ld\')",
+												it->task_data.fault.head.fault_id, it->task_data.fault.head.fault_id, it->task_data.fault.point_name, dv.id, dv.name, it->task_data.fault.st);
 
-							ExecSQL(sql);
-
-							//Ğ´Ä£ÄâÌ¬¹ÊÕÏĞÅºÅ±í
-							TRACE("Ğ´Èë¹ÊÕÏÄ£Äâ¹ØÏµ¿â£¡\r\n");
-							if ((it->task_data.fault.signal_type) == TRIG_TYPE_SIMU)
-							{
-								sprintf(sql, "UPDATE PMS_PARAM.FDIR_SIG_SUMMARY SET RUN_TIME=(SELECT RUN_TIME FROM PMS_PARAM.FDIR_SIG_SUMMARY WHERE ID=\'%s\')+1, \"INDEX\"=(SELECT RUN_TIME FROM PMS_PARAM.FDIR_SIG_SUMMARY WHERE ID=\'%s\')+1 WHERE ID=\'%s\' ", 
-									it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.simu_plan_id.c_str());
-								ExecSQL(sql);
-
-								sprintf(sql, "SELECT ID FROM PMS_PARAM.FDIR_SIG_FAULT WHERE ID LIKE \'%s\'", 
-									it->task_data.fault.simu_plan_id.c_str());
-								char *buf = NULL;
-								int rec_num, attr_num;
-								struct ORA_ATTR *attrs = NULL;
-								pthread_mutex_lock(&oci_mutex);
-								int ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
-								pthread_mutex_unlock(&oci_mutex);
-								if (ret != OCI_ERROR)
-								{
-									if (rec_num == 0)
-									{
-										sprintf(sql, "INSERT INTO PMS_PARAM.FDIR_SIG_FAULT(ID, FAULT_INDEX, FAULT_ID)VALUES(\'%s\', 0, \'%s\')",
-											it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.head.fault_id);
 										ExecSQL(sql);
-									}
-								}
 
-								sprintf(sql, "INSERT INTO PMS_PARAM.FDIR_SIG_FAULT(ID, FAULT_INDEX, FAULT_ID)VALUES(\'%s\', (select max(FAULT_INDEX) from pms_param.fdir_sig_fault where id like \'%s%\')+1, \'%s\')", 
-									it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.head.fault_id);
-								ExecSQL(sql);
+										//Ğ´Ä£ÄâÌ¬¹ÊÕÏĞÅºÅ±í
+										TRACE("Ğ´Èë¹ÊÕÏÄ£Äâ¹ØÏµ¿â£¡\r\n");
+										if ((it->task_data.fault.signal_type) == TRIG_TYPE_SIMU)
+										{
+											sprintf(sql, "UPDATE PMS_PARAM.FDIR_SIG_SUMMARY SET RUN_TIME=(SELECT RUN_TIME FROM PMS_PARAM.FDIR_SIG_SUMMARY WHERE ID=\'%s\')+1, \"INDEX\"=(SELECT RUN_TIME FROM PMS_PARAM.FDIR_SIG_SUMMARY WHERE ID=\'%s\')+1 WHERE ID=\'%s\' ",
+													it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.simu_plan_id.c_str());
+											ExecSQL(sql);
 
-								g_is_write_to_lib = true;
-								pthread_mutex_unlock(&simu_sync_mutex);
-							}
+											sprintf(sql, "SELECT ID FROM PMS_PARAM.FDIR_SIG_FAULT WHERE ID LIKE \'%s\'",
+													it->task_data.fault.simu_plan_id.c_str());
+											char *buf = NULL;
+											int rec_num, attr_num;
+											struct ORA_ATTR *attrs = NULL;
+											pthread_mutex_lock(&oci_mutex);
+											int ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
+											pthread_mutex_unlock(&oci_mutex);
+											if (ret != OCI_ERROR)
+											{
+												if (rec_num == 0)
+												{
+													sprintf(sql, "INSERT INTO PMS_PARAM.FDIR_SIG_FAULT(ID, FAULT_INDEX, FAULT_ID)VALUES(\'%s\', 0, \'%s\')",
+															it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.head.fault_id);
+													ExecSQL(sql);
+												}
+											}
 
-							TRACE("¹ÊÕÏ%s¶¨Î»Ê§°Ü£¬½«´ÓÈÎÎñÁĞ±íÖĞÉ¾³ı\r\n", it->task_data.fault.head.fault_id);
-							
-							if (version == VERSION_REALTIME)
-							{
-								//D5000·¢¹ÊÕÏ¸ôÀë»Ö¸´ÊÂ¼ş
-								Notify(it->task_data.fault.head.fault_id, it->task_data.fault.dv, it->task_data.fault.st);
-							}
-							else if (version == VERSION_STUDY)
-							{
-							}
+											sprintf(sql, "INSERT INTO PMS_PARAM.FDIR_SIG_FAULT(ID, FAULT_INDEX, FAULT_ID)VALUES(\'%s\', (select max(FAULT_INDEX) from pms_param.fdir_sig_fault where id like \'%s%\')+1, \'%s\')",
+													it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.head.fault_id);
+											ExecSQL(sql);
+
+											g_is_write_to_lib = true;
+											pthread_mutex_unlock(&simu_sync_mutex);
+										}
+
+										TRACE("¹ÊÕÏ%s¶¨Î»Ê§°Ü£¬½«´ÓÈÎÎñÁĞ±íÖĞÉ¾³ı\r\n", it->task_data.fault.head.fault_id);
+
+										if (version == VERSION_REALTIME)
+										{
+											//D5000·¢¹ÊÕÏ¸ôÀë»Ö¸´ÊÂ¼ş
+											Notify(it->task_data.fault.head.fault_id, it->task_data.fault.dv, it->task_data.fault.st);
+										}
+										else if (version == VERSION_STUDY)
+										{
+										}
 
 //							g_lstTask.erase(it);
-							RemoveTask(it->task_data.fault.head.fault_id);
-							it = g_lstTask.begin();
-							break;
-						}
+										RemoveTask(it->task_data.fault.head.fault_id);
+										it = g_lstTask.begin();
+										break;
+									}
 
-						default:
-							break;
-						}
+									default:
+										break;
+								}
 
 //						it->task_data.fault.next_step = TASK_FAULT_STATUS_ISO;
 
-						break;
-					}
-
-					case TASK_FAULT_STATUS_WAIT:
-					{
-						if (cost > g_FdirConfig.TIMEOUT_FAULT) //¹ÊÕÏÆô¶¯³¬Ê±£¬¿ÉÄÜ½øÏß¿ª¹ØÖØºÏÕ¢³É¹¦
-						{
-							printf("[%.2fs]¹ÊÕÏ%sÆô¶¯³¬Ê±£¬´ÓÈÎÎñÁĞ±íÉ¾³ı£¬¿ÉÄÜ½øÏß¿ª¹ØÖØºÏÕ¢³É¹¦\r\n", cost, it->task_data.fault.head.fault_id);
-//							g_lstTask.erase(it);
-//							it = g_lstTask.begin();
-							RemoveTask(it->task_data.fault.head.fault_id);
-							it = g_lstTask.begin();
-						}
-
-						break;
-					}
-
-					case TASK_FAULT_STATUS_ISO:
-					{
-						if ((cost > g_FdirConfig.TIMEOUT_AUTO && g_FdirConfig.USER2AUTO) || it->task_data.fault.bAuto == 1)
-						{
-							//³¬Ê±£¬ÔÊĞí×ª×Ô¶¯
-							if (/*g_FdirConfig.USER2AUTO && */it->task_data.fault.bAuto == 0)
-							{
-								printf("[%.2fs]Ö´ĞĞ¸ôÀë»Ö¸´³¬Ê±£¬×ª×Ô¶¯¼ÌĞøÖ´ĞĞ¡£\r\n", cost);
-
-								it->task_data.fault.bAuto = 1;
-
-								FormFdirStep(it->task_data.fault.head.group_id);
-
-								list<CB_CONTROL> lstcb;
-
-								GetLeftStep(it->task_data.fault.head.fault_id, lstcb);
-
-								//»¹ÓĞ²½ÖèÎ´Ö´ĞĞ
-								if (lstcb.size() > 0)
-								{
-									AddControlItem(it->task_data.fault.head.fault_id, lstcb.begin()->point_id, lstcb.begin()->bOpen, lstcb.begin()->stage);
-								}
-								else
-								{
-								}
-							}
-						}
-
-						break;
-					}
-
-					case TASK_FAULT_STATUS_PROCESS:
-					{
-//						cout << "¹ÊÕÏ:" << it->task_data.fault.head.fault_id << "ÕıÔÚ»Ö¸´" << endl;
-
-						break;
-					}
-
-					case TASK_FAULT_STATUS_SLEEP:
-					{
-						pthread_mutex_lock(&trig_list_mutex);
-						FDIR_POINT_TRIG_LIST::iterator it_trig_list;
-
-						for (it_trig_list = g_lstTrig.begin(); it_trig_list != g_lstTrig.end(); it_trig_list++)
-						{
-							//ÕÒµ½¸Ã¹ÊÕÏµÄÆô¶¯¹ÊÕÏĞÅºÅÔÚ¹ÊÕÏĞÅºÅÁĞ±íÖĞµÄÎ»ÖÃ
-							if (it_trig_list->tm_add.tv_sec == it->tv_creat.tv_sec && it_trig_list->tm_add.tv_usec == it->tv_creat.tv_usec)
-							{
 								break;
 							}
-						}
 
-						if (it_trig_list != g_lstTrig.end())
-						{
-							int sleeptime = g_FdirConfig.TIMEOUT_PROTPNT;
+							case TASK_FAULT_STATUS_WAIT:
+							{
+								if (cost > g_FdirConfig.TIMEOUT_FAULT) //¹ÊÕÏÆô¶¯³¬Ê±£¬¿ÉÄÜ½øÏß¿ª¹ØÖØºÏÕ¢³É¹¦
+								{
+									printf("[%.2fs]¹ÊÕÏ%sÆô¶¯³¬Ê±£¬´ÓÈÎÎñÁĞ±íÉ¾³ı£¬¿ÉÄÜ½øÏß¿ª¹ØÖØºÏÕ¢³É¹¦\r\n", cost, it->task_data.fault.head.fault_id);
+//							g_lstTask.erase(it);
+//							it = g_lstTask.begin();
+									RemoveTask(it->task_data.fault.head.fault_id);
+									it = g_lstTask.begin();
+								}
+
+								break;
+							}
+
+							case TASK_FAULT_STATUS_ISO:
+							{
+								if ((cost > g_FdirConfig.TIMEOUT_AUTO && g_FdirConfig.USER2AUTO) || it->task_data.fault.bAuto == 1)
+								{
+									//³¬Ê±£¬ÔÊĞí×ª×Ô¶¯
+									if (/*g_FdirConfig.USER2AUTO && */it->task_data.fault.bAuto == 0)
+									{
+										printf("[%.2fs]Ö´ĞĞ¸ôÀë»Ö¸´³¬Ê±£¬×ª×Ô¶¯¼ÌĞøÖ´ĞĞ¡£\r\n", cost);
+
+										it->task_data.fault.bAuto = 1;
+
+										FormFdirStep(it->task_data.fault.head.group_id);
+
+										list<CB_CONTROL> lstcb;
+
+										GetLeftStep(it->task_data.fault.head.fault_id, lstcb);
+
+										//»¹ÓĞ²½ÖèÎ´Ö´ĞĞ
+										if (lstcb.size() > 0)
+										{
+											AddControlItem(it->task_data.fault.head.fault_id, lstcb.begin()->point_id, lstcb.begin()->bOpen, lstcb.begin()->stage);
+										}
+										else
+										{
+										}
+									}
+								}
+
+								break;
+							}
+
+							case TASK_FAULT_STATUS_PROCESS:
+							{
+//						cout << "¹ÊÕÏ:" << it->task_data.fault.head.fault_id << "ÕıÔÚ»Ö¸´" << endl;
+
+								break;
+							}
+
+							case TASK_FAULT_STATUS_SLEEP:
+							{
+								pthread_mutex_lock(&trig_list_mutex);
+								FDIR_POINT_TRIG_LIST::iterator it_trig_list;
+
+								for (it_trig_list = g_lstTrig.begin(); it_trig_list != g_lstTrig.end(); it_trig_list++)
+								{
+									//ÕÒµ½¸Ã¹ÊÕÏµÄÆô¶¯¹ÊÕÏĞÅºÅÔÚ¹ÊÕÏĞÅºÅÁĞ±íÖĞµÄÎ»ÖÃ
+									if (it_trig_list->tm_add.tv_sec == it->tv_creat.tv_sec && it_trig_list->tm_add.tv_usec == it->tv_creat.tv_usec)
+									{
+										break;
+									}
+								}
+
+								if (it_trig_list != g_lstTrig.end())
+								{
+									int sleeptime = g_FdirConfig.TIMEOUT_PROTPNT;
 #ifdef _QingHai_
 							if (strcmp(it_trig_list->psbob_data.point.devtype, "faultinfo") == 0)
 							{
@@ -4388,863 +4388,281 @@ void thread_process(void *param)
 
 							}
 #endif
-							if (cost > sleeptime) //¹ÊÕÏÆô¶¯³¬Ê±£¬¿ÉÄÜ½øÏß¿ª¹ØÖØºÏÕ¢³É¹¦
-							{
-								printf("[%.2fs]¹ÊÕÏ%sËùÓĞ¿ª¹Ø¹ıÁ÷ĞÅºÅÒÑ¾­ËÍ´ï\r\n", cost, it->task_data.fault.head.fault_id);
-
-								//½«¹ÊÕÏÆô¶¯ĞÅºÅÇ°ºó30ÃëµÄ¹ÊÕÏĞÅºÅ×¼±¸ºÃ
-								g_lstSecTrig.clear();
-
-								//ºó30Ãë
-								FDIR_POINT_TRIG_LIST::iterator itTemp = it_trig_list;
-
-								while (itTemp != g_lstTrig.end())
-								{
-									int span = itTemp->tm_add.tv_sec - it_trig_list->tm_add.tv_sec;
-
-									if (span > g_FdirConfig.TIMEOUT_PROTPNT)
+									if (cost > sleeptime) //¹ÊÕÏÆô¶¯³¬Ê±£¬¿ÉÄÜ½øÏß¿ª¹ØÖØºÏÕ¢³É¹¦
 									{
-										break;
-									}
-									else
-									{
-										printf("¹ÊÕÏĞÅºÅ£ºkey_id:%ld, st_id:%ldÌí¼Óµ½¶¨Î»ĞÅºÅÁĞ±í[-%ds]\r\n", itTemp->alarm.key_id, itTemp->alarm.st_id, span);
-										g_lstSecTrig.push_back(&(*itTemp));
-									}
+										printf("[%.2fs]¹ÊÕÏ%sËùÓĞ¿ª¹Ø¹ıÁ÷ĞÅºÅÒÑ¾­ËÍ´ï\r\n", cost, it->task_data.fault.head.fault_id);
 
-									itTemp++;
-								};
+										//½«¹ÊÕÏÆô¶¯ĞÅºÅÇ°ºó30ÃëµÄ¹ÊÕÏĞÅºÅ×¼±¸ºÃ
+										g_lstSecTrig.clear();
 
-								//Ç°30Ãë
-								itTemp = it_trig_list;
+										//ºó30Ãë
+										FDIR_POINT_TRIG_LIST::iterator itTemp = it_trig_list;
 
-								while (itTemp != g_lstTrig.begin())
-								{
-									itTemp--;
-
-									int span = it_trig_list->tm_add.tv_sec - itTemp->tm_add.tv_sec;
-
-									if (span > g_FdirConfig.TIMEOUT_PROTPNT)
-									{
-										break;
-									}
-									else
-									{
-										g_lstSecTrig.push_back(&(*itTemp));
-										printf("¹ÊÕÏĞÅºÅ£ºkey_id:%ld, st_id:%ldÌí¼Óµ½¶¨Î»ĞÅºÅÁĞ±í[%ds]\r\n", itTemp->alarm.key_id, itTemp->alarm.st_id, span);
-									}
-
-								}
-
-								it->task_data.fault.next_step = TASK_FAULT_STATUS_CALC;
-							}
-							else
-							{
-								printf("[%.2fs]¹ÊÕÏ%sÕıÔÚµÈ´ıËùÓĞ¿ª¹Ø¹ıÁ÷ĞÅºÅËÍ´ï\r\n", cost, it->task_data.fault.head.fault_id);
-							}
-						}
-
-						pthread_mutex_unlock(&trig_list_mutex);
-
-						break;
-					}
-
-					case TASK_FAULT_STATUS_CALC_ISO:
-					{
-						//ÑĞ¾¿Ì¬ÏÂµÄ·Ö×é
-						if (version == VERSION_STUDY)
-						{
-							if (GroupFault(g_lstTask) == FDIR_R_SUCCEED)
-							{
-								printf("·Ö×éÍê³É\n");
-							}
-
-							break;
-						}
-
-						bool bCanGroup = false;			//ÊÇ·ñ¿ÉÒÔ¿ªÊ¼·Ö×éÁË
-						bool bhas_unused_trig = false; 	//ÊÇ·ñ´æÔÚÎ´¶¨Î»Íê³ÉµÄ¹ÊÕÏĞÅºÅ
-
-						pthread_mutex_lock(&trig_list_mutex);
-						for (FDIR_POINT_TRIG_LIST::iterator it_trig = g_lstTrig.begin(); it_trig != g_lstTrig.end(); it_trig++)
-						{
-							//ÏÈÔÚĞÅºÅÁĞ±íÖĞÕÒµ½¸Ã¹ÊÕÏµÄÆô¶¯¹ÊÕÏĞÅºÅ,¸Ã¹ÊÕÏĞÅºÅ¼´Îª¹ÊÕÏµÄÆô¶¯¹ÊÕÏĞÅºÅ
-							if (it_trig->tm_add.tv_sec == it->tv_creat.tv_sec && it_trig->tm_add.tv_usec == it->tv_creat.tv_usec)
-							{
-								printf("key_id:%ld,st_id:%ldÎª¹ÊÕÏ%sµÄÆô¶¯ĞÅºÅ£¡£¡£¡£¡£¡\r\n", it_trig->alarm.key_id, it_trig->alarm.st_id, it->task_data.fault.head.fault_id);
-
-								//ÒÔ¸ÃĞÅºÅÎªÃªµã
-								timeval tm_anchor = { it_trig->tm_add.tv_sec, it_trig->tm_add.tv_usec };
-
-								//¼ì²é¸Ã¹ÊÕÏÊÕ¼¯ĞÅºÅµÄ30ÃëÄÚÊÇ·ñÓĞÎ´¶¨Î»µÄ¹ÊÕÏºÍÆäËü¹ÊÕÏ
-								FDIR_POINT_TRIG_LIST::iterator it_trig_tmp = it_trig;
-								int span = 0;
-
-								while (true)
-								{
-									if ((++it_trig_tmp) == g_lstTrig.end())
-									{
-										break;
-									}
-
-									//ÏÈÅĞ¶Ï¸ÃĞÅºÅÊÇ·ñÔÚ30ÃëÇø¼äÄÚ
-									span = it_trig_tmp->tm_add.tv_sec - tm_anchor.tv_sec;
-									if (span > g_FdirConfig.TIMEOUT_PROTPNT)
-									{
-										break;
-									}
-
-									//´æÔÚÎ´¶¨Î»Íê³ÉµÄ¹ÊÕÏĞÅºÅ£¬ĞèÒªµÈ´ı¸Ã¹ÊÕÏĞÅºÅ¶¨Î»Íê³É
-									if ((it_trig_tmp->lst_fault.size() <= 0) /*&& (strcmp(it_trig_tmp->alarm.fault_info, key[1]) == 0 || strcmp(it_trig_tmp->alarm.fault_info, key[2]) == 0)*/)
-									{
-										bhas_unused_trig = true;
-										break;
-									}
-									//30ÃëÄÚÓĞÆäËü¹ÊÕÏB£¬ÖØĞÂ¼ì²é¹ÊÕÏBÊÕ¼¯ĞÅºÅµÄ30Ãë
-									if (it_trig_tmp->lst_fault.size() > 0)
-									{
-										if (strcmp(it_trig_tmp->lst_fault.back().c_str(), it->task_data.fault.head.fault_id) != 0)
+										while (itTemp != g_lstTrig.end())
 										{
-											tm_anchor.tv_sec = it_trig_tmp->tm_add.tv_sec;
-											tm_anchor.tv_usec = it_trig_tmp->tm_add.tv_usec;
+											int span = itTemp->tm_add.tv_sec - it_trig_list->tm_add.tv_sec;
+
+											if (span > g_FdirConfig.TIMEOUT_PROTPNT)
+											{
+												break;
+											}
+											else
+											{
+												printf("¹ÊÕÏĞÅºÅ£ºkey_id:%ld, st_id:%ldÌí¼Óµ½¶¨Î»ĞÅºÅÁĞ±í[-%ds]\r\n", itTemp->alarm.key_id, itTemp->alarm.st_id, span);
+												g_lstSecTrig.push_back(&(*itTemp));
+											}
+
+											itTemp++;
+										};
+
+										//Ç°30Ãë
+										itTemp = it_trig_list;
+
+										while (itTemp != g_lstTrig.begin())
+										{
+											itTemp--;
+
+											int span = it_trig_list->tm_add.tv_sec - itTemp->tm_add.tv_sec;
+
+											if (span > g_FdirConfig.TIMEOUT_PROTPNT)
+											{
+												break;
+											}
+											else
+											{
+												g_lstSecTrig.push_back(&(*itTemp));
+												printf("¹ÊÕÏĞÅºÅ£ºkey_id:%ld, st_id:%ldÌí¼Óµ½¶¨Î»ĞÅºÅÁĞ±í[%ds]\r\n", itTemp->alarm.key_id, itTemp->alarm.st_id, span);
+											}
+
 										}
+
+										it->task_data.fault.next_step = TASK_FAULT_STATUS_CALC;
+									}
+									else
+									{
+										printf("[%.2fs]¹ÊÕÏ%sÕıÔÚµÈ´ıËùÓĞ¿ª¹Ø¹ıÁ÷ĞÅºÅËÍ´ï\r\n", cost, it->task_data.fault.head.fault_id);
 									}
 								}
 
-								if (!bhas_unused_trig)
-								{
-									bCanGroup = true;
-								}
+								pthread_mutex_unlock(&trig_list_mutex);
 
 								break;
 							}
-						}
-						pthread_mutex_unlock(&trig_list_mutex);
 
-						if (bCanGroup)
-						{
-							TRACE("¿ªÊ¼½øĞĞ·Ö×é\r\n");					
-							if (GroupFault(g_lstTask) == FDIR_R_SUCCEED)
+							case TASK_FAULT_STATUS_CALC_ISO:
 							{
-								printf("·Ö×éÍê³É\n");								
+								//ÑĞ¾¿Ì¬ÏÂµÄ·Ö×é
+								if (version == VERSION_STUDY)
+								{
+									if (GroupFault(g_lstTask) == FDIR_R_SUCCEED)
+									{
+										printf("·Ö×éÍê³É\n");
+									}
+
+									break;
+								}
+
+								bool bCanGroup = false;			//ÊÇ·ñ¿ÉÒÔ¿ªÊ¼·Ö×éÁË
+								bool bhas_unused_trig = false; 	//ÊÇ·ñ´æÔÚÎ´¶¨Î»Íê³ÉµÄ¹ÊÕÏĞÅºÅ
+
+								pthread_mutex_lock(&trig_list_mutex);
+								for (FDIR_POINT_TRIG_LIST::iterator it_trig = g_lstTrig.begin(); it_trig != g_lstTrig.end(); it_trig++)
+								{
+									//ÏÈÔÚĞÅºÅÁĞ±íÖĞÕÒµ½¸Ã¹ÊÕÏµÄÆô¶¯¹ÊÕÏĞÅºÅ,¸Ã¹ÊÕÏĞÅºÅ¼´Îª¹ÊÕÏµÄÆô¶¯¹ÊÕÏĞÅºÅ
+									if (it_trig->tm_add.tv_sec == it->tv_creat.tv_sec && it_trig->tm_add.tv_usec == it->tv_creat.tv_usec)
+									{
+										printf("key_id:%ld,st_id:%ldÎª¹ÊÕÏ%sµÄÆô¶¯ĞÅºÅ£¡£¡£¡£¡£¡\r\n", it_trig->alarm.key_id, it_trig->alarm.st_id, it->task_data.fault.head.fault_id);
+
+										//ÒÔ¸ÃĞÅºÅÎªÃªµã
+										timeval tm_anchor = { it_trig->tm_add.tv_sec, it_trig->tm_add.tv_usec };
+
+										//¼ì²é¸Ã¹ÊÕÏÊÕ¼¯ĞÅºÅµÄ30ÃëÄÚÊÇ·ñÓĞÎ´¶¨Î»µÄ¹ÊÕÏºÍÆäËü¹ÊÕÏ
+										FDIR_POINT_TRIG_LIST::iterator it_trig_tmp = it_trig;
+										int span = 0;
+
+										while (true)
+										{
+											if ((++it_trig_tmp) == g_lstTrig.end())
+											{
+												break;
+											}
+
+											//ÏÈÅĞ¶Ï¸ÃĞÅºÅÊÇ·ñÔÚ30ÃëÇø¼äÄÚ
+											span = it_trig_tmp->tm_add.tv_sec - tm_anchor.tv_sec;
+											if (span > g_FdirConfig.TIMEOUT_PROTPNT)
+											{
+												break;
+											}
+
+											//´æÔÚÎ´¶¨Î»Íê³ÉµÄ¹ÊÕÏĞÅºÅ£¬ĞèÒªµÈ´ı¸Ã¹ÊÕÏĞÅºÅ¶¨Î»Íê³É
+											if ((it_trig_tmp->lst_fault.size() <= 0) /*&& (strcmp(it_trig_tmp->alarm.fault_info, key[1]) == 0 || strcmp(it_trig_tmp->alarm.fault_info, key[2]) == 0)*/)
+											{
+												bhas_unused_trig = true;
+												break;
+											}
+											//30ÃëÄÚÓĞÆäËü¹ÊÕÏB£¬ÖØĞÂ¼ì²é¹ÊÕÏBÊÕ¼¯ĞÅºÅµÄ30Ãë
+											if (it_trig_tmp->lst_fault.size() > 0)
+											{
+												if (strcmp(it_trig_tmp->lst_fault.back().c_str(), it->task_data.fault.head.fault_id) != 0)
+												{
+													tm_anchor.tv_sec = it_trig_tmp->tm_add.tv_sec;
+													tm_anchor.tv_usec = it_trig_tmp->tm_add.tv_usec;
+												}
+											}
+										}
+
+										if (!bhas_unused_trig)
+										{
+											bCanGroup = true;
+										}
+
+										break;
+									}
+								}
+								pthread_mutex_unlock(&trig_list_mutex);
+
+								if (bCanGroup)
+								{
+									TRACE("¿ªÊ¼½øĞĞ·Ö×é\r\n");
+									if (GroupFault(g_lstTask) == FDIR_R_SUCCEED)
+									{
+										printf("·Ö×éÍê³É\n");
+									}
+								}
+								printf("TASK_FAULT_STATUS_CALC_ISO out\n");
+								break;
 							}
-						}
-						printf("TASK_FAULT_STATUS_CALC_ISO out\n");
-						break;
-					}
 
-					case TASK_FAULT_STATUS_GROUPED:
-					{
-						FDIR_TASK_LIST::iterator itTemp;
-						list<FDIR_R2*> lst_fdir_r2;
-						map<FDIR_R2*, FDIR_TASK*> map_fdir_task;
-
-						printf("¿ªÊ¼¼ÆËã×éºÅÎª%sµÄ²Ù×÷·½°¸£¬¸Ã×éµÄ¹ÊÕÏÓĞ£º\r\n", it->task_data.fault.head.group_id);
-
-						for (itTemp = g_lstTask.begin(); itTemp != g_lstTask.end(); itTemp++)
-						{
-							if (itTemp->rq_type != TASK_TYPE_FAULT)
-								continue;
-
-							if (strcmp(itTemp->task_data.fault.head.group_id, it->task_data.fault.head.group_id) == 0)
+							case TASK_FAULT_STATUS_GROUPED:
 							{
-								lst_fdir_r2.push_back(itTemp->task_data.fault.fdir_r);
-								map_fdir_task[itTemp->task_data.fault.fdir_r] = &(*itTemp);
+								FDIR_TASK_LIST::iterator itTemp;
+								list<FDIR_R2*> lst_fdir_r2;
+								map<FDIR_R2*, FDIR_TASK*> map_fdir_task;
 
-								itTemp->task_data.fault.next_step = TASK_FAULT_STATUS_CALC_STEP;
-								cout << it->task_data.fault.head.group_id << "->" << itTemp->task_data.fault.head.fault_id << endl;
-							}
-						}
+								printf("¿ªÊ¼¼ÆËã×éºÅÎª%sµÄ²Ù×÷·½°¸£¬¸Ã×éµÄ¹ÊÕÏÓĞ£º\r\n", it->task_data.fault.head.group_id);
 
-						list<list<MAP_SO_NODE> > lst_steps,lst_steps2;
+								for (itTemp = g_lstTask.begin(); itTemp != g_lstTask.end(); itTemp++)
+								{
+									if (itTemp->rq_type != TASK_TYPE_FAULT)
+										continue;
 
-						int calc_ret = calc_restore_step(lst_fdir_r2, lst_steps);	//¼ÆËãÖ÷Õ¾Ò£¿Ø·½°¸
-						int calc_ret2 = calc_restore_step(lst_fdir_r2, lst_steps2, false);	//¼ÆËã×îĞ¡Í£µç·½°¸
+									if (strcmp(itTemp->task_data.fault.head.group_id, it->task_data.fault.head.group_id) == 0)
+									{
+										lst_fdir_r2.push_back(itTemp->task_data.fault.fdir_r);
+										map_fdir_task[itTemp->task_data.fault.fdir_r] = &(*itTemp);
 
-						char *table_name = new char[10];
-						bzero(table_name, 10);
+										itTemp->task_data.fault.next_step = TASK_FAULT_STATUS_CALC_STEP;
+										cout << it->task_data.fault.head.group_id << "->" << itTemp->task_data.fault.head.fault_id << endl;
+									}
+								}
 
-						if (it->task_data.fault.bAuto == 2)
-						{
-							sprintf(table_name, "_HIS");
-						}
+								list<list<MAP_SO_NODE> > lst_steps,lst_steps2;
 
-						////¹ÊÕÏ×éÖĞÓÉÓÚ¸ôÀë»òÕßÌøÕ¢µ¼ÖÂÊ§µçµÄ¸ººÉ£¬×îÖÕ±£´æ·Ç¹ÊÕÏ²»¿É»Ö¸´µÄ¸ººÉ
-						list<FAULT_ITEM> lst_group_ld;
-						////¹ÊÕÏ×éÖĞÓÉÓÚ¸ôÀë»òÕßÌøÕ¢µ¼ÖÂÊ§µç£¬´æÔÚ»Ö¸´·½°¸£¬¿ÉÒÔ»Ö¸´µÄ¸ººÉ
-						list<FAULT_ITEM> lst_able_res;
+								int calc_ret = calc_restore_step(lst_fdir_r2, lst_steps);	//¼ÆËãÖ÷Õ¾Ò£¿Ø·½°¸
+								int calc_ret2 = calc_restore_step(lst_fdir_r2, lst_steps2, false);	//¼ÆËã×îĞ¡Í£µç·½°¸
 
-						//Ê×ÏÈ°Ñ¹ÊÕÏ¶¨Î»ĞÅÏ¢Ğ´ÈëÊı¾İ¿âÖĞ,¸ôÀëºÍ»Ö¸´²½Öè¸ù¾İ·µ»Ø½á¹û·Ö±ğĞ´Èë
-						for (map<FDIR_R2*, FDIR_TASK*>::iterator it_map_fdir_task = map_fdir_task.begin(); it_map_fdir_task != map_fdir_task.end(); it_map_fdir_task++)
-						{
-							lst_group_ld.splice(lst_group_ld.end(), it_map_fdir_task->first->m_ld);
-							string lst_cb;
-							char fault_area[1024] = { 0 };
+								char *table_name = new char[10];
+								bzero(table_name, 10);
+
+								if (it->task_data.fault.bAuto == 2)
+								{
+									sprintf(table_name, "_HIS");
+								}
+
+								////¹ÊÕÏ×éÖĞÓÉÓÚ¸ôÀë»òÕßÌøÕ¢µ¼ÖÂÊ§µçµÄ¸ººÉ£¬×îÖÕ±£´æ·Ç¹ÊÕÏ²»¿É»Ö¸´µÄ¸ººÉ
+								list<FAULT_ITEM> lst_group_ld;
+								////¹ÊÕÏ×éÖĞÓÉÓÚ¸ôÀë»òÕßÌøÕ¢µ¼ÖÂÊ§µç£¬´æÔÚ»Ö¸´·½°¸£¬¿ÉÒÔ»Ö¸´µÄ¸ººÉ
+								list<FAULT_ITEM> lst_able_res;
+
+								//Ê×ÏÈ°Ñ¹ÊÕÏ¶¨Î»ĞÅÏ¢Ğ´ÈëÊı¾İ¿âÖĞ,¸ôÀëºÍ»Ö¸´²½Öè¸ù¾İ·µ»Ø½á¹û·Ö±ğĞ´Èë
+								for (map<FDIR_R2*, FDIR_TASK*>::iterator it_map_fdir_task = map_fdir_task.begin(); it_map_fdir_task != map_fdir_task.end(); it_map_fdir_task++)
+								{
+									lst_group_ld.splice(lst_group_ld.end(), it_map_fdir_task->first->m_ld);
+									string lst_cb;
+									char fault_area[1024] = { 0 };
 //							PSBOB::ST st = { 0 };
-							PSBOB::DV dv = { 0 };
+									PSBOB::DV dv = { 0 };
 
-							int faultzones = it_map_fdir_task->first->getfaultzone();
+									int faultzones = it_map_fdir_task->first->getfaultzone();
 //								it_map_fdir_task->first->GetDVByZone(faultzones, dv);
-							oodbread_rk(&dv, &(it_map_fdir_task->second->task_data.fault.dv), const_cast<TB_DESCR*>(g_db_psbob->GetTB("subcontrolarea")), sizeof(PSBOB::DV));
-							if (dv.id == 0)
-							{
-								printf("¶ÁÈ¡DVÊ§°Ü:¹ÊÕÏÇø¶ÎÎª%d£¬errno:%d,line:%d\r\n", faultzones, _oodb_errno, __LINE__);
-							}
-							else
-							{
+									oodbread_rk(&dv, &(it_map_fdir_task->second->task_data.fault.dv), const_cast<TB_DESCR*>(g_db_psbob->GetTB("subcontrolarea")), sizeof(PSBOB::DV));
+									if (dv.id == 0)
+									{
+										printf("¶ÁÈ¡DVÊ§°Ü:¹ÊÕÏÇø¶ÎÎª%d£¬errno:%d,line:%d\r\n", faultzones, _oodb_errno, __LINE__);
+									}
+									else
+									{
 //								if (GetStbyDv(dv.id, st) != 0)
 //								{
 //									printf("¶ÁÈ¡STÊ§°Ü:DVÎª%ld£¬errno:%d,line:%d\r\n", dv.id, _oodb_errno, __LINE__);
 //								}
-							}
+									}
 
-							it_map_fdir_task->first->get_zone_cb(it_map_fdir_task->first->getfaultzone(), lst_cb);
+									it_map_fdir_task->first->get_zone_cb(it_map_fdir_task->first->getfaultzone(), lst_cb);
 
-							//ÉèÖÃ¹ÊÕÏÇøÓòÆğÊ¼Éè±¸
-							FAULT_ITEM head;
-							list<FAULT_ITEM> tail;
-							it_map_fdir_task->first->get_fault_area(head, tail);
+									//ÉèÖÃ¹ÊÕÏÇøÓòÆğÊ¼Éè±¸
+									FAULT_ITEM head;
+									list<FAULT_ITEM> tail;
+									it_map_fdir_task->first->get_fault_area(head, tail);
 
-							//¸ººÉµ¥µã¹ÊÕÏµÄ¹ÊÕÏÉè±¸Ö»ĞèĞ´Èë¸ººÉ×Ô¼º¶øÒÑ
-							if (it_map_fdir_task->first->b_ld_fault)
-							{
-								sprintf(sql, "INSERT INTO FDIR_FAULT_DEV (ID, DEV_ID, DEV_TABLE, EDGE, FLAG) VALUES (\'%s\', \'%ld\', \'%s\', %d, 1)",
-										it_map_fdir_task->second->task_data.fault.head.fault_id, head.eq_id, head.table.c_str(), 1);
-								ExecSQL(sql);
-							}
-							else
-							{
-								//¹ÊÕÏÇøÓòÉè±¸Ğ´ÈëÊı¾İ¿âÖĞ
-								write_fault_dev(it_map_fdir_task->second->task_data.fault.head.fault_id, table_name, it_map_fdir_task->first);
-							}
-
-							//½«¹ÊÕÏĞÅºÅ¡¢Îó±¨ĞÅºÅ ¡¢Â©±¨ĞÅºÅÆ´½Ó³É×Ö·û´®
-							string str_point, str_err_point, str_mis_point;
-							list<FAULT_ITEM>::iterator it_recv_point;
-							for (it_recv_point = it_map_fdir_task->first->lst_point.begin(); it_recv_point != it_map_fdir_task->first->lst_point.end(); it_recv_point++)
-							{
-								char str_fault_item[100];
-								if (strcmp(it_recv_point->table.c_str(), "FI") == 0)
-								{
-									sprintf(str_fault_item, "%ld[%s]", it_recv_point->id, it_recv_point->table.c_str());
-								}
-								else
-								{
-									sprintf(str_fault_item, "%ld[%s]", it_recv_point->eq_id, it_recv_point->table.c_str());
-								}
-
-								str_point += str_fault_item;
-								str_point += ";";
-							}
-
-							list<long>::iterator it_point;
-							char err_point[30];
-							char mis_point[30];
-							for (it_point = it_map_fdir_task->first->lst_err_point.begin(); it_point != it_map_fdir_task->first->lst_err_point.end(); it_point++)
-							{
-								sprintf(err_point, "%ld", *it_point);
-								str_err_point += err_point;
-								str_err_point += ";";
-							}
-
-							for (it_point = it_map_fdir_task->first->lst_mis_point.begin(); it_point != it_map_fdir_task->first->lst_mis_point.end(); it_point++)
-							{
-								sprintf(mis_point, "%ld", *it_point);
-								str_mis_point += mis_point;
-								str_mis_point += ";";
-							}
-
-							string manual_restore;
-
-							for (it_point = it_map_fdir_task->first->lst_restore.begin(); it_point != it_map_fdir_task->first->lst_restore.end(); it_point++)
-							{
-								char sz_manual_point[30];
-
-								sprintf(sz_manual_point, "%ld", *it_point);
-								PSBOB::CB point = { 0 };
-								manual_restore += sz_manual_point;
-
-								if (is_controllable(*it_point))
-									manual_restore += "[0];";
-								else
-									manual_restore += ";";
-							}
-
-							//Î÷ÄşÅäÍøÖ±½Ó½«¹ÊÕÏÇø¶Î¿ª¹Ø×ª»¯Îªfault_area
-							fault_area[0] = 0;
-
-							long fault_cb = it_map_fdir_task->first->getfaultcb();
-
-							sprintf(fault_area, "%ld[%s]", head.eq_id, head.table.c_str());
-
-							for (list<FAULT_ITEM>::iterator it_tail = tail.begin(); it_tail != tail.end(); it_tail++)
-							{
-								char tmp[256] = { 0 };
-								sprintf(tmp, ";%ld[%s]", it_tail->eq_id, it_tail->table.c_str());
-								strcat(fault_area, tmp);
-							}
-
-							//Ğ´¹ÊÕÏĞÅºÅ±í
-							TRACE("Ğ´¹ÊÕÏĞÅºÅ±í£¡\r\n");
-							int pos = 0;
-							for (FDIR_POINT_TRIG_LIST::iterator it_trig_list = it_map_fdir_task->second->task_data.fault.trig_list.begin();
-									it_trig_list != it_map_fdir_task->second->task_data.fault.trig_list.end(); it_trig_list++, pos++)
-							{
-								sprintf(sql, "INSERT INTO PMS_PARAM.FDIR_ALARM (ID, TM_ADD, OCCUR_TIME, MSEC, KEY_ID, NAME, ST_ID, TYPE, STATUS) VALUES (\'%s\', %ld, %ld, %d, %ld, \'%s\', %ld, %d, %d)", it_map_fdir_task->second->task_data.fault.head.fault_id
-										,it_trig_list->tm_add.tv_sec, it_trig_list->alarm.occur_time, it_trig_list->alarm.msec, it_trig_list->alarm.key_id, it_trig_list->alarm.name.c_str(), it_trig_list->alarm.st_id, it_trig_list->alarm.type, it_trig_list->alarm.status);
-
-								ExecSQL(sql);
-							}
-
-							//Ğ´²»ÄÜ¸ôÀë¡¢²»ÄÜÌøÕ¢¡¢ÀÏÊı¾İµÈ¿ª¹Ø
-							TRACE("Ğ´²»ÄÜ¸ôÀë¡¢²»ÄÜÌøÕ¢¡¢ÀÏÊı¾İµÈ¿ª¹Ø£¡\r\n");
-							for (list<FDIR_CB_INFO>::iterator it_cb_info = it_map_fdir_task->first->lst_cb_info.begin(); it_cb_info != it_map_fdir_task->first->lst_cb_info.end(); it_cb_info++)
-							{
-								sprintf(sql,
-										"INSERT INTO PMS_PARAM.FDIR_CB_INFO(ID, CB_ID, CB_DESCR, PT_ID, CB_Q, CB_STATUS, PT_CONTROL, PT_TIMEXC, PT_QUALITY, TYPE) VALUES(\'%s\', \'%ld\', \'%s\', \'%ld\', %d, %d, %d, %d, %d, %d)",
-										it_map_fdir_task->second->task_data.fault.head.fault_id, it_cb_info->cb_id, it_cb_info->cb_descr, it_cb_info->pt_id, it_cb_info->cb_q, it_cb_info->cb_status,
-										it_cb_info->pt_control, it_cb_info->pt_timexc, it_cb_info->pt_quality, (int) it_cb_info->reason);
-
-								ExecSQL(sql);
-							}
-
-							//×¨¼ÒÒâ¼û£¬ÓĞÂ©±¨¹ÊÕÏĞÅºÅµÄ¹ÊÕÏÓÉĞèÒªÓÉ×Ô¶¯´¦Àí×ªÎªÊÖ¶¯´¦Àí
-							if(it_map_fdir_task->first->lst_mis_point.size() > 0)
-							{
-								it_map_fdir_task->second->task_data.fault.bAuto = 0;
-							}
-
-							//½«Â©±¨ĞÅÏ¢Ğ´Èë¹ØÏµ¿âPMS_PARAM.FDIR_DEV_STATUS±íÖĞ£¬DEV_STATUS×Ö¶ÎÎª0Ê±ÎªÂ©±¨
-							for (it_point = it_map_fdir_task->first->lst_mis_point.begin(); it_point != it_map_fdir_task->first->lst_mis_point.end(); it_point++)
-							{
-								long lPrtId = *it_point;
-								string strDevTable;
-								string strDevDescr;
-								PSBOB::CB misCb;
-								PSBOB::FI misFi;
-								if (oodbread_rk(&misCb, &lPrtId, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(PSBOB::CB)) > 0)
-								{
-									strDevTable = "CB";
-									std::string strCb = string(misCb.name);
-									strDevDescr = strCb.append(string("¹ÊÕÏĞÅºÅ"));
-								}
-								else if(oodbread_rk(&misFi, &lPrtId, const_cast<TB_DESCR*>(g_db_psbob->GetTB("faultinfo")), sizeof(PSBOB::FI)) > 0)
-								{
-									strDevTable = "FI";
-									strDevDescr = string(misFi.name) + "¹ÊÕÏĞÅºÅ";
-								}
-								else
-								{
-									strDevTable = "Î´ÄÜÊ¶±ğµÄ¹ÊÕÏĞÅºÅ";
-								}
-								
-								//½«Â©±¨ĞÅºÅĞ´ÈëÊµÊ±¿â
-								sprintf(sql, "INSERT into PMS_PARAM.FDIR_DEV_STATUS (FAULT_ID, DEV_ID, DEV_TABLE, DEV_STATUS, DEV_DESCR) VALUES (\'%s\', %ld, \'%s\', %d, \'%s\')",
-									it_map_fdir_task->second->task_data.fault.head.fault_id, lPrtId, strDevTable.c_str(), 0, strDevDescr.c_str());
-								ExecSQL(sql);
-							}
-
-							//»ñÈ¡ÊµÊ±¿âpsbobµÄ°æ±¾ºÅ
-							PSBOB::GLOBAL global = { 0 };
-							if (oodbread_rp(&global, 0, const_cast<TB_DESCR*>(g_db_psbob->GetTB("secinfo")), 1, sizeof(global)) <= 0)
-							{
-								TRACE("¶ÁÈ¡global¼ÇÂ¼Ê§°Ü\r\n");
-							}
-
-							//Ğ´¹ÊÕÏ¶¨Î»±í
-							int type = -1;		//¹ÊÕÏÀàĞÍ
-							switch (it_map_fdir_task->first->fault_type)
-							{
-							case FAULT_TYPE_NONE:
-								type = STATUS_FDIRECT_NONE;
-								break;
-
-							case FAULT_TYPE_SURE:
-								type = STATUS_FDIRECT_DIRECT_OK;
-								break;
-
-							case FAULT_TYPE_WINK:
-								type = STATUS_FDIRECT_WINK;
-								break;
-
-							case FAULT_TYPE_POSSIBLE:
-								type = STATUS_FDIRECT_POSSIBLE;
-								break;
-							case FAULT_TYPE_BUS:
-								type = STATUS_FDIRECT_DIRECT_OK;
-					           break;
-
-							default:
-								break;
-							}
-
-							//ÑîÓÂ 20141216 ĞŞ¸Ä¹ÊÕÏ»ã×Ü±íÊı¾İÀ´Ô´£¬½â¾ö½øÏß¿ª¹Ø¹ÊÕÏÍÆ²»µ½À¡ÏßÍ¼ºÍ²»ÄÜÍÆ»·ÍøÍ¼µÄÎÊÌâ
-							long lStId = 0;
-							long lDVId = 0;
-							std::string strDVDescr;
-							if (it->task_data.fault.fdir_r->lFaultStId > 0)
-							{
-								PSBOB::ST faultSt = {0};
-								lStId = it->task_data.fault.fdir_r->lFaultStId;
-								int iRet = oodbread_rk(&faultSt, &lStId, const_cast<TB_DESCR*>(g_db_psbob->GetTB("substation")), sizeof(PSBOB::ST));
-								if (iRet > 0)
-								{
-									lDVId = faultSt.subarea_id;
-									PSBOB::DV faultDV = {0};
-									iRet = oodbread_rk(&faultDV, &lDVId, const_cast<TB_DESCR*>(g_db_psbob->GetTB("subcontrolarea")),sizeof(PSBOB::DV));
-									if (iRet <= 0)
+									//¸ººÉµ¥µã¹ÊÕÏµÄ¹ÊÕÏÉè±¸Ö»ĞèĞ´Èë¸ººÉ×Ô¼º¶øÒÑ
+									if (it_map_fdir_task->first->b_ld_fault)
 									{
-										TRACE("ÔÚÇøÓò±íÖĞ²éÕÒ¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°ÜÀ²£¡\r\n", lDVId);
+										sprintf(sql, "INSERT INTO FDIR_FAULT_DEV (ID, DEV_ID, DEV_TABLE, EDGE, FLAG) VALUES (\'%s\', \'%ld\', \'%s\', %d, 1)",
+												it_map_fdir_task->second->task_data.fault.head.fault_id, head.eq_id, head.table.c_str(), 1);
+										ExecSQL(sql);
 									}
 									else
 									{
-										TRACE("²éÑ¯µ½µÄDVId£º%ld\r\n", faultDV.id);
-										strDVDescr = faultDV.name;
+										//¹ÊÕÏÇøÓòÉè±¸Ğ´ÈëÊı¾İ¿âÖĞ
+										write_fault_dev(it_map_fdir_task->second->task_data.fault.head.fault_id, table_name, it_map_fdir_task->first);
 									}
-								}
-							}
 
-							if (lStId > 0 && lDVId > 0)
-							{
-								TRACE("New DV!!!!!!!!!!!!!!\r\n");
-								sprintf(sql,
-									"Insert into PMS_PARAM.FDIR_FDIRECT%s (ID, GROUPID, FD, FD_DESCR, ZONE, ST_ID, CB_ID, STATUS, STARTTYPE, ZONE_CB, FAULT_AREA, RECV_POINT, ERR_POINT, MIS_POINT, type, MANUAL_RESTORE, STUDY_EQ, AUTO_DEAL,EXT_STATUS,JXCB,DB_VERSION) "
-									"Values (\'%s\'/*ID*/, \'%s\'/*GROUPID*/, \'%ld\'/*FD*/, \'%s\'/*FD_DESCR*/, \'%d\'/*ZONE*/, \'%ld\'/*ST_ID*/, \'%ld\'/*CB_ID*/, %d/*STATUS*/, %d/*STARTTYPE*/, \'%s\'/*ZONE_CB*/, \'%s\'/*FAULT_AREA*/, \'%s\'/*RECV_POINT*/, \'%s\'/*ERR_POINT*/, \'%s\'/*MIS_POINT*/, %d/*type*/, \'%s\'/*MANUAL_RESTORE*/, \'%ld\'/*STUDY_EQ*/,%d/*AUTO_DEAL*/,%d/*EXT_STATUS*/,%d/*JXCB*/,%d/*DB_VERSION*/)",
-									table_name, it_map_fdir_task->second->task_data.fault.head.fault_id, it_map_fdir_task->second->task_data.fault.head.group_id, lDVId, strDVDescr.c_str(),
-									it_map_fdir_task->first->getfaultzone(), lStId, fault_cb, version == VERSION_REALTIME ? type : 1, 0, lst_cb.c_str(), fault_area, str_point.c_str(),
-									str_err_point.c_str(), str_mis_point.c_str(), version == VERSION_REALTIME ? 0 : 1, manual_restore.c_str(), it_map_fdir_task->second->task_data.fault.point_name,
-									it->task_data.fault.bAuto == 2 ? 1 : 0, version == VERSION_REALTIME ? type : 1, it_map_fdir_task->first->getfaultjxcb(), global.sec_no);
-							}
-							else
-							{
-								sprintf(sql,
-									"Insert into PMS_PARAM.FDIR_FDIRECT%s (ID, GROUPID, FD, FD_DESCR, ZONE, ST_ID, CB_ID, STATUS, STARTTYPE, ZONE_CB, FAULT_AREA, RECV_POINT, ERR_POINT, MIS_POINT, type, MANUAL_RESTORE, STUDY_EQ, AUTO_DEAL,EXT_STATUS,JXCB,DB_VERSION) "
-									"Values (\'%s\'/*ID*/, \'%s\'/*GROUPID*/, \'%ld\'/*FD*/, \'%s\'/*FD_DESCR*/, \'%d\'/*ZONE*/, \'%ld\'/*ST_ID*/, \'%ld\'/*CB_ID*/, %d/*STATUS*/, %d/*STARTTYPE*/, \'%s\'/*ZONE_CB*/, \'%s\'/*FAULT_AREA*/, \'%s\'/*RECV_POINT*/, \'%s\'/*ERR_POINT*/, \'%s\'/*MIS_POINT*/, %d/*type*/, \'%s\'/*MANUAL_RESTORE*/, \'%ld\'/*STUDY_EQ*/,%d/*AUTO_DEAL*/,%d/*EXT_STATUS*/,%d/*JXCB*/,%d/*DB_VERSION*/)",
-									table_name, it_map_fdir_task->second->task_data.fault.head.fault_id, it_map_fdir_task->second->task_data.fault.head.group_id, dv.id, dv.name,
-									it_map_fdir_task->first->getfaultzone(), it->task_data.fault.st, fault_cb, version == VERSION_REALTIME ? type : 1, 0, lst_cb.c_str(), fault_area, str_point.c_str(),
-									str_err_point.c_str(), str_mis_point.c_str(), version == VERSION_REALTIME ? 0 : 1, manual_restore.c_str(), it_map_fdir_task->second->task_data.fault.point_name,
-									it->task_data.fault.bAuto == 2 ? 1 : 0, version == VERSION_REALTIME ? type : 1, it_map_fdir_task->first->getfaultjxcb(), global.sec_no);
-							}
-
-							ExecSQL(sql);
-
-							list<DEV_STATUS>::iterator it_dev;
-
-							for (it_dev = it_map_fdir_task->first->lst_warning.begin(); it_dev != it_map_fdir_task->first->lst_warning.end(); it_dev++)
-							{
-								sprintf(sql, "INSERT into PMS_PARAM.FDIR_DEV_STATUS (FAULT_ID, DEV_ID, DEV_TABLE, DEV_STATUS) VALUES (\'%s\', \'%ld\', \'%s\', %d)",
-										it_map_fdir_task->second->task_data.fault.head.fault_id, it_dev->id, it_dev->table.c_str(), it_dev->status);
-								ExecSQL(sql);
-							}
-
-							if (it_map_fdir_task->first->lst_dev.size() > 0)
-							{
-								for (it_dev = it_map_fdir_task->first->lst_dev.begin(); it_dev != it_map_fdir_task->first->lst_dev.end(); it_dev++)
-								{
-									sprintf(sql, "INSERT into PMS_PARAM.FDIR_DEV_STATUS (FAULT_ID, DEV_ID, DEV_TABLE, DEV_STATUS) VALUES (\'%s\', \'%ld\', \'%s\', %d)",
-											it_map_fdir_task->second->task_data.fault.head.fault_id, it_dev->id, it_dev->table.c_str(), it_dev->status);
-									ExecSQL(sql);
-								}
-							}
-						}
-						lst_group_ld.sort();
-						lst_group_ld.unique();
-						TRACE("lstÖĞ¸ººÉµÄ¸öÊıÊÇ£º%d\r\n", lst_group_ld.size());
-						//»Ö¸´·½°¸¼ÆËã³É¹¦£¬°Ñ»Ö¸´·½°¸¡¢¸ôÀë·½°¸¡¢¶¨Î»ĞÅÏ¢Ğ´Èë±íÖĞ
-						if (calc_ret == FDIR_R_SUCCEED)
-						{
-							for (map<FDIR_R2*, FDIR_TASK*>::iterator it_map_fdir_task = map_fdir_task.begin(); it_map_fdir_task != map_fdir_task.end(); it_map_fdir_task++)
-							{
-								//±£´æ¹ÊÕÏÀ¡Ïß¿ª¹ØĞÅÏ¢£¬×öÊı¾İĞ£ÑéÓÃ
-								write_fault_tree(it_map_fdir_task->second->task_data.fault.head.group_id, it_map_fdir_task->first);
-							}
-
-							//Ğ´¸ººÉ×ª¹©²½ÖèºÍ¸ººÉ×ª¹©Çø¶Î
-							write_fhzg_step(it->task_data.fault.head.group_id, table_name, lst_steps, map_fdir_task.begin()->first, lst_able_res, list<long>(), true);
-
-							for (map<FDIR_R2*, FDIR_TASK*>::iterator it_map_fdir_task_temp = map_fdir_task.begin(); it_map_fdir_task_temp != map_fdir_task.end(); it_map_fdir_task_temp++)
-							{
-								//Ğ´ÉÏÓÎ»Ö¸´ÇøÓòÉè±¸
-								write_fault_up_dev(it_map_fdir_task_temp->second->task_data.fault.head.fault_id, table_name, it_map_fdir_task_temp->first, false, lst_able_res);
-
-								//Ğ´¹ÊÕÏ¸ôÀë²½Öè±í
-								PSBOB::CB psbob_point = { 0 };
-								const TTable<CLS_FDIR_ISOLATE>* isolate = it_map_fdir_task_temp->first->getisolate();
-								int i = 0;
-								for (i = 0; i < isolate->GetCount(); i++)
-								{
-									int up_isolate = 0;
-									if (isolate->Data[i].q & FDIR_ISOLATE_NO_SO)
+									//½«¹ÊÕÏĞÅºÅ¡¢Îó±¨ĞÅºÅ ¡¢Â©±¨ĞÅºÅÆ´½Ó³É×Ö·û´®
+									string str_point, str_err_point, str_mis_point;
+									list<FAULT_ITEM>::iterator it_recv_point;
+									for (it_recv_point = it_map_fdir_task->first->lst_point.begin(); it_recv_point != it_map_fdir_task->first->lst_point.end(); it_recv_point++)
 									{
-										TRACE("¸ôÀë¿ª¹Ø%ldÏÂÓÎÎŞ¿É×ª¹©µçÔ´£¬²»¸ôÀë£¡\r\n", isolate->Data[i].cb);
-										continue; //ÏÂÓÎ²»¿É»Ö¸´µÄ¿ª¹Ø²»ĞèÒª¸ôÀë
+										char str_fault_item[100];
+										if (strcmp(it_recv_point->table.c_str(), "FI") == 0)
+										{
+											sprintf(str_fault_item, "%ld[%s]", it_recv_point->id, it_recv_point->table.c_str());
+										}
+										else
+										{
+											sprintf(str_fault_item, "%ld[%s]", it_recv_point->eq_id, it_recv_point->table.c_str());
+										}
+
+										str_point += str_fault_item;
+										str_point += ";";
 									}
-									if (isolate->Data[i].q & FDIR_ISOLATE_UP)
+
+									list<long>::iterator it_point;
+									char err_point[30];
+									char mis_point[30];
+									for (it_point = it_map_fdir_task->first->lst_err_point.begin(); it_point != it_map_fdir_task->first->lst_err_point.end(); it_point++)
 									{
-										up_isolate = 1;
+										sprintf(err_point, "%ld", *it_point);
+										str_err_point += err_point;
+										str_err_point += ";";
 									}
 
-									bzero(&psbob_point, sizeof(psbob_point));
-
-									if (oodbread_rk(&psbob_point, &isolate->Data[i].cb, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(psbob_point)) <= 0)
+									for (it_point = it_map_fdir_task->first->lst_mis_point.begin(); it_point != it_map_fdir_task->first->lst_mis_point.end(); it_point++)
 									{
-										TRACE("¶ÁÈ¡PSBOB¿âPOINT±íIDÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¬´íÎóºÅ£º%d\r\n", isolate->Data[i].cb, _oodb_errno);
+										sprintf(mis_point, "%ld", *it_point);
+										str_mis_point += mis_point;
+										str_mis_point += ";";
 									}
-									sprintf(sql,
-											"Insert into PMS_PARAM.FDIR_ISOLATE%s (ID, STEP, ICB, CB, CB_DESCR, IMODE, CTRL_TYPE, CONTROL, UP_ISOLATE) Values (\'%s\', %d, %d, \'%ld\', \'%s\', %d, 0, %d, %d)",
-											table_name, it_map_fdir_task_temp->second->task_data.fault.head.fault_id/*¹ÊÕÏ±êÊ¶·û*/, i/*¹ÊÕÏ¸ôÀëĞòºÅ*/, isolate->Data[i].icb/*ÒªÖ´ĞĞµÄ¿ª¹ØÂß¼­ºÅ*/,
-											isolate->Data[i].cb/*ÒªÖ´ĞĞµÄ¿ª¹Øid*/, isolate->Data[i].cb_desc/*ÒªÖ´ĞĞµÄ¿ª¹ØÃèÊö*/, it_map_fdir_task_temp->second->task_data.fault.bAuto == 1/*×Ô¶¯*/? 4 : 3,
-											is_controllable(psbob_point.id) ? 1 : 0, up_isolate);
-
-									ExecSQL(sql);
-								}
-							}
-
-
-							//Ğ´Ä£ÄâÌ¬¹ÊÕÏĞÅºÅ±í
-							TRACE("Ğ´Èë¹ÊÕÏÄ£Äâ¹ØÏµ¿â£¡\r\n");
-							if ((it->task_data.fault.signal_type) == TRIG_TYPE_SIMU)
-							{
-								sprintf(sql, "UPDATE PMS_PARAM.FDIR_SIG_SUMMARY SET RUN_TIME=(SELECT RUN_TIME FROM PMS_PARAM.FDIR_SIG_SUMMARY WHERE ID=\'%s\')+1, FAULT_INDEX=(SELECT RUN_TIME FROM PMS_PARAM.FDIR_SIG_SUMMARY WHERE ID=\'%s\')+1 WHERE ID=\'%s\' ", 
-									it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.simu_plan_id.c_str());
-								ExecSQL(sql);
-
-								sprintf(sql, "SELECT ID FROM PMS_PARAM.FDIR_SIG_FAULT WHERE ID LIKE \'%s\'", 
-									it->task_data.fault.simu_plan_id.c_str());
-								char *buf = NULL;
-								int rec_num, attr_num;
-								struct ORA_ATTR *attrs = NULL;
-								pthread_mutex_lock(&oci_mutex);
-								int ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
-								pthread_mutex_unlock(&oci_mutex);
-								if (ret != OCI_ERROR)
-								{
-									if (rec_num == 0)
-									{
-										sprintf(sql, "INSERT INTO PMS_PARAM.FDIR_SIG_FAULT(ID, FAULT_INDEX, FAULT_ID)VALUES(\'%s\', 0, \'%s\')",
-											it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.head.fault_id);
-										ExecSQL(sql);
-									}
-								}
-
-								g_oci->Readdata_Free();
-
-								sprintf(sql, "INSERT INTO PMS_PARAM.FDIR_SIG_FAULT(ID, FAULT_INDEX, FAULT_ID)VALUES(\'%s\', (select max(FAULT_INDEX) from pms_param.fdir_sig_fault where id like \'%s%\')+1, \'%s\')", 
-									it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.head.fault_id);
-								ExecSQL(sql);
-								
-								g_is_write_to_lib = true;
-								pthread_mutex_unlock(&simu_sync_mutex);
-							}
-						}
-						else if (calc_ret == FDIR_FAIL_RESTORE) //»Ö¸´·½°¸¼ÆËãÊ§°Ü£¬°Ñ¸ôÀëºÍ¶¨Î»ĞÅÏ¢Ğ´Èë±íÖĞ
-						{
-							for (map<FDIR_R2*, FDIR_TASK*>::iterator it_map_fdir_task = map_fdir_task.begin(); it_map_fdir_task != map_fdir_task.end(); it_map_fdir_task++)
-							{
-								//Ğ´ÉÏÓÎ»Ö¸´Çø¶Î±í
-								//»ñÈ¡ÉÏÓÎÒª»Ö¸´µÄÇø¶ÎºÅ
-								write_fault_up_dev(it_map_fdir_task->second->task_data.fault.head.fault_id, table_name, it_map_fdir_task->first, false, lst_able_res);
-
-								//Ğ´¹ÊÕÏ¸ôÀë²½Öè±í
-								PSBOB::CB psbob_point = { 0 };
-								const TTable<CLS_FDIR_ISOLATE>* isolate = it_map_fdir_task->first->getisolate();
-								int i = 0;
-								for (i = 0; i < isolate->GetCount(); i++)
-								{
-									int up_isolate = 0;
-									if (isolate->Data[i].q & FDIR_ISOLATE_NO_SO)
-									{
-										TRACE("¸ôÀë¿ª¹Ø%ldÏÂÓÎÎŞ¿É×ª¹©µçÔ´£¬²»¸ôÀë£¡\r\n", isolate->Data[i].cb);
-										continue; //ÏÂÓÎ²»¿É»Ö¸´µÄ¿ª¹Ø²»ĞèÒª¸ôÀë
-									}
-									if (isolate->Data[i].q & FDIR_ISOLATE_UP)
-									{
-										up_isolate = 1;
-									}
-
-									bzero(&psbob_point, sizeof(psbob_point));
-
-									if (oodbread_rk(&psbob_point, &isolate->Data[i].cb, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(psbob_point)) <= 0)
-									{
-										TRACE("¶ÁÈ¡PSBOB¿âPOINT±íIDÎª%ldµÄ¼ÇÂ¼Ê§°Ü\r\n", isolate->Data[i].cb);
-									}
-									sprintf(sql,
-											"Insert into PMS_PARAM.FDIR_ISOLATE%s (ID, STEP, ICB, CB, CB_DESCR, IMODE, CTRL_TYPE, CONTROL, UP_ISOLATE) Values (\'%s\', %d, %d, \'%ld\', \'%s\', %d, 0, %d, %d)",
-											table_name, it_map_fdir_task->second->task_data.fault.head.fault_id/*¹ÊÕÏ±êÊ¶·û*/, i/*¹ÊÕÏ¸ôÀëĞòºÅ*/, isolate->Data[i].icb/*ÒªÖ´ĞĞµÄ¿ª¹ØÂß¼­ºÅ*/,
-											isolate->Data[i].cb/*ÒªÖ´ĞĞµÄ¿ª¹Øid*/, isolate->Data[i].cb_desc/*ÒªÖ´ĞĞµÄ¿ª¹ØÃèÊö*/, it_map_fdir_task->second->task_data.fault.bAuto == 1/*×Ô¶¯*/? 4 : 3,
-											is_controllable(psbob_point.id) ? 1 : 0, up_isolate);
-
-									ExecSQL(sql);
-								}
-							}
-						}
-						else if (calc_ret == FDIR_FAIL_ISOLATE) //¹ÊÕÏ¶¨Î»³É¹¦ºó¼ÆËã¸ôÀë·½°¸Ê§°Ü,°Ñ¶¨Î»ĞÅÏ¢Ğ´Èë±íÖĞ
-						{
-
-						}
-
-						//×îĞ¡Í£µç»Ö¸´·½°¸¼ÆËã³É¹¦£¬°Ñ»Ö¸´·½°¸¡¢¸ôÀë·½°¸¡¢¶¨Î»ĞÅÏ¢Ğ´Èë±íÖĞ
-						if (calc_ret2 == FDIR_R_SUCCEED)
-						{
-							//Ğ´¸ººÉ×ª¹©²½ÖèºÍ¸ººÉ×ª¹©Çø¶Î
-							write_fhzg_step(it->task_data.fault.head.group_id, table_name, lst_steps2, map_fdir_task.begin()->first, lst_able_res, list<long>(), false);
-
-							for (map<FDIR_R2*, FDIR_TASK*>::iterator it_map_fdir_task_temp = map_fdir_task.begin(); it_map_fdir_task_temp != map_fdir_task.end(); it_map_fdir_task_temp++)
-							{
-								//Ğ´ÉÏÓÎ»Ö¸´ÇøÓòÉè±¸
-//								write_fault_up_dev(it_map_fdir_task_temp->second->task_data.fault.head.fault_id, table_name, it_map_fdir_task_temp->first, false, lst_able_res);
-
-								//Ğ´¹ÊÕÏ¸ôÀë²½Öè±í
-								PSBOB::CB psbob_point = { 0 };
-								const TTable<CLS_FDIR_ISOLATE>* isolate = it_map_fdir_task_temp->first->getisolate2();
-								int i = 0;
-								for (i = 0; i < isolate->GetCount(); i++)
-								{
-									int up_isolate = 0;
-									if (isolate->Data[i].q & FDIR_ISOLATE_NO_SO)
-									{
-										TRACE("¸ôÀë¿ª¹Ø%ldÏÂÓÎÎŞ¿É×ª¹©µçÔ´£¬²»¸ôÀë£¡\r\n", isolate->Data[i].cb);
-										continue; //ÏÂÓÎ²»¿É»Ö¸´µÄ¿ª¹Ø²»ĞèÒª¸ôÀë
-									}
-									if (isolate->Data[i].q & FDIR_ISOLATE_UP)
-									{
-										up_isolate = 1;
-									}
-
-									bzero(&psbob_point, sizeof(psbob_point));
-
-									if (oodbread_rk(&psbob_point, &isolate->Data[i].cb, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(psbob_point)) <= 0)
-									{
-										TRACE("¶ÁÈ¡PSBOB¿âPOINT±íIDÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¬´íÎóºÅ£º%d\r\n", isolate->Data[i].cb, _oodb_errno);
-									}
-									sprintf(sql,
-											"Insert into PMS_PARAM.FDIR_ISOLATE%s (ID, STEP, ICB, CB, CB_DESCR, IMODE, CTRL_TYPE, CONTROL, UP_ISOLATE) Values (\'%s\', %d, %d, \'%ld\', \'%s\', %d, 1, %d, %d)",
-											table_name, it_map_fdir_task_temp->second->task_data.fault.head.fault_id/*¹ÊÕÏ±êÊ¶·û*/, i/*¹ÊÕÏ¸ôÀëĞòºÅ*/, isolate->Data[i].icb/*ÒªÖ´ĞĞµÄ¿ª¹ØÂß¼­ºÅ*/,
-											isolate->Data[i].cb/*ÒªÖ´ĞĞµÄ¿ª¹Øid*/, isolate->Data[i].cb_desc/*ÒªÖ´ĞĞµÄ¿ª¹ØÃèÊö*/, it_map_fdir_task_temp->second->task_data.fault.bAuto == 1/*×Ô¶¯*/? 4 : 3,
-											is_controllable(psbob_point.id) ? 1 : 0, up_isolate);
-
-									ExecSQL(sql);
-								}
-							}
-						}
-						else if (calc_ret2 == FDIR_FAIL_RESTORE) //»Ö¸´·½°¸¼ÆËãÊ§°Ü£¬°Ñ¸ôÀëºÍ¶¨Î»ĞÅÏ¢Ğ´Èë±íÖĞ
-						{
-							for (map<FDIR_R2*, FDIR_TASK*>::iterator it_map_fdir_task = map_fdir_task.begin(); it_map_fdir_task != map_fdir_task.end(); it_map_fdir_task++)
-							{
-								//Ğ´ÉÏÓÎ»Ö¸´Çø¶Î±í
-								//»ñÈ¡ÉÏÓÎÒª»Ö¸´µÄÇø¶ÎºÅ
-//								write_fault_up_dev(it_map_fdir_task->second->task_data.fault.head.fault_id, table_name, it_map_fdir_task->first, false, lst_able_res);
-
-								//Ğ´¹ÊÕÏ¸ôÀë²½Öè±í
-								PSBOB::CB psbob_point = { 0 };
-								const TTable<CLS_FDIR_ISOLATE>* isolate = it_map_fdir_task->first->getisolate2();
-								int i = 0;
-								for (i = 0; i < isolate->GetCount(); i++)
-								{
-									int up_isolate = 0;
-									if (isolate->Data[i].q & FDIR_ISOLATE_NO_SO)
-									{
-										TRACE("¸ôÀë¿ª¹Ø%ldÏÂÓÎÎŞ¿É×ª¹©µçÔ´£¬²»¸ôÀë£¡\r\n", isolate->Data[i].cb);
-										continue; //ÏÂÓÎ²»¿É»Ö¸´µÄ¿ª¹Ø²»ĞèÒª¸ôÀë
-									}
-									if (isolate->Data[i].q & FDIR_ISOLATE_UP)
-									{
-										up_isolate = 1;
-									}
-
-									bzero(&psbob_point, sizeof(psbob_point));
-
-									if (oodbread_rk(&psbob_point, &isolate->Data[i].cb, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(psbob_point)) <= 0)
-									{
-										TRACE("¶ÁÈ¡PSBOB¿âPOINT±íIDÎª%ldµÄ¼ÇÂ¼Ê§°Ü\r\n", isolate->Data[i].cb);
-									}
-									sprintf(sql,
-											"Insert into PMS_PARAM.FDIR_ISOLATE%s (ID, STEP, ICB, CB, CB_DESCR, IMODE, CTRL_TYPE, CONTROL, UP_ISOLATE) Values (\'%s\', %d, %d, \'%ld\', \'%s\', %d, 1, %d, %d)",
-											table_name, it_map_fdir_task->second->task_data.fault.head.fault_id/*¹ÊÕÏ±êÊ¶·û*/, i/*¹ÊÕÏ¸ôÀëĞòºÅ*/, isolate->Data[i].icb/*ÒªÖ´ĞĞµÄ¿ª¹ØÂß¼­ºÅ*/,
-											isolate->Data[i].cb/*ÒªÖ´ĞĞµÄ¿ª¹Øid*/, isolate->Data[i].cb_desc/*ÒªÖ´ĞĞµÄ¿ª¹ØÃèÊö*/, it_map_fdir_task->second->task_data.fault.bAuto == 1/*×Ô¶¯*/? 4 : 3,
-											is_controllable(psbob_point.id) ? 1 : 0, up_isolate);
-
-									ExecSQL(sql);
-								}
-							}
-						}
-						else if (calc_ret == FDIR_FAIL_ISOLATE) //¹ÊÕÏ¶¨Î»³É¹¦ºó¼ÆËã¸ôÀë·½°¸Ê§°Ü,°Ñ¶¨Î»ĞÅÏ¢Ğ´Èë±íÖĞ
-						{
-
-						}
-
-						lst_able_res.sort();
-						lst_able_res.unique();
-						EraseSameInfo(lst_group_ld, lst_able_res);
-						//Ğ´Èë¹ÊÕÏºó¿É»Ö¸´µÄ¸ººÉºÍ²»¿É»Ö¸´µÄ¸ººÉ
-						write_res_and_disableres_ld(it->task_data.fault.head.group_id, lst_group_ld, lst_able_res);
-
-						delete table_name;
-						for (map<FDIR_R2*, FDIR_TASK*>::iterator it_fdir_task = map_fdir_task.begin(); it_fdir_task != map_fdir_task.end(); it_fdir_task++)
-						{
-							it_fdir_task->second->task_data.fault.next_step = TASK_FAULT_STATUS_ISO;
-						}
-
-						//ÏòÈË»ú·¢ËÍ¹ÊÕÏ¸ôÀë»Ö¸´ÊÂ¼ş
-						if (it->task_data.fault.bAuto == 0)
-						{
-							if (version == VERSION_REALTIME)
-							{
-								//D5000ÏòÈË»ú·¢ËÍ¹ÊÕÏ¸ôÀë»Ö¸´ÊÂ¼ş
-								Notify(it->task_data.fault.head.group_id, it->task_data.fault.dv, it->task_data.fault.st);
-//								FDIR_MSG_ISO_REC fdata = { 0 };
-//
-//								strcpy(fdata.fault_id, it->task_data.fault.head.group_id);
-//								strcpy(fdata.st_id, "INSERT");
-//
-//								printf("send_event(%d) group_id:%s,return %d\r\n", EVPS_FDIR_MSG_ISO_REC, fdata.fault_id, bob_inv->send_event(EVPS_FDIR_MSG_ISO_REC, (char *) &fdata, sizeof(fdata)));
-
-								//¼ÆËãÍê³Éºó°Ñ¹ÊÕÏ´ÓÈÎÎñÁĞ±íµÄÄÚ´æÖĞÉ¾³ı£¬ÔÚÖ´ĞĞµÄÊ±ºòÔÙ°ÑÄÚ´æÊı¾İ»Ö¸´
-								//ÔÊĞí³¬Ê±×ª×Ô¶¯µÄÇé¿öµÃ±£Áô¹ÊÕÏÔÚÄÚ´æÖĞ£¬·ñÔòÎŞ·¨ÅĞ¶ÏÊÇ·ñ³¬Ê±
-								if (!g_FdirConfig.USER2AUTO)
-								{
-									RemoveTasks(it->task_data.fault.head.group_id);
-									it = g_lstTask.begin();
-								}
-							}
-							//ÑĞ¾¿Ì¬Ê±Ğ´Íê¿â£¬ÔÚ½ÓÊÕ±¨ÎÄµÄµØ·½ÊÍ·ÅÄÚ´æ£¬ÎªÁË¸üĞÂÄ£Äâ¹ÊÕÏ»úÆ÷Ãû
-							else if (version == VERSION_STUDY)
-							{
-							}
-
-						}
-						else
-						{
-							if (g_FdirConfig.AUTO_DEAL_HIS == 0)
-							{
-								FormFdirStep(it->task_data.fault.head.group_id);
-
-								list<CB_CONTROL> lst_cb;
-								if (GetLeftStep(it->task_data.fault.head.group_id, lst_cb) > 0)
-								{
-									AddControlItem(it->task_data.fault.head.group_id, lst_cb.begin()->point_id, lst_cb.begin()->bOpen, lst_cb.begin()->stage);
-								}
-							}
-							else //×Ô¶¯¹éµµ
-							{
-
-							}
-						}						
-
-						break;
-					}
-
-
-					case TASK_FAULT_STATUS_RE_CALC:
-					{
-
-						FDIR_TASK_LIST::iterator itTemp;
-						list<FDIR_R2*> lst_fdir_r2;
-						map<FDIR_R2*, FDIR_TASK*> map_fdir_task;
-
-						TRACE("¿ªÊ¼¼ÆËã×éºÅÎª%sµÄ²Ù×÷·½°¸£¬¸Ã×éµÄ¹ÊÕÏÓĞ£º\r\n", it->task_data.fault.head.group_id);
-
-						for (itTemp = g_lstTask.begin(); itTemp != g_lstTask.end(); itTemp++)
-						{
-							if (itTemp->rq_type != TASK_TYPE_FAULT)
-								continue;
-
-							if (strcmp(itTemp->task_data.fault.head.group_id, it->task_data.fault.head.group_id) == 0)
-							{
-								lst_fdir_r2.push_back(itTemp->task_data.fault.fdir_r);
-								map_fdir_task[itTemp->task_data.fault.fdir_r] = &(*itTemp);
-
-								itTemp->task_data.fault.next_step = TASK_FAULT_STATUS_CALC_STEP;
-
-								//ºóÌ¨×Ô¶¯Ö´ĞĞÊ§°Üºó×ªÎªÇ°Ì¨ÈË¹¤Ö´ĞĞ
-								itTemp->task_data.fault.bAuto = 0;
-								cout << it->task_data.fault.head.group_id << "->" << itTemp->task_data.fault.head.fault_id << endl;
-							}
-						}
-
-						list<list<MAP_SO_NODE> > lst_steps;
-
-						//ÅĞ¶ÏÖ´ĞĞÊ§°ÜµÄ¿ª¹ØÊÇ·ñÊÇÉÏÓÎ¸ôÀë¿ª¹Ø£¬Èç¹ûÊÇÉÏÓÎ¸ôÀë¿ª¹Ø£¬ÉÏÓÎ»Ö¸´ÇøÓòÊ§Ğ§
-						bool up_iso_fail = false;
-						const TTable<CLS_FDIR_ISOLATE>* old_isolate = it->task_data.fault.fdir_r->getisolate();
-
-						for (int i = 0; i < old_isolate->GetCount(); i++)
-						{
-							if (old_isolate->Data[i].q & FDIR_ISOLATE_UP)
-							{
-								if (old_isolate->Data[i].cb == it->task_data.fault.fail_point)
-								{
-									up_iso_fail = true;
-								}
-							}
-						}
-
-						////¹ÊÕÏ×éÖĞÓÉÓÚ¸ôÀë»òÕßÌøÕ¢µ¼ÖÂÊ§µçµÄ¸ººÉ£¬×îÖÕ±£´æ·Ç¹ÊÕÏ²»¿É»Ö¸´µÄ¸ººÉ
-						list<FAULT_ITEM> re_lst_group_ld;
-						////¹ÊÕÏ×éÖĞÓÉÓÚ¸ôÀë»òÕßÌøÕ¢µ¼ÖÂÊ§µç£¬´æÔÚ»Ö¸´·½°¸£¬¿ÉÒÔ»Ö¸´µÄ¸ººÉ
-						list<FAULT_ITEM> re_lst_able_res;
-						it->task_data.fault.fdir_r->Init();
-						if (re_calc_restore_step(it->task_data.fault.head.group_id, lst_fdir_r2, lst_steps) == FDIR_R_SUCCEED)
-						{
-							//É¾³ı¾ÉµÄ»Ö¸´·½°¸
-							sprintf(sql, "DELETE FROM FHZG_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							sprintf(sql, "DELETE FROM FHZG_SO_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							sprintf(sql, "DELETE FROM FHZG_STEP WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							sprintf(sql, "DELETE FROM FHZG_SO WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							sprintf(sql, "DELETE FROM FHZG_CUT_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							sprintf(sql, "DELETE FROM FHZG_LOAD WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							sprintf(sql, "DELETE FROM FHZG_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							sprintf(sql, "UPDATE FDIR_FDIRECT SET USERID=NULL,MACHINE=NULL WHERE GROUPID=\'%s\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							//É¾³ıÑ¡¶¨µÄÖ´ĞĞ·½°¸ÖĞÎ´Ö´ĞĞµÄ²½Öè
-							sprintf(sql, "DELETE FROM FDIR_STEP WHERE ID=\'%s\' AND STATUS=%d", it->task_data.fault.head.group_id, STATUS_FDIR_STEP_WAIT);
-							ExecSQL(sql);
-
-							sprintf(sql, "DELETE FROM FDIR_CB_STATUS WHERE ID=\'%s\' AND ISFAULTDV=0", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							sprintf(sql, "DELETE FROM FDIR_DISABLE_RES WHERE ID=\'%s\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							sprintf(sql, "DELETE FROM FDIR_ENABLE_RES WHERE ID=\'%s\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-							//string fault_cb = it->task_data.fault.fdir_r->getfaultcb();
-
-							for (map<FDIR_R2*, FDIR_TASK*>::iterator it_fdir_r = map_fdir_task.begin(); it_fdir_r != map_fdir_task.end(); it_fdir_r++)
-							{
-								re_lst_group_ld.splice(re_lst_group_ld.end(), it_fdir_r->first->m_ld);
-								if (up_iso_fail)
-								{
-									sprintf(sql, "DELETE FROM FDIR_UP_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
-									ExecSQL(sql);
 
 									string manual_restore;
 
-									for (list<long>::iterator it_point = it_fdir_r->second->task_data.fault.fdir_r->lst_restore.begin();
-											it_point != it_fdir_r->second->task_data.fault.fdir_r->lst_restore.end(); it_point++)
+									for (it_point = it_map_fdir_task->first->lst_restore.begin(); it_point != it_map_fdir_task->first->lst_restore.end(); it_point++)
 									{
+										char sz_manual_point[30];
+
+										sprintf(sz_manual_point, "%ld", *it_point);
 										PSBOB::CB point = { 0 };
-
-										char tmp[50];
-
-										sprintf(tmp, "%ld", *it_point);
-
-										manual_restore += tmp;
+										manual_restore += sz_manual_point;
 
 										if (is_controllable(*it_point))
 											manual_restore += "[0];";
@@ -5252,341 +4670,923 @@ void thread_process(void *param)
 											manual_restore += ";";
 									}
 
-									//¸üĞÂÉÏÓÎ¿ª¹Ø
-									sprintf(sql, "update FDIR_FDIRECT set MANUAL_RESTORE = \'%s\' where id = \'%s\'", manual_restore.c_str(), it_fdir_r->second->task_data.fault.head.fault_id);
-									ExecSQL(sql);
+									//Î÷ÄşÅäÍøÖ±½Ó½«¹ÊÕÏÇø¶Î¿ª¹Ø×ª»¯Îªfault_area
+									fault_area[0] = 0;
 
-									//have_up_iso±êÖ¾¹ÊÕÏÇøÓòÊÇ·ñÓĞÉÏÓÎ¸ôÀë¿ª¹Ø£¬Èç¹ûÃ»ÉÏÓÎ¸ôÀë£¬ÔòÉÏÓÎÃ»ÓĞ¿ÉÒÔ»Ö¸´µÄÇøÓò
-									bool have_up_iso = false;
-									const TTable<CLS_FDIR_ISOLATE>* new_isolate = it_fdir_r->first->getisolate();
+									long fault_cb = it_map_fdir_task->first->getfaultcb();
 
-									for (int i = 0; i < new_isolate->GetCount(); i++)
+									sprintf(fault_area, "%ld[%s]", head.eq_id, head.table.c_str());
+
+									for (list<FAULT_ITEM>::iterator it_tail = tail.begin(); it_tail != tail.end(); it_tail++)
 									{
-										if (new_isolate->Data[i].q & FDIR_ISOLATE_UP)
+										char tmp[256] = { 0 };
+										sprintf(tmp, ";%ld[%s]", it_tail->eq_id, it_tail->table.c_str());
+										strcat(fault_area, tmp);
+									}
+
+									//Ğ´¹ÊÕÏĞÅºÅ±í
+									TRACE("Ğ´¹ÊÕÏĞÅºÅ±í£¡\r\n");
+									int pos = 0;
+									for (FDIR_POINT_TRIG_LIST::iterator it_trig_list = it_map_fdir_task->second->task_data.fault.trig_list.begin();
+										 it_trig_list != it_map_fdir_task->second->task_data.fault.trig_list.end(); it_trig_list++, pos++)
+									{
+										sprintf(sql, "INSERT INTO PMS_PARAM.FDIR_ALARM (ID, TM_ADD, OCCUR_TIME, MSEC, KEY_ID, NAME, ST_ID, TYPE, STATUS) VALUES (\'%s\', %ld, %ld, %d, %ld, \'%s\', %ld, %d, %d)", it_map_fdir_task->second->task_data.fault.head.fault_id
+												,it_trig_list->tm_add.tv_sec, it_trig_list->alarm.occur_time, it_trig_list->alarm.msec, it_trig_list->alarm.key_id, it_trig_list->alarm.name.c_str(), it_trig_list->alarm.st_id, it_trig_list->alarm.type, it_trig_list->alarm.status);
+
+										ExecSQL(sql);
+									}
+
+									//Ğ´²»ÄÜ¸ôÀë¡¢²»ÄÜÌøÕ¢¡¢ÀÏÊı¾İµÈ¿ª¹Ø
+									TRACE("Ğ´²»ÄÜ¸ôÀë¡¢²»ÄÜÌøÕ¢¡¢ÀÏÊı¾İµÈ¿ª¹Ø£¡\r\n");
+									for (list<FDIR_CB_INFO>::iterator it_cb_info = it_map_fdir_task->first->lst_cb_info.begin(); it_cb_info != it_map_fdir_task->first->lst_cb_info.end(); it_cb_info++)
+									{
+										sprintf(sql,
+												"INSERT INTO PMS_PARAM.FDIR_CB_INFO(ID, CB_ID, CB_DESCR, PT_ID, CB_Q, CB_STATUS, PT_CONTROL, PT_TIMEXC, PT_QUALITY, TYPE) VALUES(\'%s\', \'%ld\', \'%s\', \'%ld\', %d, %d, %d, %d, %d, %d)",
+												it_map_fdir_task->second->task_data.fault.head.fault_id, it_cb_info->cb_id, it_cb_info->cb_descr, it_cb_info->pt_id, it_cb_info->cb_q, it_cb_info->cb_status,
+												it_cb_info->pt_control, it_cb_info->pt_timexc, it_cb_info->pt_quality, (int) it_cb_info->reason);
+
+										ExecSQL(sql);
+									}
+
+									//×¨¼ÒÒâ¼û£¬ÓĞÂ©±¨¹ÊÕÏĞÅºÅµÄ¹ÊÕÏÓÉĞèÒªÓÉ×Ô¶¯´¦Àí×ªÎªÊÖ¶¯´¦Àí
+									if(it_map_fdir_task->first->lst_mis_point.size() > 0)
+									{
+										it_map_fdir_task->second->task_data.fault.bAuto = 0;
+									}
+
+									//½«Â©±¨ĞÅÏ¢Ğ´Èë¹ØÏµ¿âPMS_PARAM.FDIR_DEV_STATUS±íÖĞ£¬DEV_STATUS×Ö¶ÎÎª0Ê±ÎªÂ©±¨
+									for (it_point = it_map_fdir_task->first->lst_mis_point.begin(); it_point != it_map_fdir_task->first->lst_mis_point.end(); it_point++)
+									{
+										long lPrtId = *it_point;
+										string strDevTable;
+										string strDevDescr;
+										PSBOB::CB misCb;
+										PSBOB::FI misFi;
+										if (oodbread_rk(&misCb, &lPrtId, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(PSBOB::CB)) > 0)
 										{
-											have_up_iso = true;
+											strDevTable = "CB";
+											std::string strCb = string(misCb.name);
+											strDevDescr = strCb.append(string("¹ÊÕÏĞÅºÅ"));
+										}
+										else if(oodbread_rk(&misFi, &lPrtId, const_cast<TB_DESCR*>(g_db_psbob->GetTB("faultinfo")), sizeof(PSBOB::FI)) > 0)
+										{
+											strDevTable = "FI";
+											strDevDescr = string(misFi.name) + "¹ÊÕÏĞÅºÅ";
+										}
+										else
+										{
+											strDevTable = "Î´ÄÜÊ¶±ğµÄ¹ÊÕÏĞÅºÅ";
+										}
+
+										//½«Â©±¨ĞÅºÅĞ´ÈëÊµÊ±¿â
+										sprintf(sql, "INSERT into PMS_PARAM.FDIR_DEV_STATUS (FAULT_ID, DEV_ID, DEV_TABLE, DEV_STATUS, DEV_DESCR) VALUES (\'%s\', %ld, \'%s\', %d, \'%s\')",
+												it_map_fdir_task->second->task_data.fault.head.fault_id, lPrtId, strDevTable.c_str(), 0, strDevDescr.c_str());
+										ExecSQL(sql);
+									}
+
+									//»ñÈ¡ÊµÊ±¿âpsbobµÄ°æ±¾ºÅ
+									PSBOB::GLOBAL global = { 0 };
+									if (oodbread_rp(&global, 0, const_cast<TB_DESCR*>(g_db_psbob->GetTB("secinfo")), 1, sizeof(global)) <= 0)
+									{
+										TRACE("¶ÁÈ¡global¼ÇÂ¼Ê§°Ü\r\n");
+									}
+
+									//Ğ´¹ÊÕÏ¶¨Î»±í
+									int type = -1;		//¹ÊÕÏÀàĞÍ
+									switch (it_map_fdir_task->first->fault_type)
+									{
+										case FAULT_TYPE_NONE:
+											type = STATUS_FDIRECT_NONE;
+											break;
+
+										case FAULT_TYPE_SURE:
+											type = STATUS_FDIRECT_DIRECT_OK;
+											break;
+
+										case FAULT_TYPE_WINK:
+											type = STATUS_FDIRECT_WINK;
+											break;
+
+										case FAULT_TYPE_POSSIBLE:
+											type = STATUS_FDIRECT_POSSIBLE;
+											break;
+										case FAULT_TYPE_BUS:
+											type = STATUS_FDIRECT_DIRECT_OK;
+											break;
+
+										default:
+											break;
+									}
+
+									//ÑîÓÂ 20141216 ĞŞ¸Ä¹ÊÕÏ»ã×Ü±íÊı¾İÀ´Ô´£¬½â¾ö½øÏß¿ª¹Ø¹ÊÕÏÍÆ²»µ½À¡ÏßÍ¼ºÍ²»ÄÜÍÆ»·ÍøÍ¼µÄÎÊÌâ
+									long lStId = 0;
+									long lDVId = 0;
+									std::string strDVDescr;
+									if (it->task_data.fault.fdir_r->lFaultStId > 0)
+									{
+										PSBOB::ST faultSt = {0};
+										lStId = it->task_data.fault.fdir_r->lFaultStId;
+										int iRet = oodbread_rk(&faultSt, &lStId, const_cast<TB_DESCR*>(g_db_psbob->GetTB("substation")), sizeof(PSBOB::ST));
+										if (iRet > 0)
+										{
+											lDVId = faultSt.subarea_id;
+											PSBOB::DV faultDV = {0};
+											iRet = oodbread_rk(&faultDV, &lDVId, const_cast<TB_DESCR*>(g_db_psbob->GetTB("subcontrolarea")),sizeof(PSBOB::DV));
+											if (iRet <= 0)
+											{
+												TRACE("ÔÚÇøÓò±íÖĞ²éÕÒ¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°ÜÀ²£¡\r\n", lDVId);
+											}
+											else
+											{
+												TRACE("²éÑ¯µ½µÄDVId£º%ld\r\n", faultDV.id);
+												strDVDescr = faultDV.name;
+											}
 										}
 									}
-									if (have_up_iso)
+
+									if (lStId > 0 && lDVId > 0)
 									{
-										write_fault_up_dev(it->task_data.fault.head.group_id, "", it_fdir_r->first, true, re_lst_able_res);
+										TRACE("New DV!!!!!!!!!!!!!!\r\n");
+										sprintf(sql,
+												"Insert into PMS_PARAM.FDIR_FDIRECT%s (ID, GROUPID, FD, FD_DESCR, ZONE, ST_ID, CB_ID, STATUS, STARTTYPE, ZONE_CB, FAULT_AREA, RECV_POINT, ERR_POINT, MIS_POINT, type, MANUAL_RESTORE, STUDY_EQ, AUTO_DEAL,EXT_STATUS,JXCB,DB_VERSION) "
+														"Values (\'%s\'/*ID*/, \'%s\'/*GROUPID*/, \'%ld\'/*FD*/, \'%s\'/*FD_DESCR*/, \'%d\'/*ZONE*/, \'%ld\'/*ST_ID*/, \'%ld\'/*CB_ID*/, %d/*STATUS*/, %d/*STARTTYPE*/, \'%s\'/*ZONE_CB*/, \'%s\'/*FAULT_AREA*/, \'%s\'/*RECV_POINT*/, \'%s\'/*ERR_POINT*/, \'%s\'/*MIS_POINT*/, %d/*type*/, \'%s\'/*MANUAL_RESTORE*/, \'%ld\'/*STUDY_EQ*/,%d/*AUTO_DEAL*/,%d/*EXT_STATUS*/,%d/*JXCB*/,%d/*DB_VERSION*/)",
+												table_name, it_map_fdir_task->second->task_data.fault.head.fault_id, it_map_fdir_task->second->task_data.fault.head.group_id, lDVId, strDVDescr.c_str(),
+												it_map_fdir_task->first->getfaultzone(), lStId, fault_cb, version == VERSION_REALTIME ? type : 1, 0, lst_cb.c_str(), fault_area, str_point.c_str(),
+												str_err_point.c_str(), str_mis_point.c_str(), version == VERSION_REALTIME ? 0 : 1, manual_restore.c_str(), it_map_fdir_task->second->task_data.fault.point_name,
+												it->task_data.fault.bAuto == 2 ? 1 : 0, version == VERSION_REALTIME ? type : 1, it_map_fdir_task->first->getfaultjxcb(), global.sec_no);
 									}
-								}
-							}
-							re_lst_group_ld.sort();
-							re_lst_group_ld.unique();
-
-							//Ğ´ÈëĞÂµÄ»Ö¸´·½°¸
-							write_fhzg_step(it->task_data.fault.head.group_id, "", lst_steps, map_fdir_task.begin()->first, re_lst_able_res, list<long>(), true);
-
-							EraseSameInfo(re_lst_group_ld, re_lst_able_res);
-							//Ğ´Èë¹ÊÕÏºó¿É»Ö¸´µÄ¸ººÉºÍ²»¿É»Ö¸´µÄ¸ººÉ
-							write_res_and_disableres_ld(it->task_data.fault.head.group_id, re_lst_group_ld, re_lst_able_res);
-							for (map<FDIR_R2*, FDIR_TASK*>::iterator it_map_fdir_task = map_fdir_task.begin(); it_map_fdir_task != map_fdir_task.end(); it_map_fdir_task++)
-							{
-								sprintf(sql, "DELETE FROM FDIR_ISOLATE WHERE ID=\'%s\' and STATUS in(%d,%d)  and ctrl_type=0", it_map_fdir_task->second->task_data.fault.head.fault_id, STATUS_ISOLATE_FAIL,
-										STATUS_ISOLATE_WAIT);
-								ExecSQL(sql);
-
-								sprintf(sql, "select count(cb) from fdir_isolate where id=\'%s\'", it_map_fdir_task->second->task_data.fault.head.fault_id);
-								char *buf = NULL;
-								int rec_num, attr_num;
-								struct ORA_ATTR *attrs = NULL;
-								int step_num = 0;
-
-								pthread_mutex_lock(&oci_mutex);
-								int ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
-								pthread_mutex_unlock(&oci_mutex);
-
-								if (ret != OCI_ERROR)
-								{
-									step_num = *(int*)(buf);
-								}
-								g_oci->Readdata_Free();
-								//Ğ´¹ÊÕÏ¸ôÀë²½Öè±í
-								PSBOB::CB psbob_point = { 0 };
-								const TTable<CLS_FDIR_ISOLATE>* isolate = it_map_fdir_task->first->getisolate();
-								int i = 0;
-								for (i = 0; i < isolate->GetCount(); i++)
-								{
-									int up_isolate = 0;
-									if (isolate->Data[i].q & FDIR_ISOLATE_NO_SO)
-									{
-										TRACE("¸ôÀë¿ª¹Ø%ldÏÂÓÎÎŞ¿É×ª¹©µçÔ´£¬²»¸ôÀë£¡\r\n", isolate->Data[i].cb);
-										continue; //ÏÂÓÎ²»¿É»Ö¸´µÄ¿ª¹Ø²»ĞèÒª¸ôÀë
-									}
-									if (isolate->Data[i].q & FDIR_ISOLATE_UP)
-									{
-										up_isolate = 1;
-									}
-									bzero(&psbob_point, sizeof(psbob_point));
-
-									if (oodbread_rk(&psbob_point, &isolate->Data[i].cb, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(psbob_point)) <= 0)
-									{
-										TRACE("¶ÁÈ¡PSBOB¿âPOINT±íIDÎª%ldµÄ¼ÇÂ¼Ê§°Ü\r\n", isolate->Data[i].cb);
-									}
-									sprintf(sql,
-											"Insert into PMS_PARAM.FDIR_ISOLATE (ID, STEP, ICB, CB, CB_DESCR, IMODE, CTRL_TYPE, CONTROL, UP_ISOLATE) Values (\'%s\', %d, %d, \'%ld\', \'%s\', %d, 0, %d, %d)",
-											it_map_fdir_task->second->task_data.fault.head.fault_id/*¹ÊÕÏ±êÊ¶·û*/, step_num + i/*¹ÊÕÏ¸ôÀëĞòºÅ*/, isolate->Data[i].icb/*ÒªÖ´ĞĞµÄ¿ª¹ØÂß¼­ºÅ*/,
-											isolate->Data[i].cb/*ÒªÖ´ĞĞµÄ¿ª¹Øid*/, isolate->Data[i].cb_desc/*ÒªÖ´ĞĞµÄ¿ª¹ØÃèÊö*/, it_map_fdir_task->second->task_data.fault.bAuto == 1/*×Ô¶¯*/? 4 : 3,
-											is_controllable(psbob_point.id) ? 1 : 0, up_isolate);
-
-									ExecSQL(sql);
-								}
-							}
-						}
-
-						//ÏòÈË»ú·¢ËÍ¹ÊÕÏ¸ôÀë»Ö¸´ÊÂ¼ş
-						if (it->task_data.fault.bAuto == 0)
-						{
-							if (version == VERSION_REALTIME)
-							{
-								//D5000ÏòÈË»ú·¢ËÍ¹ÊÕÏ¸ôÀë»Ö¸´ÊÂ¼ş
-								Notify(it->task_data.fault.head.group_id, it->task_data.fault.dv, it->task_data.fault.st);
-//								FDIR_MSG_ISO_REC fdata = { 0 };
-//
-//								strcpy(fdata.fault_id, it->task_data.fault.head.group_id);
-//								strcpy(fdata.st_id, "UPDATE");
-//
-//								printf("send_event(%d) group_id:%s,return %d\r\n", EVPS_FDIR_MSG_ISO_REC, fdata.fault_id, bob_inv->send_event(EVPS_FDIR_MSG_ISO_REC, (char *) &fdata, sizeof(fdata)));
-							}
-
-							//¼ÆËãÍê³Éºó°Ñ¹ÊÕÏ´ÓÈÎÎñÁĞ±íµÄÄÚ´æÖĞÉ¾³ı£¬ÔÚÖ´ĞĞµÄÊ±ºòÔÙ°ÑÄÚ´æÊı¾İ»Ö¸´
-							RemoveTasks(it->task_data.fault.head.group_id);
-							it = g_lstTask.begin();
-						}
-						else
-						{
-							if (g_FdirConfig.AUTO_DEAL_HIS == 0)
-							{
-								FormFdirStep(it->task_data.fault.head.group_id);
-
-								list<CB_CONTROL> lst_cb;
-								if (GetLeftStep(it->task_data.fault.head.group_id, lst_cb) > 0)
-								{
-									AddControlItem(it->task_data.fault.head.group_id, lst_cb.begin()->point_id, lst_cb.begin()->bOpen, lst_cb.begin()->stage);
-								}
-							}
-
-						}
-
-						break;
-					}
-
-					case TASK_FAULT_STATUS_INVALID_RECALC:
-					{
-						FDIR_TASK_LIST::iterator itTemp;
-						list<FDIR_R2*> lst_fdir_r2;
-						map<FDIR_R2*, FDIR_TASK*> map_fdir_task;
-
-						TRACE("¿ªÊ¼¼ÆËã×éºÅÎª%sµÄ²Ù×÷·½°¸£¬¸Ã×éµÄ¹ÊÕÏÓĞ£º\r\n", it->task_data.fault.head.group_id);
-
-						for (itTemp = g_lstTask.begin(); itTemp != g_lstTask.end(); itTemp++)
-						{
-							if (itTemp->rq_type != TASK_TYPE_FAULT)
-								continue;
-
-							if (strcmp(itTemp->task_data.fault.head.group_id, it->task_data.fault.head.group_id) == 0)
-							{
-								lst_fdir_r2.push_back(itTemp->task_data.fault.fdir_r);
-								map_fdir_task[itTemp->task_data.fault.fdir_r] = &(*itTemp);
-
-								itTemp->task_data.fault.next_step = TASK_FAULT_STATUS_CALC_STEP;
-
-								//ºóÌ¨×Ô¶¯Ö´ĞĞÊ§°Üºó×ªÎªÇ°Ì¨ÈË¹¤Ö´ĞĞ
-								itTemp->task_data.fault.bAuto = 0;
-								cout << it->task_data.fault.head.group_id << "->" << itTemp->task_data.fault.head.fault_id << endl;
-							}
-						}
-
-						list<list<MAP_SO_NODE> > lst_steps;
-						////¹ÊÕÏ×éÖĞÓÉÓÚ¸ôÀë»òÕßÌøÕ¢µ¼ÖÂÊ§µçµÄ¸ººÉ£¬×îÖÕ±£´æ·Ç¹ÊÕÏ²»¿É»Ö¸´µÄ¸ººÉ
-						list<FAULT_ITEM> in_re_lst_group_ld;
-						////¹ÊÕÏ×éÖĞÓÉÓÚ¸ôÀë»òÕßÌøÕ¢µ¼ÖÂÊ§µç£¬´æÔÚ»Ö¸´·½°¸£¬¿ÉÒÔ»Ö¸´µÄ¸ººÉ
-						list<FAULT_ITEM> in_re_lst_able_res;
-						it->task_data.fault.fdir_r->Init();
-						if (re_calc_restore_step(it->task_data.fault.head.group_id, lst_fdir_r2, lst_steps) == FDIR_R_SUCCEED)
-						{
-							//É¾³ı¾ÉµÄ»Ö¸´·½°¸
-							sprintf(sql, "DELETE FROM FHZG_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							sprintf(sql, "DELETE FROM FHZG_SO_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							sprintf(sql, "DELETE FROM FHZG_STEP WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							sprintf(sql, "DELETE FROM FHZG_SO WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							sprintf(sql, "DELETE FROM FHZG_CUT_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							sprintf(sql, "DELETE FROM FHZG_LOAD WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							sprintf(sql, "DELETE FROM FHZG_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							sprintf(sql, "UPDATE FDIR_FDIRECT SET USERID=NULL,MACHINE=NULL,STATUS_ISOLATE=-1,STATUS_FHZG=-1,STATUS_RESTORE=-1 WHERE GROUPID=\'%s\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							sprintf(sql, "DELETE FROM FDIR_CB_STATUS WHERE ID=\'%s\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							//É¾³ıÑ¡¶¨µÄÖ´ĞĞ·½°¸ÖĞÎ´Ö´ĞĞµÄ²½Öè
-							sprintf(sql, "DELETE FROM FDIR_STEP WHERE ID=\'%s\' AND STATUS=%d", it->task_data.fault.head.group_id, STATUS_FDIR_STEP_WAIT);
-							ExecSQL(sql);
-
-							sprintf(sql, "DELETE FROM FDIR_DISABLE_RES WHERE ID=\'%s\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							sprintf(sql, "DELETE FROM FDIR_ENABLE_RES WHERE ID=\'%s\'", it->task_data.fault.head.group_id);
-							ExecSQL(sql);
-
-							for (map<FDIR_R2*, FDIR_TASK*>::iterator it_fdir_r = map_fdir_task.begin(); it_fdir_r != map_fdir_task.end(); it_fdir_r++)
-							{
-
-								in_re_lst_group_ld.splice(in_re_lst_group_ld.end(), it_fdir_r->first->m_ld);
-								sprintf(sql, "DELETE FROM FDIR_UP_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
-								ExecSQL(sql);
-
-								string manual_restore;
-
-								for (list<long>::iterator it_point = it_fdir_r->second->task_data.fault.fdir_r->lst_restore.begin();
-										it_point != it_fdir_r->second->task_data.fault.fdir_r->lst_restore.end(); it_point++)
-								{
-									char tmp[50];
-
-									sprintf(tmp, "%ld", *it_point);
-
-									manual_restore += tmp;
-
-									if (is_controllable(*it_point))
-										manual_restore += "[0];";
 									else
-										manual_restore += ";";
-								}
-
-								//¸üĞÂÉÏÓÎ¿ª¹Ø
-								sprintf(sql, "update FDIR_FDIRECT set MANUAL_RESTORE = \'%s\' where id = \'%s\'", manual_restore.c_str(), it_fdir_r->second->task_data.fault.head.fault_id);
-								ExecSQL(sql);
-
-								write_fault_up_dev(it->task_data.fault.head.group_id, "", it_fdir_r->first, false, in_re_lst_able_res);
-
-								//±£´æ¹ÊÕÏÀ¡Ïß¿ª¹ØĞÅÏ¢£¬×öÊı¾İĞ£ÑéÓÃ
-								write_fault_tree(it->task_data.fault.head.group_id, it_fdir_r->first);
-
-							}
-
-							in_re_lst_group_ld.sort();
-							in_re_lst_group_ld.unique();
-							//Ğ´ÈëĞÂµÄ»Ö¸´·½°¸
-							write_fhzg_step(it->task_data.fault.head.group_id, "", lst_steps, map_fdir_task.begin()->first, in_re_lst_able_res, list<long>(), true);
-
-							EraseSameInfo(in_re_lst_group_ld, in_re_lst_able_res);
-							//Ğ´Èë¹ÊÕÏºó¿É»Ö¸´µÄ¸ººÉºÍ²»¿É»Ö¸´µÄ¸ººÉ
-							write_res_and_disableres_ld(it->task_data.fault.head.group_id, in_re_lst_group_ld, in_re_lst_able_res);
-							for (map<FDIR_R2*, FDIR_TASK*>::iterator it_map_fdir_task = map_fdir_task.begin(); it_map_fdir_task != map_fdir_task.end(); it_map_fdir_task++)
-							{
-								sprintf(sql, "DELETE FROM FDIR_ISOLATE WHERE ID=\'%s\' and STATUS in(%d,%d,%d) and ctrl_type=0", it_map_fdir_task->second->task_data.fault.head.fault_id, STATUS_ISOLATE_FAIL,
-										STATUS_ISOLATE_WAIT, STATUS_ISOLATE_EXEC);
-								ExecSQL(sql);
-
-								sprintf(sql, "select count(cb) from fdir_isolate where id=\'%s\'", it_map_fdir_task->second->task_data.fault.head.fault_id);
-								char *buf = NULL;
-								int rec_num, attr_num;
-								struct ORA_ATTR *attrs = NULL;
-								int step_num = 0;
-
-								pthread_mutex_lock(&oci_mutex);
-								int ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
-								pthread_mutex_unlock(&oci_mutex);
-
-								if (ret != OCI_ERROR)
-								{
-									step_num = *(int*)(buf);
-								}
-								g_oci->Readdata_Free();
-
-								//Ğ´¹ÊÕÏ¸ôÀë²½Öè±í
-								const TTable<CLS_FDIR_ISOLATE>* isolate = it_map_fdir_task->first->getisolate();
-								int i = 0;
-								for (i = 0; i < isolate->GetCount(); i++)
-								{
-									int up_isolate = 0;
-									if (isolate->Data[i].q & FDIR_ISOLATE_NO_SO)
 									{
-										TRACE("¸ôÀë¿ª¹Ø%ldÏÂÓÎÎŞ¿É×ª¹©µçÔ´£¬²»¸ôÀë£¡\r\n", isolate->Data[i].cb);
-										continue; //ÏÂÓÎ²»¿É»Ö¸´µÄ¿ª¹Ø²»ĞèÒª¸ôÀë
+										sprintf(sql,
+												"Insert into PMS_PARAM.FDIR_FDIRECT%s (ID, GROUPID, FD, FD_DESCR, ZONE, ST_ID, CB_ID, STATUS, STARTTYPE, ZONE_CB, FAULT_AREA, RECV_POINT, ERR_POINT, MIS_POINT, type, MANUAL_RESTORE, STUDY_EQ, AUTO_DEAL,EXT_STATUS,JXCB,DB_VERSION) "
+														"Values (\'%s\'/*ID*/, \'%s\'/*GROUPID*/, \'%ld\'/*FD*/, \'%s\'/*FD_DESCR*/, \'%d\'/*ZONE*/, \'%ld\'/*ST_ID*/, \'%ld\'/*CB_ID*/, %d/*STATUS*/, %d/*STARTTYPE*/, \'%s\'/*ZONE_CB*/, \'%s\'/*FAULT_AREA*/, \'%s\'/*RECV_POINT*/, \'%s\'/*ERR_POINT*/, \'%s\'/*MIS_POINT*/, %d/*type*/, \'%s\'/*MANUAL_RESTORE*/, \'%ld\'/*STUDY_EQ*/,%d/*AUTO_DEAL*/,%d/*EXT_STATUS*/,%d/*JXCB*/,%d/*DB_VERSION*/)",
+												table_name, it_map_fdir_task->second->task_data.fault.head.fault_id, it_map_fdir_task->second->task_data.fault.head.group_id, dv.id, dv.name,
+												it_map_fdir_task->first->getfaultzone(), it->task_data.fault.st, fault_cb, version == VERSION_REALTIME ? type : 1, 0, lst_cb.c_str(), fault_area, str_point.c_str(),
+												str_err_point.c_str(), str_mis_point.c_str(), version == VERSION_REALTIME ? 0 : 1, manual_restore.c_str(), it_map_fdir_task->second->task_data.fault.point_name,
+												it->task_data.fault.bAuto == 2 ? 1 : 0, version == VERSION_REALTIME ? type : 1, it_map_fdir_task->first->getfaultjxcb(), global.sec_no);
 									}
-									if (isolate->Data[i].q & FDIR_ISOLATE_UP)
-									{
-										up_isolate = 1;
-									}
-
-									sprintf(sql,
-											"Insert into PMS_PARAM.FDIR_ISOLATE (ID, STEP, ICB, CB, CB_DESCR, IMODE, CTRL_TYPE, CONTROL, UP_ISOLATE) Values (\'%s\', %d, %d, \'%ld\', \'%s\', %d, 0, %d, %d)",
-											it_map_fdir_task->second->task_data.fault.head.fault_id/*¹ÊÕÏ±êÊ¶·û*/, step_num + i/*¹ÊÕÏ¸ôÀëĞòºÅ*/, isolate->Data[i].icb/*ÒªÖ´ĞĞµÄ¿ª¹ØÂß¼­ºÅ*/,
-											isolate->Data[i].cb/*ÒªÖ´ĞĞµÄ¿ª¹Øid*/, isolate->Data[i].cb_desc/*ÒªÖ´ĞĞµÄ¿ª¹ØÃèÊö*/, it_map_fdir_task->second->task_data.fault.bAuto == 1/*×Ô¶¯*/? 4 : 3,
-											is_controllable(isolate->Data[i].cb) ? 1 : 0, up_isolate);
 
 									ExecSQL(sql);
-								}
-							}
-						}
 
-						//ÏòÈË»ú·¢ËÍ¹ÊÕÏ¸ôÀë»Ö¸´ÊÂ¼ş
-						if (it->task_data.fault.bAuto == 0)
-						{
-							if (version == VERSION_REALTIME)
+									list<DEV_STATUS>::iterator it_dev;
+
+									for (it_dev = it_map_fdir_task->first->lst_warning.begin(); it_dev != it_map_fdir_task->first->lst_warning.end(); it_dev++)
+									{
+										sprintf(sql, "INSERT into PMS_PARAM.FDIR_DEV_STATUS (FAULT_ID, DEV_ID, DEV_TABLE, DEV_STATUS) VALUES (\'%s\', \'%ld\', \'%s\', %d)",
+												it_map_fdir_task->second->task_data.fault.head.fault_id, it_dev->id, it_dev->table.c_str(), it_dev->status);
+										ExecSQL(sql);
+									}
+
+									if (it_map_fdir_task->first->lst_dev.size() > 0)
+									{
+										for (it_dev = it_map_fdir_task->first->lst_dev.begin(); it_dev != it_map_fdir_task->first->lst_dev.end(); it_dev++)
+										{
+											sprintf(sql, "INSERT into PMS_PARAM.FDIR_DEV_STATUS (FAULT_ID, DEV_ID, DEV_TABLE, DEV_STATUS) VALUES (\'%s\', \'%ld\', \'%s\', %d)",
+													it_map_fdir_task->second->task_data.fault.head.fault_id, it_dev->id, it_dev->table.c_str(), it_dev->status);
+											ExecSQL(sql);
+										}
+									}
+								}
+								lst_group_ld.sort();
+								lst_group_ld.unique();
+								TRACE("lstÖĞ¸ººÉµÄ¸öÊıÊÇ£º%d\r\n", lst_group_ld.size());
+								//»Ö¸´·½°¸¼ÆËã³É¹¦£¬°Ñ»Ö¸´·½°¸¡¢¸ôÀë·½°¸¡¢¶¨Î»ĞÅÏ¢Ğ´Èë±íÖĞ
+								if (calc_ret == FDIR_R_SUCCEED)
+								{
+									for (map<FDIR_R2*, FDIR_TASK*>::iterator it_map_fdir_task = map_fdir_task.begin(); it_map_fdir_task != map_fdir_task.end(); it_map_fdir_task++)
+									{
+										//±£´æ¹ÊÕÏÀ¡Ïß¿ª¹ØĞÅÏ¢£¬×öÊı¾İĞ£ÑéÓÃ
+										write_fault_tree(it_map_fdir_task->second->task_data.fault.head.group_id, it_map_fdir_task->first);
+									}
+
+									//Ğ´¸ººÉ×ª¹©²½ÖèºÍ¸ººÉ×ª¹©Çø¶Î
+									write_fhzg_step(it->task_data.fault.head.group_id, table_name, lst_steps, map_fdir_task.begin()->first, lst_able_res, list<long>(), true);
+
+									for (map<FDIR_R2*, FDIR_TASK*>::iterator it_map_fdir_task_temp = map_fdir_task.begin(); it_map_fdir_task_temp != map_fdir_task.end(); it_map_fdir_task_temp++)
+									{
+										//Ğ´ÉÏÓÎ»Ö¸´ÇøÓòÉè±¸
+										write_fault_up_dev(it_map_fdir_task_temp->second->task_data.fault.head.fault_id, table_name, it_map_fdir_task_temp->first, false, lst_able_res);
+
+										//Ğ´¹ÊÕÏ¸ôÀë²½Öè±í
+										PSBOB::CB psbob_point = { 0 };
+										const TTable<CLS_FDIR_ISOLATE>* isolate = it_map_fdir_task_temp->first->getisolate();
+										int i = 0;
+										for (i = 0; i < isolate->GetCount(); i++)
+										{
+											int up_isolate = 0;
+											if (isolate->Data[i].q & FDIR_ISOLATE_NO_SO)
+											{
+												TRACE("¸ôÀë¿ª¹Ø%ldÏÂÓÎÎŞ¿É×ª¹©µçÔ´£¬²»¸ôÀë£¡\r\n", isolate->Data[i].cb);
+												continue; //ÏÂÓÎ²»¿É»Ö¸´µÄ¿ª¹Ø²»ĞèÒª¸ôÀë
+											}
+											if (isolate->Data[i].q & FDIR_ISOLATE_UP)
+											{
+												up_isolate = 1;
+											}
+
+											bzero(&psbob_point, sizeof(psbob_point));
+
+											if (oodbread_rk(&psbob_point, &isolate->Data[i].cb, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(psbob_point)) <= 0)
+											{
+												TRACE("¶ÁÈ¡PSBOB¿âPOINT±íIDÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¬´íÎóºÅ£º%d\r\n", isolate->Data[i].cb, _oodb_errno);
+											}
+											sprintf(sql,
+													"Insert into PMS_PARAM.FDIR_ISOLATE%s (ID, STEP, ICB, CB, CB_DESCR, IMODE, CTRL_TYPE, CONTROL, UP_ISOLATE) Values (\'%s\', %d, %d, \'%ld\', \'%s\', %d, 0, %d, %d)",
+													table_name, it_map_fdir_task_temp->second->task_data.fault.head.fault_id/*¹ÊÕÏ±êÊ¶·û*/, i/*¹ÊÕÏ¸ôÀëĞòºÅ*/, isolate->Data[i].icb/*ÒªÖ´ĞĞµÄ¿ª¹ØÂß¼­ºÅ*/,
+													isolate->Data[i].cb/*ÒªÖ´ĞĞµÄ¿ª¹Øid*/, isolate->Data[i].cb_desc/*ÒªÖ´ĞĞµÄ¿ª¹ØÃèÊö*/, it_map_fdir_task_temp->second->task_data.fault.bAuto == 1/*×Ô¶¯*/? 4 : 3,
+													is_controllable(psbob_point.id) ? 1 : 0, up_isolate);
+
+											ExecSQL(sql);
+										}
+									}
+
+
+									//Ğ´Ä£ÄâÌ¬¹ÊÕÏĞÅºÅ±í
+									TRACE("Ğ´Èë¹ÊÕÏÄ£Äâ¹ØÏµ¿â£¡\r\n");
+									if ((it->task_data.fault.signal_type) == TRIG_TYPE_SIMU)
+									{
+										sprintf(sql, "UPDATE PMS_PARAM.FDIR_SIG_SUMMARY SET RUN_TIME=(SELECT RUN_TIME FROM PMS_PARAM.FDIR_SIG_SUMMARY WHERE ID=\'%s\')+1, FAULT_INDEX=(SELECT RUN_TIME FROM PMS_PARAM.FDIR_SIG_SUMMARY WHERE ID=\'%s\')+1 WHERE ID=\'%s\' ",
+												it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.simu_plan_id.c_str());
+										ExecSQL(sql);
+
+										sprintf(sql, "SELECT ID FROM PMS_PARAM.FDIR_SIG_FAULT WHERE ID LIKE \'%s\'",
+												it->task_data.fault.simu_plan_id.c_str());
+										char *buf = NULL;
+										int rec_num, attr_num;
+										struct ORA_ATTR *attrs = NULL;
+										pthread_mutex_lock(&oci_mutex);
+										int ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
+										pthread_mutex_unlock(&oci_mutex);
+										if (ret != OCI_ERROR)
+										{
+											if (rec_num == 0)
+											{
+												sprintf(sql, "INSERT INTO PMS_PARAM.FDIR_SIG_FAULT(ID, FAULT_INDEX, FAULT_ID)VALUES(\'%s\', 0, \'%s\')",
+														it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.head.fault_id);
+												ExecSQL(sql);
+											}
+										}
+
+										g_oci->Readdata_Free();
+
+										sprintf(sql, "INSERT INTO PMS_PARAM.FDIR_SIG_FAULT(ID, FAULT_INDEX, FAULT_ID)VALUES(\'%s\', (select max(FAULT_INDEX) from pms_param.fdir_sig_fault where id like \'%s%\')+1, \'%s\')",
+												it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.simu_plan_id.c_str(), it->task_data.fault.head.fault_id);
+										ExecSQL(sql);
+
+										g_is_write_to_lib = true;
+										pthread_mutex_unlock(&simu_sync_mutex);
+									}
+								}
+								else if (calc_ret == FDIR_FAIL_RESTORE) //»Ö¸´·½°¸¼ÆËãÊ§°Ü£¬°Ñ¸ôÀëºÍ¶¨Î»ĞÅÏ¢Ğ´Èë±íÖĞ
+								{
+									for (map<FDIR_R2*, FDIR_TASK*>::iterator it_map_fdir_task = map_fdir_task.begin(); it_map_fdir_task != map_fdir_task.end(); it_map_fdir_task++)
+									{
+										//Ğ´ÉÏÓÎ»Ö¸´Çø¶Î±í
+										//»ñÈ¡ÉÏÓÎÒª»Ö¸´µÄÇø¶ÎºÅ
+										write_fault_up_dev(it_map_fdir_task->second->task_data.fault.head.fault_id, table_name, it_map_fdir_task->first, false, lst_able_res);
+
+										//Ğ´¹ÊÕÏ¸ôÀë²½Öè±í
+										PSBOB::CB psbob_point = { 0 };
+										const TTable<CLS_FDIR_ISOLATE>* isolate = it_map_fdir_task->first->getisolate();
+										int i = 0;
+										for (i = 0; i < isolate->GetCount(); i++)
+										{
+											int up_isolate = 0;
+											if (isolate->Data[i].q & FDIR_ISOLATE_NO_SO)
+											{
+												TRACE("¸ôÀë¿ª¹Ø%ldÏÂÓÎÎŞ¿É×ª¹©µçÔ´£¬²»¸ôÀë£¡\r\n", isolate->Data[i].cb);
+												continue; //ÏÂÓÎ²»¿É»Ö¸´µÄ¿ª¹Ø²»ĞèÒª¸ôÀë
+											}
+											if (isolate->Data[i].q & FDIR_ISOLATE_UP)
+											{
+												up_isolate = 1;
+											}
+
+											bzero(&psbob_point, sizeof(psbob_point));
+
+											if (oodbread_rk(&psbob_point, &isolate->Data[i].cb, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(psbob_point)) <= 0)
+											{
+												TRACE("¶ÁÈ¡PSBOB¿âPOINT±íIDÎª%ldµÄ¼ÇÂ¼Ê§°Ü\r\n", isolate->Data[i].cb);
+											}
+											sprintf(sql,
+													"Insert into PMS_PARAM.FDIR_ISOLATE%s (ID, STEP, ICB, CB, CB_DESCR, IMODE, CTRL_TYPE, CONTROL, UP_ISOLATE) Values (\'%s\', %d, %d, \'%ld\', \'%s\', %d, 0, %d, %d)",
+													table_name, it_map_fdir_task->second->task_data.fault.head.fault_id/*¹ÊÕÏ±êÊ¶·û*/, i/*¹ÊÕÏ¸ôÀëĞòºÅ*/, isolate->Data[i].icb/*ÒªÖ´ĞĞµÄ¿ª¹ØÂß¼­ºÅ*/,
+													isolate->Data[i].cb/*ÒªÖ´ĞĞµÄ¿ª¹Øid*/, isolate->Data[i].cb_desc/*ÒªÖ´ĞĞµÄ¿ª¹ØÃèÊö*/, it_map_fdir_task->second->task_data.fault.bAuto == 1/*×Ô¶¯*/? 4 : 3,
+													is_controllable(psbob_point.id) ? 1 : 0, up_isolate);
+
+											ExecSQL(sql);
+										}
+									}
+								}
+								else if (calc_ret == FDIR_FAIL_ISOLATE) //¹ÊÕÏ¶¨Î»³É¹¦ºó¼ÆËã¸ôÀë·½°¸Ê§°Ü,°Ñ¶¨Î»ĞÅÏ¢Ğ´Èë±íÖĞ
+								{
+
+								}
+
+								//×îĞ¡Í£µç»Ö¸´·½°¸¼ÆËã³É¹¦£¬°Ñ»Ö¸´·½°¸¡¢¸ôÀë·½°¸¡¢¶¨Î»ĞÅÏ¢Ğ´Èë±íÖĞ
+								if (calc_ret2 == FDIR_R_SUCCEED)
+								{
+									//Ğ´¸ººÉ×ª¹©²½ÖèºÍ¸ººÉ×ª¹©Çø¶Î
+									write_fhzg_step(it->task_data.fault.head.group_id, table_name, lst_steps2, map_fdir_task.begin()->first, lst_able_res, list<long>(), false);
+
+									for (map<FDIR_R2*, FDIR_TASK*>::iterator it_map_fdir_task_temp = map_fdir_task.begin(); it_map_fdir_task_temp != map_fdir_task.end(); it_map_fdir_task_temp++)
+									{
+										//Ğ´ÉÏÓÎ»Ö¸´ÇøÓòÉè±¸
+//								write_fault_up_dev(it_map_fdir_task_temp->second->task_data.fault.head.fault_id, table_name, it_map_fdir_task_temp->first, false, lst_able_res);
+
+										//Ğ´¹ÊÕÏ¸ôÀë²½Öè±í
+										PSBOB::CB psbob_point = { 0 };
+										const TTable<CLS_FDIR_ISOLATE>* isolate = it_map_fdir_task_temp->first->getisolate2();
+										int i = 0;
+										for (i = 0; i < isolate->GetCount(); i++)
+										{
+											int up_isolate = 0;
+											if (isolate->Data[i].q & FDIR_ISOLATE_NO_SO)
+											{
+												TRACE("¸ôÀë¿ª¹Ø%ldÏÂÓÎÎŞ¿É×ª¹©µçÔ´£¬²»¸ôÀë£¡\r\n", isolate->Data[i].cb);
+												continue; //ÏÂÓÎ²»¿É»Ö¸´µÄ¿ª¹Ø²»ĞèÒª¸ôÀë
+											}
+											if (isolate->Data[i].q & FDIR_ISOLATE_UP)
+											{
+												up_isolate = 1;
+											}
+
+											bzero(&psbob_point, sizeof(psbob_point));
+
+											if (oodbread_rk(&psbob_point, &isolate->Data[i].cb, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(psbob_point)) <= 0)
+											{
+												TRACE("¶ÁÈ¡PSBOB¿âPOINT±íIDÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¬´íÎóºÅ£º%d\r\n", isolate->Data[i].cb, _oodb_errno);
+											}
+											sprintf(sql,
+													"Insert into PMS_PARAM.FDIR_ISOLATE%s (ID, STEP, ICB, CB, CB_DESCR, IMODE, CTRL_TYPE, CONTROL, UP_ISOLATE) Values (\'%s\', %d, %d, \'%ld\', \'%s\', %d, 1, %d, %d)",
+													table_name, it_map_fdir_task_temp->second->task_data.fault.head.fault_id/*¹ÊÕÏ±êÊ¶·û*/, i/*¹ÊÕÏ¸ôÀëĞòºÅ*/, isolate->Data[i].icb/*ÒªÖ´ĞĞµÄ¿ª¹ØÂß¼­ºÅ*/,
+													isolate->Data[i].cb/*ÒªÖ´ĞĞµÄ¿ª¹Øid*/, isolate->Data[i].cb_desc/*ÒªÖ´ĞĞµÄ¿ª¹ØÃèÊö*/, it_map_fdir_task_temp->second->task_data.fault.bAuto == 1/*×Ô¶¯*/? 4 : 3,
+													is_controllable(psbob_point.id) ? 1 : 0, up_isolate);
+
+											ExecSQL(sql);
+										}
+									}
+								}
+								else if (calc_ret2 == FDIR_FAIL_RESTORE) //»Ö¸´·½°¸¼ÆËãÊ§°Ü£¬°Ñ¸ôÀëºÍ¶¨Î»ĞÅÏ¢Ğ´Èë±íÖĞ
+								{
+									for (map<FDIR_R2*, FDIR_TASK*>::iterator it_map_fdir_task = map_fdir_task.begin(); it_map_fdir_task != map_fdir_task.end(); it_map_fdir_task++)
+									{
+										//Ğ´ÉÏÓÎ»Ö¸´Çø¶Î±í
+										//»ñÈ¡ÉÏÓÎÒª»Ö¸´µÄÇø¶ÎºÅ
+//								write_fault_up_dev(it_map_fdir_task->second->task_data.fault.head.fault_id, table_name, it_map_fdir_task->first, false, lst_able_res);
+
+										//Ğ´¹ÊÕÏ¸ôÀë²½Öè±í
+										PSBOB::CB psbob_point = { 0 };
+										const TTable<CLS_FDIR_ISOLATE>* isolate = it_map_fdir_task->first->getisolate2();
+										int i = 0;
+										for (i = 0; i < isolate->GetCount(); i++)
+										{
+											int up_isolate = 0;
+											if (isolate->Data[i].q & FDIR_ISOLATE_NO_SO)
+											{
+												TRACE("¸ôÀë¿ª¹Ø%ldÏÂÓÎÎŞ¿É×ª¹©µçÔ´£¬²»¸ôÀë£¡\r\n", isolate->Data[i].cb);
+												continue; //ÏÂÓÎ²»¿É»Ö¸´µÄ¿ª¹Ø²»ĞèÒª¸ôÀë
+											}
+											if (isolate->Data[i].q & FDIR_ISOLATE_UP)
+											{
+												up_isolate = 1;
+											}
+
+											bzero(&psbob_point, sizeof(psbob_point));
+
+											if (oodbread_rk(&psbob_point, &isolate->Data[i].cb, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(psbob_point)) <= 0)
+											{
+												TRACE("¶ÁÈ¡PSBOB¿âPOINT±íIDÎª%ldµÄ¼ÇÂ¼Ê§°Ü\r\n", isolate->Data[i].cb);
+											}
+											sprintf(sql,
+													"Insert into PMS_PARAM.FDIR_ISOLATE%s (ID, STEP, ICB, CB, CB_DESCR, IMODE, CTRL_TYPE, CONTROL, UP_ISOLATE) Values (\'%s\', %d, %d, \'%ld\', \'%s\', %d, 1, %d, %d)",
+													table_name, it_map_fdir_task->second->task_data.fault.head.fault_id/*¹ÊÕÏ±êÊ¶·û*/, i/*¹ÊÕÏ¸ôÀëĞòºÅ*/, isolate->Data[i].icb/*ÒªÖ´ĞĞµÄ¿ª¹ØÂß¼­ºÅ*/,
+													isolate->Data[i].cb/*ÒªÖ´ĞĞµÄ¿ª¹Øid*/, isolate->Data[i].cb_desc/*ÒªÖ´ĞĞµÄ¿ª¹ØÃèÊö*/, it_map_fdir_task->second->task_data.fault.bAuto == 1/*×Ô¶¯*/? 4 : 3,
+													is_controllable(psbob_point.id) ? 1 : 0, up_isolate);
+
+											ExecSQL(sql);
+										}
+									}
+								}
+								else if (calc_ret == FDIR_FAIL_ISOLATE) //¹ÊÕÏ¶¨Î»³É¹¦ºó¼ÆËã¸ôÀë·½°¸Ê§°Ü,°Ñ¶¨Î»ĞÅÏ¢Ğ´Èë±íÖĞ
+								{
+
+								}
+
+								lst_able_res.sort();
+								lst_able_res.unique();
+								EraseSameInfo(lst_group_ld, lst_able_res);
+								//Ğ´Èë¹ÊÕÏºó¿É»Ö¸´µÄ¸ººÉºÍ²»¿É»Ö¸´µÄ¸ººÉ
+								write_res_and_disableres_ld(it->task_data.fault.head.group_id, lst_group_ld, lst_able_res);
+
+								delete table_name;
+								for (map<FDIR_R2*, FDIR_TASK*>::iterator it_fdir_task = map_fdir_task.begin(); it_fdir_task != map_fdir_task.end(); it_fdir_task++)
+								{
+									it_fdir_task->second->task_data.fault.next_step = TASK_FAULT_STATUS_ISO;
+								}
+
+								//ÏòÈË»ú·¢ËÍ¹ÊÕÏ¸ôÀë»Ö¸´ÊÂ¼ş
+								if (it->task_data.fault.bAuto == 0)
+								{
+									if (version == VERSION_REALTIME)
+									{
+										//D5000ÏòÈË»ú·¢ËÍ¹ÊÕÏ¸ôÀë»Ö¸´ÊÂ¼ş
+										Notify(it->task_data.fault.head.group_id, it->task_data.fault.dv, it->task_data.fault.st);
+//								FDIR_MSG_ISO_REC fdata = { 0 };
+//
+//								strcpy(fdata.fault_id, it->task_data.fault.head.group_id);
+//								strcpy(fdata.st_id, "INSERT");
+//
+//								printf("send_event(%d) group_id:%s,return %d\r\n", EVPS_FDIR_MSG_ISO_REC, fdata.fault_id, bob_inv->send_event(EVPS_FDIR_MSG_ISO_REC, (char *) &fdata, sizeof(fdata)));
+
+										//¼ÆËãÍê³Éºó°Ñ¹ÊÕÏ´ÓÈÎÎñÁĞ±íµÄÄÚ´æÖĞÉ¾³ı£¬ÔÚÖ´ĞĞµÄÊ±ºòÔÙ°ÑÄÚ´æÊı¾İ»Ö¸´
+										//ÔÊĞí³¬Ê±×ª×Ô¶¯µÄÇé¿öµÃ±£Áô¹ÊÕÏÔÚÄÚ´æÖĞ£¬·ñÔòÎŞ·¨ÅĞ¶ÏÊÇ·ñ³¬Ê±
+										if (!g_FdirConfig.USER2AUTO)
+										{
+											RemoveTasks(it->task_data.fault.head.group_id);
+											it = g_lstTask.begin();
+										}
+									}
+										//ÑĞ¾¿Ì¬Ê±Ğ´Íê¿â£¬ÔÚ½ÓÊÕ±¨ÎÄµÄµØ·½ÊÍ·ÅÄÚ´æ£¬ÎªÁË¸üĞÂÄ£Äâ¹ÊÕÏ»úÆ÷Ãû
+									else if (version == VERSION_STUDY)
+									{
+									}
+
+								}
+								else
+								{
+									if (g_FdirConfig.AUTO_DEAL_HIS == 0)
+									{
+										FormFdirStep(it->task_data.fault.head.group_id);
+
+										list<CB_CONTROL> lst_cb;
+										if (GetLeftStep(it->task_data.fault.head.group_id, lst_cb) > 0)
+										{
+											AddControlItem(it->task_data.fault.head.group_id, lst_cb.begin()->point_id, lst_cb.begin()->bOpen, lst_cb.begin()->stage);
+										}
+									}
+									else //×Ô¶¯¹éµµ
+									{
+
+									}
+								}
+
+								break;
+							}
+
+
+							case TASK_FAULT_STATUS_RE_CALC:
 							{
-								//D5000ÏòÈË»ú·¢ËÍ¹ÊÕÏ¸ôÀë»Ö¸´ÊÂ¼ş
-								Notify(it->task_data.fault.head.group_id, it->task_data.fault.dv, it->task_data.fault.st);
+
+								FDIR_TASK_LIST::iterator itTemp;
+								list<FDIR_R2*> lst_fdir_r2;
+								map<FDIR_R2*, FDIR_TASK*> map_fdir_task;
+
+								TRACE("¿ªÊ¼¼ÆËã×éºÅÎª%sµÄ²Ù×÷·½°¸£¬¸Ã×éµÄ¹ÊÕÏÓĞ£º\r\n", it->task_data.fault.head.group_id);
+
+								for (itTemp = g_lstTask.begin(); itTemp != g_lstTask.end(); itTemp++)
+								{
+									if (itTemp->rq_type != TASK_TYPE_FAULT)
+										continue;
+
+									if (strcmp(itTemp->task_data.fault.head.group_id, it->task_data.fault.head.group_id) == 0)
+									{
+										lst_fdir_r2.push_back(itTemp->task_data.fault.fdir_r);
+										map_fdir_task[itTemp->task_data.fault.fdir_r] = &(*itTemp);
+
+										itTemp->task_data.fault.next_step = TASK_FAULT_STATUS_CALC_STEP;
+
+										//ºóÌ¨×Ô¶¯Ö´ĞĞÊ§°Üºó×ªÎªÇ°Ì¨ÈË¹¤Ö´ĞĞ
+										itTemp->task_data.fault.bAuto = 0;
+										cout << it->task_data.fault.head.group_id << "->" << itTemp->task_data.fault.head.fault_id << endl;
+									}
+								}
+
+								list<list<MAP_SO_NODE> > lst_steps;
+
+								//ÅĞ¶ÏÖ´ĞĞÊ§°ÜµÄ¿ª¹ØÊÇ·ñÊÇÉÏÓÎ¸ôÀë¿ª¹Ø£¬Èç¹ûÊÇÉÏÓÎ¸ôÀë¿ª¹Ø£¬ÉÏÓÎ»Ö¸´ÇøÓòÊ§Ğ§
+								bool up_iso_fail = false;
+								const TTable<CLS_FDIR_ISOLATE>* old_isolate = it->task_data.fault.fdir_r->getisolate();
+
+								for (int i = 0; i < old_isolate->GetCount(); i++)
+								{
+									if (old_isolate->Data[i].q & FDIR_ISOLATE_UP)
+									{
+										if (old_isolate->Data[i].cb == it->task_data.fault.fail_point)
+										{
+											up_iso_fail = true;
+										}
+									}
+								}
+
+								////¹ÊÕÏ×éÖĞÓÉÓÚ¸ôÀë»òÕßÌøÕ¢µ¼ÖÂÊ§µçµÄ¸ººÉ£¬×îÖÕ±£´æ·Ç¹ÊÕÏ²»¿É»Ö¸´µÄ¸ººÉ
+								list<FAULT_ITEM> re_lst_group_ld;
+								////¹ÊÕÏ×éÖĞÓÉÓÚ¸ôÀë»òÕßÌøÕ¢µ¼ÖÂÊ§µç£¬´æÔÚ»Ö¸´·½°¸£¬¿ÉÒÔ»Ö¸´µÄ¸ººÉ
+								list<FAULT_ITEM> re_lst_able_res;
+								it->task_data.fault.fdir_r->Init();
+								if (re_calc_restore_step(it->task_data.fault.head.group_id, lst_fdir_r2, lst_steps) == FDIR_R_SUCCEED)
+								{
+									//É¾³ı¾ÉµÄ»Ö¸´·½°¸
+									sprintf(sql, "DELETE FROM FHZG_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									sprintf(sql, "DELETE FROM FHZG_SO_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									sprintf(sql, "DELETE FROM FHZG_STEP WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									sprintf(sql, "DELETE FROM FHZG_SO WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									sprintf(sql, "DELETE FROM FHZG_CUT_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									sprintf(sql, "DELETE FROM FHZG_LOAD WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									sprintf(sql, "DELETE FROM FHZG_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									sprintf(sql, "UPDATE FDIR_FDIRECT SET USERID=NULL,MACHINE=NULL WHERE GROUPID=\'%s\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									//É¾³ıÑ¡¶¨µÄÖ´ĞĞ·½°¸ÖĞÎ´Ö´ĞĞµÄ²½Öè
+									sprintf(sql, "DELETE FROM FDIR_STEP WHERE ID=\'%s\' AND STATUS=%d", it->task_data.fault.head.group_id, STATUS_FDIR_STEP_WAIT);
+									ExecSQL(sql);
+
+									sprintf(sql, "DELETE FROM FDIR_CB_STATUS WHERE ID=\'%s\' AND ISFAULTDV=0", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									sprintf(sql, "DELETE FROM FDIR_DISABLE_RES WHERE ID=\'%s\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									sprintf(sql, "DELETE FROM FDIR_ENABLE_RES WHERE ID=\'%s\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+									//string fault_cb = it->task_data.fault.fdir_r->getfaultcb();
+
+									for (map<FDIR_R2*, FDIR_TASK*>::iterator it_fdir_r = map_fdir_task.begin(); it_fdir_r != map_fdir_task.end(); it_fdir_r++)
+									{
+										re_lst_group_ld.splice(re_lst_group_ld.end(), it_fdir_r->first->m_ld);
+										if (up_iso_fail)
+										{
+											sprintf(sql, "DELETE FROM FDIR_UP_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
+											ExecSQL(sql);
+
+											string manual_restore;
+
+											for (list<long>::iterator it_point = it_fdir_r->second->task_data.fault.fdir_r->lst_restore.begin();
+												 it_point != it_fdir_r->second->task_data.fault.fdir_r->lst_restore.end(); it_point++)
+											{
+												PSBOB::CB point = { 0 };
+
+												char tmp[50];
+
+												sprintf(tmp, "%ld", *it_point);
+
+												manual_restore += tmp;
+
+												if (is_controllable(*it_point))
+													manual_restore += "[0];";
+												else
+													manual_restore += ";";
+											}
+
+											//¸üĞÂÉÏÓÎ¿ª¹Ø
+											sprintf(sql, "update FDIR_FDIRECT set MANUAL_RESTORE = \'%s\' where id = \'%s\'", manual_restore.c_str(), it_fdir_r->second->task_data.fault.head.fault_id);
+											ExecSQL(sql);
+
+											//have_up_iso±êÖ¾¹ÊÕÏÇøÓòÊÇ·ñÓĞÉÏÓÎ¸ôÀë¿ª¹Ø£¬Èç¹ûÃ»ÉÏÓÎ¸ôÀë£¬ÔòÉÏÓÎÃ»ÓĞ¿ÉÒÔ»Ö¸´µÄÇøÓò
+											bool have_up_iso = false;
+											const TTable<CLS_FDIR_ISOLATE>* new_isolate = it_fdir_r->first->getisolate();
+
+											for (int i = 0; i < new_isolate->GetCount(); i++)
+											{
+												if (new_isolate->Data[i].q & FDIR_ISOLATE_UP)
+												{
+													have_up_iso = true;
+												}
+											}
+											if (have_up_iso)
+											{
+												write_fault_up_dev(it->task_data.fault.head.group_id, "", it_fdir_r->first, true, re_lst_able_res);
+											}
+										}
+									}
+									re_lst_group_ld.sort();
+									re_lst_group_ld.unique();
+
+									//Ğ´ÈëĞÂµÄ»Ö¸´·½°¸
+									write_fhzg_step(it->task_data.fault.head.group_id, "", lst_steps, map_fdir_task.begin()->first, re_lst_able_res, list<long>(), true);
+
+									EraseSameInfo(re_lst_group_ld, re_lst_able_res);
+									//Ğ´Èë¹ÊÕÏºó¿É»Ö¸´µÄ¸ººÉºÍ²»¿É»Ö¸´µÄ¸ººÉ
+									write_res_and_disableres_ld(it->task_data.fault.head.group_id, re_lst_group_ld, re_lst_able_res);
+									for (map<FDIR_R2*, FDIR_TASK*>::iterator it_map_fdir_task = map_fdir_task.begin(); it_map_fdir_task != map_fdir_task.end(); it_map_fdir_task++)
+									{
+										sprintf(sql, "DELETE FROM FDIR_ISOLATE WHERE ID=\'%s\' and STATUS in(%d,%d)  and ctrl_type=0", it_map_fdir_task->second->task_data.fault.head.fault_id, STATUS_ISOLATE_FAIL,
+												STATUS_ISOLATE_WAIT);
+										ExecSQL(sql);
+
+										sprintf(sql, "select count(cb) from fdir_isolate where id=\'%s\'", it_map_fdir_task->second->task_data.fault.head.fault_id);
+										char *buf = NULL;
+										int rec_num, attr_num;
+										struct ORA_ATTR *attrs = NULL;
+										int step_num = 0;
+
+										pthread_mutex_lock(&oci_mutex);
+										int ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
+										pthread_mutex_unlock(&oci_mutex);
+
+										if (ret != OCI_ERROR)
+										{
+											step_num = *(int*)(buf);
+										}
+										g_oci->Readdata_Free();
+										//Ğ´¹ÊÕÏ¸ôÀë²½Öè±í
+										PSBOB::CB psbob_point = { 0 };
+										const TTable<CLS_FDIR_ISOLATE>* isolate = it_map_fdir_task->first->getisolate();
+										int i = 0;
+										for (i = 0; i < isolate->GetCount(); i++)
+										{
+											int up_isolate = 0;
+											if (isolate->Data[i].q & FDIR_ISOLATE_NO_SO)
+											{
+												TRACE("¸ôÀë¿ª¹Ø%ldÏÂÓÎÎŞ¿É×ª¹©µçÔ´£¬²»¸ôÀë£¡\r\n", isolate->Data[i].cb);
+												continue; //ÏÂÓÎ²»¿É»Ö¸´µÄ¿ª¹Ø²»ĞèÒª¸ôÀë
+											}
+											if (isolate->Data[i].q & FDIR_ISOLATE_UP)
+											{
+												up_isolate = 1;
+											}
+											bzero(&psbob_point, sizeof(psbob_point));
+
+											if (oodbread_rk(&psbob_point, &isolate->Data[i].cb, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(psbob_point)) <= 0)
+											{
+												TRACE("¶ÁÈ¡PSBOB¿âPOINT±íIDÎª%ldµÄ¼ÇÂ¼Ê§°Ü\r\n", isolate->Data[i].cb);
+											}
+											sprintf(sql,
+													"Insert into PMS_PARAM.FDIR_ISOLATE (ID, STEP, ICB, CB, CB_DESCR, IMODE, CTRL_TYPE, CONTROL, UP_ISOLATE) Values (\'%s\', %d, %d, \'%ld\', \'%s\', %d, 0, %d, %d)",
+													it_map_fdir_task->second->task_data.fault.head.fault_id/*¹ÊÕÏ±êÊ¶·û*/, step_num + i/*¹ÊÕÏ¸ôÀëĞòºÅ*/, isolate->Data[i].icb/*ÒªÖ´ĞĞµÄ¿ª¹ØÂß¼­ºÅ*/,
+													isolate->Data[i].cb/*ÒªÖ´ĞĞµÄ¿ª¹Øid*/, isolate->Data[i].cb_desc/*ÒªÖ´ĞĞµÄ¿ª¹ØÃèÊö*/, it_map_fdir_task->second->task_data.fault.bAuto == 1/*×Ô¶¯*/? 4 : 3,
+													is_controllable(psbob_point.id) ? 1 : 0, up_isolate);
+
+											ExecSQL(sql);
+										}
+									}
+								}
+
+								//ÏòÈË»ú·¢ËÍ¹ÊÕÏ¸ôÀë»Ö¸´ÊÂ¼ş
+								if (it->task_data.fault.bAuto == 0)
+								{
+									if (version == VERSION_REALTIME)
+									{
+										//D5000ÏòÈË»ú·¢ËÍ¹ÊÕÏ¸ôÀë»Ö¸´ÊÂ¼ş
+										Notify(it->task_data.fault.head.group_id, it->task_data.fault.dv, it->task_data.fault.st);
 //								FDIR_MSG_ISO_REC fdata = { 0 };
 //
 //								strcpy(fdata.fault_id, it->task_data.fault.head.group_id);
 //								strcpy(fdata.st_id, "UPDATE");
 //
 //								printf("send_event(%d) group_id:%s,return %d\r\n", EVPS_FDIR_MSG_ISO_REC, fdata.fault_id, bob_inv->send_event(EVPS_FDIR_MSG_ISO_REC, (char *) &fdata, sizeof(fdata)));
-							}
+									}
 
-							//¼ÆËãÍê³Éºó°Ñ¹ÊÕÏ´ÓÈÎÎñÁĞ±íµÄÄÚ´æÖĞÉ¾³ı£¬ÔÚÖ´ĞĞµÄÊ±ºòÔÙ°ÑÄÚ´æÊı¾İ»Ö¸´
-							RemoveTasks(it->task_data.fault.head.group_id);
-							it = g_lstTask.begin();
-						}
-						else
-						{
-							if (g_FdirConfig.AUTO_DEAL_HIS == 0)
-							{
-								FormFdirStep(it->task_data.fault.head.group_id);
-
-								list<CB_CONTROL> lst_cb;
-								if (GetLeftStep(it->task_data.fault.head.group_id, lst_cb) > 0)
-								{
-									AddControlItem(it->task_data.fault.head.group_id, lst_cb.begin()->point_id, lst_cb.begin()->bOpen, lst_cb.begin()->stage);
+									//¼ÆËãÍê³Éºó°Ñ¹ÊÕÏ´ÓÈÎÎñÁĞ±íµÄÄÚ´æÖĞÉ¾³ı£¬ÔÚÖ´ĞĞµÄÊ±ºòÔÙ°ÑÄÚ´æÊı¾İ»Ö¸´
+									RemoveTasks(it->task_data.fault.head.group_id);
+									it = g_lstTask.begin();
 								}
+								else
+								{
+									if (g_FdirConfig.AUTO_DEAL_HIS == 0)
+									{
+										FormFdirStep(it->task_data.fault.head.group_id);
+
+										list<CB_CONTROL> lst_cb;
+										if (GetLeftStep(it->task_data.fault.head.group_id, lst_cb) > 0)
+										{
+											AddControlItem(it->task_data.fault.head.group_id, lst_cb.begin()->point_id, lst_cb.begin()->bOpen, lst_cb.begin()->stage);
+										}
+									}
+
+								}
+
+								break;
 							}
 
+							case TASK_FAULT_STATUS_INVALID_RECALC:
+							{
+								FDIR_TASK_LIST::iterator itTemp;
+								list<FDIR_R2*> lst_fdir_r2;
+								map<FDIR_R2*, FDIR_TASK*> map_fdir_task;
+
+								TRACE("¿ªÊ¼¼ÆËã×éºÅÎª%sµÄ²Ù×÷·½°¸£¬¸Ã×éµÄ¹ÊÕÏÓĞ£º\r\n", it->task_data.fault.head.group_id);
+
+								for (itTemp = g_lstTask.begin(); itTemp != g_lstTask.end(); itTemp++)
+								{
+									if (itTemp->rq_type != TASK_TYPE_FAULT)
+										continue;
+
+									if (strcmp(itTemp->task_data.fault.head.group_id, it->task_data.fault.head.group_id) == 0)
+									{
+										lst_fdir_r2.push_back(itTemp->task_data.fault.fdir_r);
+										map_fdir_task[itTemp->task_data.fault.fdir_r] = &(*itTemp);
+
+										itTemp->task_data.fault.next_step = TASK_FAULT_STATUS_CALC_STEP;
+
+										//ºóÌ¨×Ô¶¯Ö´ĞĞÊ§°Üºó×ªÎªÇ°Ì¨ÈË¹¤Ö´ĞĞ
+										itTemp->task_data.fault.bAuto = 0;
+										cout << it->task_data.fault.head.group_id << "->" << itTemp->task_data.fault.head.fault_id << endl;
+									}
+								}
+
+								list<list<MAP_SO_NODE> > lst_steps;
+								////¹ÊÕÏ×éÖĞÓÉÓÚ¸ôÀë»òÕßÌøÕ¢µ¼ÖÂÊ§µçµÄ¸ººÉ£¬×îÖÕ±£´æ·Ç¹ÊÕÏ²»¿É»Ö¸´µÄ¸ººÉ
+								list<FAULT_ITEM> in_re_lst_group_ld;
+								////¹ÊÕÏ×éÖĞÓÉÓÚ¸ôÀë»òÕßÌøÕ¢µ¼ÖÂÊ§µç£¬´æÔÚ»Ö¸´·½°¸£¬¿ÉÒÔ»Ö¸´µÄ¸ººÉ
+								list<FAULT_ITEM> in_re_lst_able_res;
+								it->task_data.fault.fdir_r->Init();
+								if (re_calc_restore_step(it->task_data.fault.head.group_id, lst_fdir_r2, lst_steps) == FDIR_R_SUCCEED)
+								{
+									//É¾³ı¾ÉµÄ»Ö¸´·½°¸
+									sprintf(sql, "DELETE FROM FHZG_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									sprintf(sql, "DELETE FROM FHZG_SO_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									sprintf(sql, "DELETE FROM FHZG_STEP WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									sprintf(sql, "DELETE FROM FHZG_SO WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									sprintf(sql, "DELETE FROM FHZG_CUT_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									sprintf(sql, "DELETE FROM FHZG_LOAD WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									sprintf(sql, "DELETE FROM FHZG_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									sprintf(sql, "UPDATE FDIR_FDIRECT SET USERID=NULL,MACHINE=NULL,STATUS_ISOLATE=-1,STATUS_FHZG=-1,STATUS_RESTORE=-1 WHERE GROUPID=\'%s\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									sprintf(sql, "DELETE FROM FDIR_CB_STATUS WHERE ID=\'%s\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									//É¾³ıÑ¡¶¨µÄÖ´ĞĞ·½°¸ÖĞÎ´Ö´ĞĞµÄ²½Öè
+									sprintf(sql, "DELETE FROM FDIR_STEP WHERE ID=\'%s\' AND STATUS=%d", it->task_data.fault.head.group_id, STATUS_FDIR_STEP_WAIT);
+									ExecSQL(sql);
+
+									sprintf(sql, "DELETE FROM FDIR_DISABLE_RES WHERE ID=\'%s\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									sprintf(sql, "DELETE FROM FDIR_ENABLE_RES WHERE ID=\'%s\'", it->task_data.fault.head.group_id);
+									ExecSQL(sql);
+
+									for (map<FDIR_R2*, FDIR_TASK*>::iterator it_fdir_r = map_fdir_task.begin(); it_fdir_r != map_fdir_task.end(); it_fdir_r++)
+									{
+
+										in_re_lst_group_ld.splice(in_re_lst_group_ld.end(), it_fdir_r->first->m_ld);
+										sprintf(sql, "DELETE FROM FDIR_UP_ZONE WHERE ID LIKE \'%s%%\'", it->task_data.fault.head.group_id);
+										ExecSQL(sql);
+
+										string manual_restore;
+
+										for (list<long>::iterator it_point = it_fdir_r->second->task_data.fault.fdir_r->lst_restore.begin();
+											 it_point != it_fdir_r->second->task_data.fault.fdir_r->lst_restore.end(); it_point++)
+										{
+											char tmp[50];
+
+											sprintf(tmp, "%ld", *it_point);
+
+											manual_restore += tmp;
+
+											if (is_controllable(*it_point))
+												manual_restore += "[0];";
+											else
+												manual_restore += ";";
+										}
+
+										//¸üĞÂÉÏÓÎ¿ª¹Ø
+										sprintf(sql, "update FDIR_FDIRECT set MANUAL_RESTORE = \'%s\' where id = \'%s\'", manual_restore.c_str(), it_fdir_r->second->task_data.fault.head.fault_id);
+										ExecSQL(sql);
+
+										write_fault_up_dev(it->task_data.fault.head.group_id, "", it_fdir_r->first, false, in_re_lst_able_res);
+
+										//±£´æ¹ÊÕÏÀ¡Ïß¿ª¹ØĞÅÏ¢£¬×öÊı¾İĞ£ÑéÓÃ
+										write_fault_tree(it->task_data.fault.head.group_id, it_fdir_r->first);
+
+									}
+
+									in_re_lst_group_ld.sort();
+									in_re_lst_group_ld.unique();
+									//Ğ´ÈëĞÂµÄ»Ö¸´·½°¸
+									write_fhzg_step(it->task_data.fault.head.group_id, "", lst_steps, map_fdir_task.begin()->first, in_re_lst_able_res, list<long>(), true);
+
+									EraseSameInfo(in_re_lst_group_ld, in_re_lst_able_res);
+									//Ğ´Èë¹ÊÕÏºó¿É»Ö¸´µÄ¸ººÉºÍ²»¿É»Ö¸´µÄ¸ººÉ
+									write_res_and_disableres_ld(it->task_data.fault.head.group_id, in_re_lst_group_ld, in_re_lst_able_res);
+									for (map<FDIR_R2*, FDIR_TASK*>::iterator it_map_fdir_task = map_fdir_task.begin(); it_map_fdir_task != map_fdir_task.end(); it_map_fdir_task++)
+									{
+										sprintf(sql, "DELETE FROM FDIR_ISOLATE WHERE ID=\'%s\' and STATUS in(%d,%d,%d) and ctrl_type=0", it_map_fdir_task->second->task_data.fault.head.fault_id, STATUS_ISOLATE_FAIL,
+												STATUS_ISOLATE_WAIT, STATUS_ISOLATE_EXEC);
+										ExecSQL(sql);
+
+										sprintf(sql, "select count(cb) from fdir_isolate where id=\'%s\'", it_map_fdir_task->second->task_data.fault.head.fault_id);
+										char *buf = NULL;
+										int rec_num, attr_num;
+										struct ORA_ATTR *attrs = NULL;
+										int step_num = 0;
+
+										pthread_mutex_lock(&oci_mutex);
+										int ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
+										pthread_mutex_unlock(&oci_mutex);
+
+										if (ret != OCI_ERROR)
+										{
+											step_num = *(int*)(buf);
+										}
+										g_oci->Readdata_Free();
+
+										//Ğ´¹ÊÕÏ¸ôÀë²½Öè±í
+										const TTable<CLS_FDIR_ISOLATE>* isolate = it_map_fdir_task->first->getisolate();
+										int i = 0;
+										for (i = 0; i < isolate->GetCount(); i++)
+										{
+											int up_isolate = 0;
+											if (isolate->Data[i].q & FDIR_ISOLATE_NO_SO)
+											{
+												TRACE("¸ôÀë¿ª¹Ø%ldÏÂÓÎÎŞ¿É×ª¹©µçÔ´£¬²»¸ôÀë£¡\r\n", isolate->Data[i].cb);
+												continue; //ÏÂÓÎ²»¿É»Ö¸´µÄ¿ª¹Ø²»ĞèÒª¸ôÀë
+											}
+											if (isolate->Data[i].q & FDIR_ISOLATE_UP)
+											{
+												up_isolate = 1;
+											}
+
+											sprintf(sql,
+													"Insert into PMS_PARAM.FDIR_ISOLATE (ID, STEP, ICB, CB, CB_DESCR, IMODE, CTRL_TYPE, CONTROL, UP_ISOLATE) Values (\'%s\', %d, %d, \'%ld\', \'%s\', %d, 0, %d, %d)",
+													it_map_fdir_task->second->task_data.fault.head.fault_id/*¹ÊÕÏ±êÊ¶·û*/, step_num + i/*¹ÊÕÏ¸ôÀëĞòºÅ*/, isolate->Data[i].icb/*ÒªÖ´ĞĞµÄ¿ª¹ØÂß¼­ºÅ*/,
+													isolate->Data[i].cb/*ÒªÖ´ĞĞµÄ¿ª¹Øid*/, isolate->Data[i].cb_desc/*ÒªÖ´ĞĞµÄ¿ª¹ØÃèÊö*/, it_map_fdir_task->second->task_data.fault.bAuto == 1/*×Ô¶¯*/? 4 : 3,
+													is_controllable(isolate->Data[i].cb) ? 1 : 0, up_isolate);
+
+											ExecSQL(sql);
+										}
+									}
+								}
+
+								//ÏòÈË»ú·¢ËÍ¹ÊÕÏ¸ôÀë»Ö¸´ÊÂ¼ş
+								if (it->task_data.fault.bAuto == 0)
+								{
+									if (version == VERSION_REALTIME)
+									{
+										//D5000ÏòÈË»ú·¢ËÍ¹ÊÕÏ¸ôÀë»Ö¸´ÊÂ¼ş
+										Notify(it->task_data.fault.head.group_id, it->task_data.fault.dv, it->task_data.fault.st);
+//								FDIR_MSG_ISO_REC fdata = { 0 };
+//
+//								strcpy(fdata.fault_id, it->task_data.fault.head.group_id);
+//								strcpy(fdata.st_id, "UPDATE");
+//
+//								printf("send_event(%d) group_id:%s,return %d\r\n", EVPS_FDIR_MSG_ISO_REC, fdata.fault_id, bob_inv->send_event(EVPS_FDIR_MSG_ISO_REC, (char *) &fdata, sizeof(fdata)));
+									}
+
+									//¼ÆËãÍê³Éºó°Ñ¹ÊÕÏ´ÓÈÎÎñÁĞ±íµÄÄÚ´æÖĞÉ¾³ı£¬ÔÚÖ´ĞĞµÄÊ±ºòÔÙ°ÑÄÚ´æÊı¾İ»Ö¸´
+									RemoveTasks(it->task_data.fault.head.group_id);
+									it = g_lstTask.begin();
+								}
+								else
+								{
+									if (g_FdirConfig.AUTO_DEAL_HIS == 0)
+									{
+										FormFdirStep(it->task_data.fault.head.group_id);
+
+										list<CB_CONTROL> lst_cb;
+										if (GetLeftStep(it->task_data.fault.head.group_id, lst_cb) > 0)
+										{
+											AddControlItem(it->task_data.fault.head.group_id, lst_cb.begin()->point_id, lst_cb.begin()->bOpen, lst_cb.begin()->stage);
+										}
+									}
+
+								}
+
+								break;
+							}
+
+							default:
+								break;
 						}
 
 						break;
 					}
+
+						//×ª×Ô¶¯
+					case TASK_TYPE_SET_AUTO:
+						break;
 
 					default:
 						break;
-					}
-
-					break;
-				}
-
-					//×ª×Ô¶¯
-				case TASK_TYPE_SET_AUTO:
-					break;
-
-				default:
-					break;
 				}
 			}
 		}
@@ -5613,7 +5613,7 @@ int get_op_type(const long id)
 			continue;
 
 		if ((it->task_data.control.point_name == id)
-				&& (TASK_CTL_STATUS_RUN == it->task_data.control.status))
+			&& (TASK_CTL_STATUS_RUN == it->task_data.control.status))
 		{
 			op_type = it->task_data.control.bOpen ? 1 : 0;
 			break;
@@ -5638,7 +5638,7 @@ const char * get_group_id(const long id)
 			continue;
 
 		if ((it->task_data.control.point_name == id) &&
-				((TASK_CTL_STATUS_RUN == it->task_data.control.status) || (TASK_CTL_STATUS_FINISH == it->task_data.control.status)))
+			((TASK_CTL_STATUS_RUN == it->task_data.control.status) || (TASK_CTL_STATUS_FINISH == it->task_data.control.status)))
 		{
 			pthread_mutex_unlock(&task_list_mutex);
 			return it->task_data.control.head.group_id;
@@ -5687,12 +5687,12 @@ void thread_recv_rte(void *param)
 
 			switch (msg.header.event)
 			{
-			case WARN_INFORM_TYPE:
-			{
-				break;
-			}
-			case MT_YX_CHANGE:
-			{
+				case WARN_INFORM_TYPE:
+				{
+					break;
+				}
+				case MT_YX_CHANGE:
+				{
 //				int cnt = msg.header.len / sizeof(ChangeYx);
 //				int pos = 1;
 //
@@ -5783,229 +5783,229 @@ void thread_recv_rte(void *param)
 //					pos++;
 //				} while (pos < cnt);
 //
-				break;
-			}
-			case SCADA_OPT_PREV_ANSWER:
-			{
-				TScaOpAnswer *tsa = (TScaOpAnswer*)msg.Msg_buf;
-
-				TRACE("key_id:%ld, time:%ld, ctrl_result:%i\r\n", tsa->key_id, tsa->time, tsa->ctrl_result);
-
-				if(tsa->ctrl_result == 0){
-					TRACE("Ò£¿Ø·µĞ£³É¹¦£¡\r\n");
-
-					int op_type = get_op_type(tsa->key_id);
-
-					switch(op_type){
-					case 0:
-					case 1:
-						DoControl(tsa->key_id, false, op_type);
-						break;
-
-					default:
-						TRACE("²»ÊÇÆÚÍûµÄÒ£¿Ø·µ»ØÏî£¡\r\n");
-						break;
-					}
+					break;
 				}
-				break;
-			}
-			case MT_YK_REPLY:
-			case MT_TAP_REPLY:
-			{
-//				TRACE("Ò£¿Øtelbob·µĞ£ÊÂ¼ş£¡\r\n");
-				break;
-			}
-			case APP_TO_WARN_SERVICE_TYPE:
-			{
-				APP_TO_WARN_SERVICE_MESSAGE_STRU r_Dev;
-
-				M_DECODE(r_Dev, msg.Msg_buf, msg.header.len);
-
-				int len = r_Dev.seq_warn_message.length();
-
-				for (int i = 0; i < len; i++)
+				case SCADA_OPT_PREV_ANSWER:
 				{
-					TRACE("--------------------warntype:%d,app:%d\r\n", r_Dev.seq_warn_message[i].warn_type, r_Dev.seq_warn_message[i].app_no);
-					if (r_Dev.seq_warn_message[i].warn_type == D_YX_BW_WARN_TYPE
+					TScaOpAnswer *tsa = (TScaOpAnswer*)msg.Msg_buf;
+
+					TRACE("key_id:%ld, time:%ld, ctrl_result:%i\r\n", tsa->key_id, tsa->time, tsa->ctrl_result);
+
+					if(tsa->ctrl_result == 0){
+						TRACE("Ò£¿Ø·µĞ£³É¹¦£¡\r\n");
+
+						int op_type = get_op_type(tsa->key_id);
+
+						switch(op_type){
+							case 0:
+							case 1:
+								DoControl(tsa->key_id, false, op_type);
+								break;
+
+							default:
+								TRACE("²»ÊÇÆÚÍûµÄÒ£¿Ø·µ»ØÏî£¡\r\n");
+								break;
+						}
+					}
+					break;
+				}
+				case MT_YK_REPLY:
+				case MT_TAP_REPLY:
+				{
+//				TRACE("Ò£¿Øtelbob·µĞ£ÊÂ¼ş£¡\r\n");
+					break;
+				}
+				case APP_TO_WARN_SERVICE_TYPE:
+				{
+					APP_TO_WARN_SERVICE_MESSAGE_STRU r_Dev;
+
+					M_DECODE(r_Dev, msg.Msg_buf, msg.header.len);
+
+					int len = r_Dev.seq_warn_message.length();
+
+					for (int i = 0; i < len; i++)
+					{
+						TRACE("--------------------warntype:%d,app:%d\r\n", r_Dev.seq_warn_message[i].warn_type, r_Dev.seq_warn_message[i].app_no);
+						if (r_Dev.seq_warn_message[i].warn_type == D_YX_BW_WARN_TYPE
 							/*||	r_Dev.seq_warn_message[i].warn_type == YX_BW_WARN_TYPE*/
 							|| r_Dev.seq_warn_message[i].warn_type == D_SG_WARN_TYPE
 							/*|| r_Dev.seq_warn_message[i].warn_type == SG_WARN_TYPE*/)		//Æ½Ì¨±¨¾¯ÓĞÎÊÌâ£¬ÔİÊ±±¨²»ÉÏD_SG_WARN_TYPEÊÂ¼ş£¬ÏÈÊÕSG_WARN_TYPE×öÈİ´í
-					{
-						if(r_Dev.seq_warn_message[i].app_no != AP_DSCADA) continue;
-
-						data_trig.alarm.type = r_Dev.seq_warn_message[i].warn_type;
-
-						data_trig.alarm.occur_time = r_Dev.seq_warn_message[i].seq_field_info[0].c_time();
-						data_trig.alarm.msec = r_Dev.seq_warn_message[i].seq_field_info[1].c_short();
-						data_trig.alarm.key_id = r_Dev.seq_warn_message[i].seq_field_info[2].c_long();
-						data_trig.alarm.respid = r_Dev.seq_warn_message[i].seq_field_info[3].c_int();
-						data_trig.alarm.st_id = r_Dev.seq_warn_message[i].seq_field_info[4].c_long();
-						data_trig.alarm.bayid = r_Dev.seq_warn_message[i].seq_field_info[5].c_long();
-						data_trig.alarm.status = r_Dev.seq_warn_message[i].seq_field_info[6].c_int();
-						data_trig.alarm.str = r_Dev.seq_warn_message[i].seq_field_info[7].c_string();
-						data_trig.alarm.bvid = r_Dev.seq_warn_message[i].seq_field_info[8].c_long();
-
-						if (data_trig.alarm.msec == -1)
 						{
-							//ÑĞ¾¿Ì¬
-							data_trig.trig_type = TRIG_TYPE_SIMU;
-						}
+							if(r_Dev.seq_warn_message[i].app_no != AP_DSCADA) continue;
 
-						if (GetDv(data_trig.alarm.st_id, "st", psbob_dv) == OO_FAIL)
-						{
-							TRACE("»ñÈ¡³§Õ¾%ldµÄÀ¡ÏßĞÅÏ¢Ê§°Ü£¡\r\n", data_trig.alarm.st_id);
-							continue;
-						}
+							data_trig.alarm.type = r_Dev.seq_warn_message[i].warn_type;
 
-						data_trig.dv_id = psbob_dv.id;
-						data_trig.damode = GetDvDamode(psbob_dv.id);
-						gettimeofday(&data_trig.tm_add, NULL);
+							data_trig.alarm.occur_time = r_Dev.seq_warn_message[i].seq_field_info[0].c_time();
+							data_trig.alarm.msec = r_Dev.seq_warn_message[i].seq_field_info[1].c_short();
+							data_trig.alarm.key_id = r_Dev.seq_warn_message[i].seq_field_info[2].c_long();
+							data_trig.alarm.respid = r_Dev.seq_warn_message[i].seq_field_info[3].c_int();
+							data_trig.alarm.st_id = r_Dev.seq_warn_message[i].seq_field_info[4].c_long();
+							data_trig.alarm.bayid = r_Dev.seq_warn_message[i].seq_field_info[5].c_long();
+							data_trig.alarm.status = r_Dev.seq_warn_message[i].seq_field_info[6].c_int();
+							data_trig.alarm.str = r_Dev.seq_warn_message[i].seq_field_info[7].c_string();
+							data_trig.alarm.bvid = r_Dev.seq_warn_message[i].seq_field_info[8].c_long();
 
-						if (data_trig.damode <= FDIR_MODE_FORBID)
-						{
-							TRACE("À¡Ïß%ld(%s)Îª½ûÖ¹DA´¦Àí(%d)\r\n", psbob_dv.id, psbob_dv.name, psbob_dv.damode);
-							continue;
-						}
-
-						KEY_STRU ks = { 0 };
-
-						CCommon::long_to_keyid(data_trig.alarm.key_id, &ks);
-						ks.field_id = 0;
-						CCommon::keyid_to_long(&ks, &data_trig.alarm.key_id);
-
-						TB_DESCR *tb_descr = const_cast<TB_DESCR*>(g_db_psbob->GetTB(ks.table_no));
-
-						if (ks.table_no == g_db_psbob->GetTB("breaker")->table_id)
-						{
-							data_trig.alarm.dev = ALARM_BREAKER;
-
-							if (oodbread_rk(&data_trig.psbob_data.point, &data_trig.alarm.key_id, tb_descr, sizeof(data_trig.psbob_data.point)) == OO_FAIL)
+							if (data_trig.alarm.msec == -1)
 							{
-								TRACE("¶ÁÈ¡¿ª¹Ø±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", data_trig.alarm.key_id);
+								//ÑĞ¾¿Ì¬
+								data_trig.trig_type = TRIG_TYPE_SIMU;
+							}
+
+							if (GetDv(data_trig.alarm.st_id, "st", psbob_dv) == OO_FAIL)
+							{
+								TRACE("»ñÈ¡³§Õ¾%ldµÄÀ¡ÏßĞÅÏ¢Ê§°Ü£¡\r\n", data_trig.alarm.st_id);
 								continue;
 							}
-							else
+
+							data_trig.dv_id = psbob_dv.id;
+							data_trig.damode = GetDvDamode(psbob_dv.id);
+							gettimeofday(&data_trig.tm_add, NULL);
+
+							if (data_trig.damode <= FDIR_MODE_FORBID)
 							{
-								if (MENU_WARN_YX_BW_ON == data_trig.alarm.status)
+								TRACE("À¡Ïß%ld(%s)Îª½ûÖ¹DA´¦Àí(%d)\r\n", psbob_dv.id, psbob_dv.name, psbob_dv.damode);
+								continue;
+							}
+
+							KEY_STRU ks = { 0 };
+
+							CCommon::long_to_keyid(data_trig.alarm.key_id, &ks);
+							ks.field_id = 0;
+							CCommon::keyid_to_long(&ks, &data_trig.alarm.key_id);
+
+							TB_DESCR *tb_descr = const_cast<TB_DESCR*>(g_db_psbob->GetTB(ks.table_no));
+
+							if (ks.table_no == g_db_psbob->GetTB("breaker")->table_id)
+							{
+								data_trig.alarm.dev = ALARM_BREAKER;
+
+								if (oodbread_rk(&data_trig.psbob_data.point, &data_trig.alarm.key_id, tb_descr, sizeof(data_trig.psbob_data.point)) == OO_FAIL)
 								{
-									TRACE("¿ª¹Ø[%s]ºÏÕ¢(%d)\r\n", data_trig.psbob_data.point.name, data_trig.alarm.status);
+									TRACE("¶ÁÈ¡¿ª¹Ø±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", data_trig.alarm.key_id);
+									continue;
 								}
 								else
 								{
-									if(r_Dev.seq_warn_message[i].warn_type == D_SG_WARN_TYPE
+									if (MENU_WARN_YX_BW_ON == data_trig.alarm.status)
+									{
+										TRACE("¿ª¹Ø[%s]ºÏÕ¢(%d)\r\n", data_trig.psbob_data.point.name, data_trig.alarm.status);
+									}
+									else
+									{
+										if(r_Dev.seq_warn_message[i].warn_type == D_SG_WARN_TYPE
 											/*||r_Dev.seq_warn_message[i].warn_type == SG_WARN_TYPE*/)
-									{
-										TRACE("¿ª¹Ø[%s]ÊÂ¹ÊÌøÕ¢(%d)\r\n", data_trig.psbob_data.point.name, data_trig.alarm.status);
-									}
-									else
-									{
-										TRACE("¿ª¹Ø[%s]·ÖÕ¢(%d)\r\n", data_trig.psbob_data.point.name, data_trig.alarm.status);
-									}
-
-									data_trig.alarm.name = data_trig.psbob_data.point.name;
-
-									//½«¸Ã¿ª¹Ø¼ÓÈë¹ıÁ÷¿ª¹ØÁĞ±í
-									pthread_mutex_lock(&trig_list_mutex);
-									g_lstTrig.push_back(data_trig);
-									pthread_mutex_unlock(&trig_list_mutex);
-								}
-
-							}
-						}
-						else if (ks.table_no == g_db_psbob->GetTB("relaysig")->table_id)
-						{
-							PSBOB::PROTECT protect = { 0 };
-
-							if (oodbread_rk(&protect, &data_trig.alarm.key_id, tb_descr, sizeof(protect)) == OO_FAIL)
-							{
-								TRACE("¶ÁÈ¡±£»¤ĞÅºÅ±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", data_trig.alarm.key_id);
-								continue;
-							}
-							else
-							{
-								// ÔİÊ±ĞŞ¸Ä¶ÁÈ¡±£»¤ĞÅºÅ²ßÂÔ£¬Ôö¼Ó¶¯×÷ĞÅºÅ
-								if (HasMask(tb_descr, "pnt_type", protect.pnt_type , MENU_TYPE_RELAY_SGZ) || HasMask(tb_descr, "pnt_type", protect.pnt_type , MENU_TYPE_RELAY_ACT))
-								{
-									data_trig.alarm.dev = ALARM_SGZ;
-
-									if (MENU_WARN_YX_ACT_ON == data_trig.alarm.status)
-									{
-										unsigned long id = 0;
-										CCommon::long_to_keyid(protect.oo_dev, &ks);
-										ks.field_id = 0;
-										CCommon::keyid_to_long(&ks, &id);
-
-										if (oodbread_rk(&data_trig.psbob_data.point, &id, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(data_trig.psbob_data.point)) == OO_FAIL)
 										{
-											TRACE("¶ÁÈ¡¿ª¹Ø±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", id);
-											continue;
+											TRACE("¿ª¹Ø[%s]ÊÂ¹ÊÌøÕ¢(%d)\r\n", data_trig.psbob_data.point.name, data_trig.alarm.status);
 										}
 										else
 										{
-											TRACE("ÊÂ¹Ê×Ü[%s]¶¯×÷(%d)\r\n", protect.name, data_trig.alarm.status);
-
-											data_trig.alarm.name = protect.name;
-
-											//½«¸Ã¿ª¹Ø¼ÓÈë¹ıÁ÷¿ª¹ØÁĞ±í
-											pthread_mutex_lock(&trig_list_mutex);
-											g_lstTrig.push_back(data_trig);
-											pthread_mutex_unlock(&trig_list_mutex);
+											TRACE("¿ª¹Ø[%s]·ÖÕ¢(%d)\r\n", data_trig.psbob_data.point.name, data_trig.alarm.status);
 										}
-									}
-									else
-									{
-										TRACE("ÊÂ¹Ê×Ü[%s]¸´¹é(%d)\r\n", protect.name, data_trig.alarm.status);
+
+										data_trig.alarm.name = data_trig.psbob_data.point.name;
+
+										//½«¸Ã¿ª¹Ø¼ÓÈë¹ıÁ÷¿ª¹ØÁĞ±í
+										pthread_mutex_lock(&trig_list_mutex);
+										g_lstTrig.push_back(data_trig);
+										pthread_mutex_unlock(&trig_list_mutex);
 									}
 
 								}
-								else if(HasMask(tb_descr, "pnt_type", protect.pnt_type , MENU_TYPE_RELAY_JD)
-										|| HasMask(tb_descr, "pnt_type", protect.pnt_type , MENU_TYPE_RELAY_DL))
+							}
+							else if (ks.table_no == g_db_psbob->GetTB("relaysig")->table_id)
+							{
+								PSBOB::PROTECT protect = { 0 };
+
+								if (oodbread_rk(&protect, &data_trig.alarm.key_id, tb_descr, sizeof(protect)) == OO_FAIL)
 								{
-									data_trig.alarm.dev = HasMask(tb_descr, "pnt_type", protect.pnt_type, MENU_TYPE_RELAY_DL) ? ALARM_FAULTINFO_DL : ALARM_FAULTINFO_JD;
-
-									if (MENU_WARN_YX_ACT_ON == data_trig.alarm.status)
-									{
-										unsigned long id = 0;
-										CCommon::long_to_keyid(protect.oo_dev, &ks);
-										ks.field_id = 0;
-										CCommon::keyid_to_long(&ks, &id);
-
-										if (oodbread_rk(&data_trig.psbob_data.faultinfo, &id, const_cast<TB_DESCR*>(g_db_psbob->GetTB("faultinfo")), sizeof(data_trig.psbob_data.faultinfo)) == OO_FAIL)
-										{
-											TRACE("¶ÁÈ¡¹ÊÕÏÖ¸Ê¾Æ÷±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", id);
-											continue;
-										}
-										else
-										{
-											TRACE("¹ÊÕÏÖ¸Ê¾Æ÷[%s]¶¯×÷(%d)\r\n", protect.name, data_trig.alarm.status);
-
-											data_trig.alarm.name = protect.name;
-											//½«¸Ã¿ª¹Ø¼ÓÈë¹ıÁ÷¿ª¹ØÁĞ±í
-											pthread_mutex_lock(&trig_list_mutex);
-											g_lstTrig.push_back(data_trig);
-											pthread_mutex_unlock(&trig_list_mutex);
-										}
-									}
-									else
-									{
-										TRACE("¹ÊÕÏÖ¸Ê¾Æ÷[%s]¸´¹é(%d)\r\n", protect.name, data_trig.alarm.status);
-									}
+									TRACE("¶ÁÈ¡±£»¤ĞÅºÅ±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", data_trig.alarm.key_id);
+									continue;
 								}
 								else
 								{
-									TRACE("%s(%d)\r\n", protect.name, protect.pnt_type);
+									// ÔİÊ±ĞŞ¸Ä¶ÁÈ¡±£»¤ĞÅºÅ²ßÂÔ£¬Ôö¼Ó¶¯×÷ĞÅºÅ
+									if (HasMask(tb_descr, "pnt_type", protect.pnt_type , MENU_TYPE_RELAY_SGZ) || HasMask(tb_descr, "pnt_type", protect.pnt_type , MENU_TYPE_RELAY_ACT))
+									{
+										data_trig.alarm.dev = ALARM_SGZ;
+
+										if (MENU_WARN_YX_ACT_ON == data_trig.alarm.status)
+										{
+											unsigned long id = 0;
+											CCommon::long_to_keyid(protect.oo_dev, &ks);
+											ks.field_id = 0;
+											CCommon::keyid_to_long(&ks, &id);
+
+											if (oodbread_rk(&data_trig.psbob_data.point, &id, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(data_trig.psbob_data.point)) == OO_FAIL)
+											{
+												TRACE("¶ÁÈ¡¿ª¹Ø±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", id);
+												continue;
+											}
+											else
+											{
+												TRACE("ÊÂ¹Ê×Ü[%s]¶¯×÷(%d)\r\n", protect.name, data_trig.alarm.status);
+
+												data_trig.alarm.name = protect.name;
+
+												//½«¸Ã¿ª¹Ø¼ÓÈë¹ıÁ÷¿ª¹ØÁĞ±í
+												pthread_mutex_lock(&trig_list_mutex);
+												g_lstTrig.push_back(data_trig);
+												pthread_mutex_unlock(&trig_list_mutex);
+											}
+										}
+										else
+										{
+											TRACE("ÊÂ¹Ê×Ü[%s]¸´¹é(%d)\r\n", protect.name, data_trig.alarm.status);
+										}
+
+									}
+									else if(HasMask(tb_descr, "pnt_type", protect.pnt_type , MENU_TYPE_RELAY_JD)
+											|| HasMask(tb_descr, "pnt_type", protect.pnt_type , MENU_TYPE_RELAY_DL))
+									{
+										data_trig.alarm.dev = HasMask(tb_descr, "pnt_type", protect.pnt_type, MENU_TYPE_RELAY_DL) ? ALARM_FAULTINFO_DL : ALARM_FAULTINFO_JD;
+
+										if (MENU_WARN_YX_ACT_ON == data_trig.alarm.status)
+										{
+											unsigned long id = 0;
+											CCommon::long_to_keyid(protect.oo_dev, &ks);
+											ks.field_id = 0;
+											CCommon::keyid_to_long(&ks, &id);
+
+											if (oodbread_rk(&data_trig.psbob_data.faultinfo, &id, const_cast<TB_DESCR*>(g_db_psbob->GetTB("faultinfo")), sizeof(data_trig.psbob_data.faultinfo)) == OO_FAIL)
+											{
+												TRACE("¶ÁÈ¡¹ÊÕÏÖ¸Ê¾Æ÷±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", id);
+												continue;
+											}
+											else
+											{
+												TRACE("¹ÊÕÏÖ¸Ê¾Æ÷[%s]¶¯×÷(%d)\r\n", protect.name, data_trig.alarm.status);
+
+												data_trig.alarm.name = protect.name;
+												//½«¸Ã¿ª¹Ø¼ÓÈë¹ıÁ÷¿ª¹ØÁĞ±í
+												pthread_mutex_lock(&trig_list_mutex);
+												g_lstTrig.push_back(data_trig);
+												pthread_mutex_unlock(&trig_list_mutex);
+											}
+										}
+										else
+										{
+											TRACE("¹ÊÕÏÖ¸Ê¾Æ÷[%s]¸´¹é(%d)\r\n", protect.name, data_trig.alarm.status);
+										}
+									}
+									else
+									{
+										TRACE("%s(%d)\r\n", protect.name, protect.pnt_type);
+									}
 								}
 							}
+							else
+							{
+								TRACE("Î´´¦ÀíµÄ±¨¾¯Éè±¸%s(%d)\r\n", tb_descr->table_name, tb_descr->table_id);
+							}
+
+							//TRACE("(%ld %d %ld %d %ld %ld %d %ld)\r\n", tmp_sec, tmp_msec, tmp_keyid, tmp_respid, tmp_facid, tmp_bayid, tmp_status, tmp_bvid);
 						}
 						else
 						{
-							TRACE("Î´´¦ÀíµÄ±¨¾¯Éè±¸%s(%d)\r\n", tb_descr->table_name, tb_descr->table_id);
-						}
-
-						//TRACE("(%ld %d %ld %d %ld %ld %d %ld)\r\n", tmp_sec, tmp_msec, tmp_keyid, tmp_respid, tmp_facid, tmp_bayid, tmp_status, tmp_bvid);
-					}
-					else
-					{
 #if 0
 						int lenVal = r_Dev.seq_warn_message[i].seq_field_info.length();
 
@@ -6071,14 +6071,14 @@ void thread_recv_rte(void *param)
 							}
 						}
 #endif
+						}
 					}
+					break;
 				}
-				break;
-			}
-			//¿ÉÓÃalarm_simu_toolÃüÁîÄ£Äâ
-			case MT_FAULT_EVENT:
-			{
-				break;
+					//¿ÉÓÃalarm_simu_toolÃüÁîÄ£Äâ
+				case MT_FAULT_EVENT:
+				{
+					break;
 #if 0
 				TransEventPkg receive_mes;
 
@@ -6131,9 +6131,9 @@ void thread_recv_rte(void *param)
 
 				break;
 #endif
-			}
-			case MT_YC_EVENT:
-			{
+				}
+				case MT_YC_EVENT:
+				{
 //				TransEventPkg receive_mes;
 //
 //				M_DECODE(receive_mes, msg.Msg_buf, msg.header.len);
@@ -6142,10 +6142,10 @@ void thread_recv_rte(void *param)
 //				{
 //					cout << "MT_YC_EVENT:" << receive_mes.event_info[i].key_id << "," << receive_mes.event_info[i].st_id << endl;
 //				}
-				break;
-			}
-			case MT_YX_EVENT:
-			{
+					break;
+				}
+				case MT_YX_EVENT:
+				{
 //				TransEventPkg receive_mes;
 //
 //				M_DECODE(receive_mes, msg.Msg_buf, msg.header.len);
@@ -6203,10 +6203,10 @@ void thread_recv_rte(void *param)
 //					}
 //					}
 //				}
-				break;
-			}
-			default:
-			{
+					break;
+				}
+				default:
+				{
 //				cout << "unknow message:" << msg.header.event << endl;
 //				printf("msg.header.len:%d\r\n", msg.header.len);
 //				printf("msg.header.serv:%d\r\n", msg.header.serv);
@@ -6220,8 +6220,8 @@ void thread_recv_rte(void *param)
 //				printf("msg.header.remain:%d\r\n", msg.header.remain);
 //				cout << endl;
 
-				break;
-			}
+					break;
+				}
 			}
 		}
 	}
@@ -6403,11 +6403,11 @@ void RecoMemTask(const char* groupid)
 			char bus_id[MAX_BUS_ID_LEN+10];
 			bzero(bus_id,sizeof(bus_id));
 			strncpy(bus_id, buf + i * (attrs[0].col_width), attrs[0].col_width);
-		//	strcat(bus_id, '\0');
+			//	strcat(bus_id, '\0');
 			lst_bus.push_back(atol(bus_id));
 		}
 		g_oci->Readdata_Free();
-	 }
+	}
 
 	sprintf(sql, "select id,study_eq,fd,zone from fdir_fdirect where groupid=\'%s\'", groupid);
 	cout << sql << endl;
@@ -6421,7 +6421,7 @@ void RecoMemTask(const char* groupid)
 		for (int i = 0; i < rec_num; i++)
 		{
 			//Æô¶¯Ò»¸ö¹ÊÕÏ
-		   //	FDIR_TASK data_task;
+			//	FDIR_TASK data_task;
 			data_task.rq_type = TASK_TYPE_FAULT;
 			data_task.task_data.fault.next_step = TASK_FAULT_STATUS_ISO;
 			data_task.task_data.fault.bAuto = 0;
@@ -6577,7 +6577,7 @@ bool RemoveTask(const char *faultid)
 				map_idle_fdir_r[i] = false;
 				it->task_data.fault.fdir_r = NULL;
 				printf("\033[42mµÚ%dºÅ¹ÊÕÏ´¦ÀíÆ÷[0x%x]±»ÊÍ·Å£¡\033[0m\r\n", i,
-						array_fdir_r[i]);
+					   array_fdir_r[i]);
 				break;
 			}
 		}
@@ -6938,10 +6938,10 @@ int main(int _argc, char *_argv[])
 		return -1;
 	}
 #endif
-if(version == VERSION_STUDY)
-	cout << "Ä£ÄâÌ¬³ÌĞò°æ±¾£¡"<<endl;
-else
-	cout << "·ÇÄ£ÄâÌ¬³ÌĞò°æ±¾£¡"<<endl;
+	if(version == VERSION_STUDY)
+		cout << "Ä£ÄâÌ¬³ÌĞò°æ±¾£¡"<<endl;
+	else
+		cout << "·ÇÄ£ÄâÌ¬³ÌĞò°æ±¾£¡"<<endl;
 
 #ifndef _NO_RTE_
 #ifndef _FAST_DEBUG
@@ -7539,7 +7539,7 @@ void HandlerMessage(void *para)
 
 	while (GDI_TRUE)
 	{
-	RE_RECV:
+		RE_RECV:
 		if ((ret = tcptools->ReadLine(newsockfd, recv_buf, MAX_BUFLEN)) <= 0)
 		{
 			if (ret == 0)
@@ -7548,9 +7548,6 @@ void HandlerMessage(void *para)
 
 			break;
 		}
-
-		//¹ÊÕÏÄ£ÄâĞ´¿âÍê³ÉÖ®ºó£¬ÏòÈË»ú·µ»Ø±¨ÎÄ
-		//TRACE("$$$$$$$$flag:%d\r\n", g_is_write_to_lib);
 
 		//½ÓÊÕµ½ĞÂµÄXML¸ñÊ½ÇëÇóĞÅÏ¢£¬´´½¨ĞÂµÄÁÙÊ±ÎÄ¼ş´¢´æ½ÓÏÂÀ´ÊÕµ½µÄXMLÎÄ¼şÊı¾İ
 		if(strncasecmp(recv_buf, "<?xml", 5) == 0)
@@ -7668,27 +7665,27 @@ void HandlerMessage(void *para)
 													{
 														switch (cmd)
 														{
-														case 1: //µçÔ´¸ú×Ù
-														{
-															nmd->find_so(atol(porderelement->Attribute("id")), porderelement->Attribute("tablename"), paths, FIND_TYPE_SO);
+															case 1: //µçÔ´¸ú×Ù
+															{
+																nmd->find_so(atol(porderelement->Attribute("id")), porderelement->Attribute("tablename"), paths, FIND_TYPE_SO);
 
-															break;
-														}
-														case 2: //¹©µç·¶Î§
-														{
-															nmd->find_so(atol(porderelement->Attribute("id")), porderelement->Attribute("tablename"), paths, FIND_TYPE_SO_AREA);
+																break;
+															}
+															case 2: //¹©µç·¶Î§
+															{
+																nmd->find_so(atol(porderelement->Attribute("id")), porderelement->Attribute("tablename"), paths, FIND_TYPE_SO_AREA);
 
-															break;
-														}
-														case 100: //¼ì²éÉè±¸Á¬½Ó×´Ì¬
-														{
-															nmd->find_so(atol(porderelement->Attribute("id")), porderelement->Attribute("tablename"), paths, FIND_TYPE_CONNECT);
+																break;
+															}
+															case 100: //¼ì²éÉè±¸Á¬½Ó×´Ì¬
+															{
+																nmd->find_so(atol(porderelement->Attribute("id")), porderelement->Attribute("tablename"), paths, FIND_TYPE_CONNECT);
 
-															break;
-														}
+																break;
+															}
 
-														default:
-															break;
+															default:
+																break;
 														}
 
 													}
@@ -7754,7 +7751,7 @@ void HandlerMessage(void *para)
 														} value;
 
 														ret = GetFieldsByID(const_cast<TB_DESCR*>(g_db_psbob->GetTB(it->second.path.top().table.c_str())), (char*) &it->second.path.top().id, field_no,
-																field_num, sizeof(value), (char*) &value);
+																			field_num, sizeof(value), (char*) &value);
 														if (ret == 0)
 														{
 															TRACE("nd:%ld,name:%s\r\n", value.nd, value.name);
@@ -7780,7 +7777,7 @@ void HandlerMessage(void *para)
 														} value;
 
 														ret = GetFieldsByID(const_cast<TB_DESCR*>(g_db_psbob->GetTB(it->second.path.top().table.c_str())), (char*) &it->second.path.top().id, field_no,
-																field_num, sizeof(value), (char*) &value);
+																			field_num, sizeof(value), (char*) &value);
 														if (ret == 0)
 														{
 															TRACE("ind:%ld,jnd:%ld,name:%s\r\n", value.ind, value.jnd, value.name);
@@ -7801,7 +7798,7 @@ void HandlerMessage(void *para)
 												DEV curDev = it->second.path.top();
 												map<long, list<long> >::iterator itRMUbus = g_map_nd_bus.find(curDev.nd);
 												if (itRMUbus != g_map_nd_bus.end() && strcasecmp(curDev.table.c_str(), "BUS") != 0
-														&& strcasecmp(curDev.table.c_str(), "busbarsection") != 0)
+													&& strcasecmp(curDev.table.c_str(), "busbarsection") != 0)
 												{
 													for (list<long>::iterator itRMU = itRMUbus->second.begin(); itRMU != itRMUbus->second.end(); itRMU++)
 													{
@@ -7976,7 +7973,7 @@ void HandlerMessage(void *para)
 
 													// ½«¿ÉÄÜÊÇÒ£ĞÅID×ª»»³ÉÉè±¸ID
 													KEY_STRU ks = { 0 };
-												    CCommon::long_to_keyid(fault_sec, &ks);
+													CCommon::long_to_keyid(fault_sec, &ks);
 													ks.field_id = 0;
 
 													long dev_id = 0;
@@ -8251,7 +8248,7 @@ void HandlerMessage(void *para)
 											simu.type = atoi(bodyelement->Attribute("type"));
 
 											TiXmlNode* simu_node = pbodynode->FirstChild();
-											SIMU_SIG_LIST lst_sig;											
+											SIMU_SIG_LIST lst_sig;
 
 											while (simu_node != NULL)
 											{
@@ -8282,14 +8279,14 @@ void HandlerMessage(void *para)
 											}
 
 											sprintf(sql, "INSERT INTO PMS_PARAM.FDIR_SIG_SUMMARY(ID, TYPE, NAME, MACHINE, USERID, RUN_TIME, FAULT_INDEX) VALUES(\'%s\', %d, \'%s\', \'%s\', \'%s\', 1, -1)",
-												simu.plan_id, simu.type, simu.plan_name, simu.machine_name, simu.usr_id);
+													simu.plan_id, simu.type, simu.plan_name, simu.machine_name, simu.usr_id);
 											ExecSQL(sql);
 
 											std::list<SIMU_SIGNAL>::iterator it_sig;
 											for(it_sig  = lst_sig.begin(); it_sig != lst_sig.end(); it_sig++)
 											{
 												sprintf(sql, "INSERT INTO PMS_PARAM.FDIR_SIG_SIGNAL (ID, SIG_ID, SIG_NAME, TYPE, DELAY, STATUS, COMMENT) VALUES (\'%s\', %ld, \'%s\', %d, %d, %d, \'%s\')",
-													it_sig->plan_id, it_sig->sig_id, it_sig->sig_name, it_sig->type, it_sig->sig_delay, it_sig->status, it_sig->comment);
+														it_sig->plan_id, it_sig->sig_id, it_sig->sig_name, it_sig->type, it_sig->sig_delay, it_sig->status, it_sig->comment);
 												ExecSQL(sql);
 											}
 
@@ -8303,7 +8300,7 @@ void HandlerMessage(void *para)
 												memcpy(&start_sig, &(*it_sig), sizeof(SIMU_SIGNAL));
 												bresult = save_simu_cb_info(start_sig.sig_id, simu.plan_id);
 											}
-											
+
 											//·¢ËÍÇëÇóÏìÓ¦Êı¾İ
 											//·¢ËÍXMLÏìÓ¦Í·
 											cout << head_xml_simu_save << endl;
@@ -8316,8 +8313,8 @@ void HandlerMessage(void *para)
 											}
 
 											//·¢ËÍÏìÓ¦ÇëÇóÉÏÏÂÎÄĞÅÏ¢
-											sprintf(ret_buf, "<Simu_Plan  id = \"%s\" type=\"%d\" name=\'%s\' machine=\"%s\" user=\'%s\'>\r\n", 
-												simu.plan_id, simu.type, simu.plan_name, simu.machine_name, simu.usr_id);
+											sprintf(ret_buf, "<Simu_Plan  id = \"%s\" type=\"%d\" name=\'%s\' machine=\"%s\" user=\'%s\'>\r\n",
+													simu.plan_id, simu.type, simu.plan_name, simu.machine_name, simu.usr_id);
 
 											cout << ret_buf << endl;
 											ret = tcptools->Send(newsockfd, ret_buf, strlen(ret_buf));
@@ -8340,7 +8337,7 @@ void HandlerMessage(void *para)
 												goto RE_RECV;
 											}
 
-											//·¢ËÍXMLÏìÓ¦Î²										
+											//·¢ËÍXMLÏìÓ¦Î²
 											cout << tail_xml_simu << endl;
 											ret = tcptools->Send(newsockfd, tail_xml_simu, strlen(tail_xml_simu));
 
@@ -8350,7 +8347,7 @@ void HandlerMessage(void *para)
 												goto RE_RECV;
 											}
 										}
-										
+
 									}
 									else if (strcasecmp(Header, "fault_imitation_check") == 0)	//¹ÊÕÏÄ£ÄâĞ£Ñé
 									{
@@ -8390,7 +8387,7 @@ void HandlerMessage(void *para)
 														data_check.Ic = atof(simu_element->Attribute("ic"));
 														data_check.p = atof(simu_element->Attribute("p"));
 														data_check.q = atof(simu_element->Attribute("q"));
-														
+
 														check_cbs.push_back(data_check);
 													}
 													else
@@ -8421,8 +8418,8 @@ void HandlerMessage(void *para)
 												}
 
 												//·¢ËÍÏìÓ¦ÇëÇóÉÏÏÂÎÄĞÅÏ¢
-												sprintf(ret_buf, "<Simu_Plan  id = \"%s\" type = \"%d\" name=\"%s\" machine=\"%s\" user=\"%s\">\r\n", 
-													simu.plan_id, simu.type, simu.plan_name, simu.machine_name, simu.usr_id);
+												sprintf(ret_buf, "<Simu_Plan  id = \"%s\" type = \"%d\" name=\"%s\" machine=\"%s\" user=\"%s\">\r\n",
+														simu.plan_id, simu.type, simu.plan_name, simu.machine_name, simu.usr_id);
 
 												cout << ret_buf << endl;
 												ret = tcptools->Send(newsockfd, ret_buf, strlen(ret_buf));
@@ -8436,8 +8433,8 @@ void HandlerMessage(void *para)
 												//·µ»Ø¿ª¹Ø¼ÇÂ¼ĞÅÏ¢
 												for (std::list<CHECK_DATA>::iterator it_chk = check_cbs.begin(); it_chk != check_cbs.end();it_chk++)
 												{
-													sprintf(ret_buf, "<Record id=\"%ld\" status=\"%d\" ia=\"%.2f\" ib=\"%.2f\" ic=\"%.2f\" p=\"%.2f\" q=\"%.2f\"/>\r\n", 
-														it_chk->cb_id, it_chk->status, it_chk->Ia, it_chk->Ib, it_chk->Ic, it_chk->p, it_chk->q);
+													sprintf(ret_buf, "<Record id=\"%ld\" status=\"%d\" ia=\"%.2f\" ib=\"%.2f\" ic=\"%.2f\" p=\"%.2f\" q=\"%.2f\"/>\r\n",
+															it_chk->cb_id, it_chk->status, it_chk->Ia, it_chk->Ib, it_chk->Ic, it_chk->p, it_chk->q);
 
 													cout << ret_buf << endl;
 													ret = tcptools->Send(newsockfd, ret_buf, strlen(ret_buf));
@@ -8447,7 +8444,7 @@ void HandlerMessage(void *para)
 														cout << "·¢ËÍÊı¾İÊ§°Ü£¬" << strerror(errno) << endl;
 														goto RE_RECV;
 													}
-												}												
+												}
 
 												//·¢ËÍXMLÏìÓ¦Î²
 												cout << tail_xml_simu << endl;
@@ -8476,7 +8473,7 @@ void HandlerMessage(void *para)
 										{
 											//ÁÙÊ±½¨Á¢µÄ·½°¸
 											sprintf(sql, "INSERT INTO PMS_PARAM.FDIR_SIG_SUMMARY(ID, TYPE, NAME, MACHINE, USERID, RUN_TIME, FAULT_INDEX) VALUES(\'%s\', %d, \'%s\', \'%s\', \'%s\', 1, -1)",
-												simu.plan_id, 1, simu.plan_name, simu.machine_name, simu.usr_id);
+													simu.plan_id, 1, simu.plan_name, simu.machine_name, simu.usr_id);
 											ExecSQL(sql);
 										}
 
@@ -8518,7 +8515,7 @@ void HandlerMessage(void *para)
 														{
 															TRACE("À¡Ïß%ld(%s)Îª½ûÖ¹DA´¦Àí(%d)\r\n", psbob_dv.id, psbob_dv.name, psbob_dv.damode);
 															continue;
-														}		
+														}
 
 														unsigned long id = 0;
 														KEY_STRU ks = {0};
@@ -8536,10 +8533,10 @@ void HandlerMessage(void *para)
 														if (!(HasMask(tb_descr, "pnt_type", relay.pnt_type , MENU_TYPE_RELAY_SGZ) || HasMask(tb_descr, "pnt_type", relay.pnt_type , MENU_TYPE_RELAY_ACT)))
 														{
 															continue;
-														}															
+														}
 
 														gettimeofday(&data_trig.tm_add, NULL);
-														data_trig.alarm.dev = ALARM_SGZ;	
+														data_trig.alarm.dev = ALARM_SGZ;
 														data_trig.alarm.name = relay.name;
 														data_trig.simu_plan_id = simu.plan_id;
 
@@ -8575,7 +8572,7 @@ void HandlerMessage(void *para)
 														{
 															TRACE("À¡Ïß%ld(%s)Îª½ûÖ¹DA´¦Àí(%d)\r\n", psbob_dv.id, psbob_dv.name, psbob_dv.damode);
 															continue;
-														}	
+														}
 
 														gettimeofday(&data_trig.tm_add, NULL);
 
@@ -8604,12 +8601,12 @@ void HandlerMessage(void *para)
 												else
 												{
 													TRACE("ĞÅºÅ%ld,status:%d, type:%d±»¹ıÂË£¡\r\n", sig_id, status, type);
-												}								
+												}
 											}
 
 											simu_node = simu_node->NextSibling();
 										}
-										
+
 									}
 									else if (strcasecmp(Header, "fault_imitation_exec") == 0)
 									{
@@ -8633,126 +8630,161 @@ void HandlerMessage(void *para)
 													int type = atoi(simu_element->Attribute("type"));
 													int status = atoi(simu_element->Attribute("status"));
 
-													if (type == 1 && status == 1)
+													//ÊµÊ±Ì¬×ª·¢Îª¸æ¾¯£¬ÑĞ¾¿Ì¬½ÓÊÕ±¨ÎÄ
+													if (version == VERSION_REALTIME)
 													{
-														//±£»¤ĞÅºÅ¶¯×÷
-														PSBOB::PROTECT relay = {0};
-														if (oodbread_rk(&relay, &sig_id, const_cast<TB_DESCR*>(g_db_psbob->GetTB("relaysig")), sizeof(PSBOB::PROTECT)) > 0)
+														Message message = { 0 };
+														RealDataPkg pkg={0};
+														KEY_STRU ks = {0};
+														CCommon::long_to_keyid(sig_id, &ks);
+														if (ks.table_no == 407)
 														{
-															FDIR_POINT_TRIG data_trig = {0};
-															data_trig.trig_type = TRIG_TYPE_SIMU;
-															PSBOB::DV psbob_dv = {0};
-															if (GetDv(relay.st_id, "st", psbob_dv) == OO_FAIL)
-															{
-																TRACE("»ñÈ¡³§Õ¾%ldµÄÀ¡ÏßĞÅÏ¢Ê§°Ü£¡\r\n", data_trig.alarm.st_id);
-																continue;
-															}
-
-															data_trig.dv_id = psbob_dv.id;
-															data_trig.alarm.key_id = sig_id;
-															data_trig.damode = GetDvDamode(psbob_dv.id);
-
-															if (data_trig.damode <= FDIR_MODE_FORBID)
-															{
-																TRACE("À¡Ïß%ld(%s)Îª½ûÖ¹DA´¦Àí(%d)\r\n", psbob_dv.id, psbob_dv.name, psbob_dv.damode);
-																continue;
-															}		
-
-															unsigned long id = 0;
-															KEY_STRU ks = {0};
-															CCommon::long_to_keyid(relay.oo_dev, &ks);
-															ks.field_id = 0;
-															CCommon::keyid_to_long(&ks, &id);
-
-															if (oodbread_rk(&data_trig.psbob_data.point, &id, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(data_trig.psbob_data.point)) < 0)
-															{
-																TRACE("¶ÁÈ¡¿ª¹Ø±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", id);
-																continue;
-															}
-
-															TB_DESCR* tb_descr = const_cast<TB_DESCR*>(g_db_psbob->GetTB("relaysig"));
-															if (!(HasMask(tb_descr, "pnt_type", relay.pnt_type , MENU_TYPE_RELAY_SGZ) || HasMask(tb_descr, "pnt_type", relay.pnt_type , MENU_TYPE_RELAY_ACT)))
-															{
-																continue;
-															}															
-
-															gettimeofday(&data_trig.tm_add, NULL);
-															data_trig.alarm.dev = ALARM_SGZ;	
-															data_trig.alarm.name = relay.name;
-															data_trig.simu_plan_id = simu.plan_id;
-
-															//½«¸ÃĞÅºÅ¼ÓÈë¹ıÁ÷ĞÅºÅÁĞ±í
-															pthread_mutex_lock(&trig_list_mutex);
-															g_lstTrig.push_back(data_trig);
-															pthread_mutex_unlock(&trig_list_mutex);
-
-															TRACE("Ä£Äâ¹ÊÕÏĞÅºÅ%ldÒÑ¼ÓÈë¹ıÁ÷ĞÅºÅÁĞ±í£¡\r\n", data_trig.alarm.key_id);
+															ks.field_id = 40;
 														}
-														else
+														else if(ks.table_no == 434)
 														{
-															TRACE("¶ÁÈ¡±£»¤ĞÅºÅ±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", sig_id);
+															ks.field_id = 20;
 														}
+														CCommon::keyid_to_long(&ks, &sig_id);
+
+														ChangeYx yx = { sig_id, status, true, 222, -1 };
+
+														memcpy(pkg.mes, &yx, sizeof(ChangeYx));
+														pkg.package_head.data_num=1;
+														pkg.package_head.package_type = MT_YC_CHANGE;
+														pkg.package_head.second = time(NULL);
+														pkg.package_head.msecond = 0;
+														memcpy(message.Msg_buf, &pkg, sizeof(pkg));
+														message.header.event = MT_YX_CHANGE;
+														message.header.serv = D_CH_UP_REAL_DATA;
+														cout << "bob_inv->messageSend,return:" << bob_inv->messageSend(&message, sizeof(message.header) +sizeof(yx), NULL) << endl;
 													}
-													else if (type == 0 && status == 0)
+													else if(version == VERSION_STUDY)
 													{
-														//¿ª¹Ø·ÖÕ¢
-														PSBOB::CB cb = {0};
-														if (oodbread_rk(&cb, &sig_id, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(PSBOB::CB)) > 0)
+														if (type == 1 && status == 1)
 														{
-															FDIR_POINT_TRIG data_trig = {0};
-															data_trig.trig_type = TRIG_TYPE_SIMU;
-															PSBOB::DV psbob_dv = {0};
-															if (GetDv(cb.st_id, "st", psbob_dv) == OO_FAIL)
+															//±£»¤ĞÅºÅ¶¯×÷
+															PSBOB::PROTECT relay = {0};
+															if (oodbread_rk(&relay, &sig_id, const_cast<TB_DESCR*>(g_db_psbob->GetTB("relaysig")), sizeof(PSBOB::PROTECT)) > 0)
 															{
-																TRACE("»ñÈ¡³§Õ¾%ldµÄÀ¡ÏßĞÅÏ¢Ê§°Ü£¡\r\n", data_trig.alarm.st_id);
-																continue;
+																FDIR_POINT_TRIG data_trig = {0};
+																data_trig.trig_type = TRIG_TYPE_SIMU;
+																PSBOB::DV psbob_dv = {0};
+																if (GetDv(relay.st_id, "st", psbob_dv) == OO_FAIL)
+																{
+																	TRACE("»ñÈ¡³§Õ¾%ldµÄÀ¡ÏßĞÅÏ¢Ê§°Ü£¡\r\n", data_trig.alarm.st_id);
+																	continue;
+																}
+
+																data_trig.dv_id = psbob_dv.id;
+																data_trig.alarm.key_id = sig_id;
+																data_trig.damode = GetDvDamode(psbob_dv.id);
+
+																if (data_trig.damode <= FDIR_MODE_FORBID)
+																{
+																	TRACE("À¡Ïß%ld(%s)Îª½ûÖ¹DA´¦Àí(%d)\r\n", psbob_dv.id, psbob_dv.name, psbob_dv.damode);
+																	continue;
+																}
+
+																unsigned long id = 0;
+																KEY_STRU ks = {0};
+																CCommon::long_to_keyid(relay.oo_dev, &ks);
+																ks.field_id = 0;
+																CCommon::keyid_to_long(&ks, &id);
+
+																if (oodbread_rk(&data_trig.psbob_data.point, &id, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(data_trig.psbob_data.point)) < 0)
+																{
+																	TRACE("¶ÁÈ¡¿ª¹Ø±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", id);
+																	continue;
+																}
+
+																TB_DESCR* tb_descr = const_cast<TB_DESCR*>(g_db_psbob->GetTB("relaysig"));
+																if (!(HasMask(tb_descr, "pnt_type", relay.pnt_type , MENU_TYPE_RELAY_SGZ) || HasMask(tb_descr, "pnt_type", relay.pnt_type , MENU_TYPE_RELAY_ACT)))
+																{
+																	continue;
+																}
+
+																gettimeofday(&data_trig.tm_add, NULL);
+																data_trig.alarm.dev = ALARM_SGZ;
+																data_trig.alarm.name = relay.name;
+																data_trig.simu_plan_id = simu.plan_id;
+
+																//½«¸ÃĞÅºÅ¼ÓÈë¹ıÁ÷ĞÅºÅÁĞ±í
+																pthread_mutex_lock(&trig_list_mutex);
+																g_lstTrig.push_back(data_trig);
+																pthread_mutex_unlock(&trig_list_mutex);
+
+																TRACE("Ä£Äâ¹ÊÕÏĞÅºÅ%ldÒÑ¼ÓÈë¹ıÁ÷ĞÅºÅÁĞ±í£¡\r\n", data_trig.alarm.key_id);
 															}
-
-															data_trig.dv_id = psbob_dv.id;
-															data_trig.alarm.key_id = sig_id;
-															data_trig.damode = GetDvDamode(psbob_dv.id);
-															if (data_trig.damode <= FDIR_MODE_FORBID)
+															else
 															{
-																TRACE("À¡Ïß%ld(%s)Îª½ûÖ¹DA´¦Àí(%d)\r\n", psbob_dv.id, psbob_dv.name, psbob_dv.damode);
-																continue;
-															}	
-
-															gettimeofday(&data_trig.tm_add, NULL);
-
-															KEY_STRU ks = { 0 };
-															CCommon::long_to_keyid(data_trig.alarm.key_id, &ks);
-															ks.field_id = 0;
-															CCommon::keyid_to_long(&ks, &data_trig.alarm.key_id);
-															if (oodbread_rk(&data_trig.psbob_data.point, &data_trig.alarm.key_id, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(data_trig.psbob_data.point)) == OO_FAIL)
-															{
-																TRACE("¶ÁÈ¡¿ª¹Ø±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", data_trig.alarm.key_id);
-																continue;
+																TRACE("¶ÁÈ¡±£»¤ĞÅºÅ±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", sig_id);
 															}
+														}
+														else if (type == 0 && status == 0)
+														{
+															//¿ª¹Ø·ÖÕ¢
+															PSBOB::CB cb = {0};
+															if (oodbread_rk(&cb, &sig_id, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(PSBOB::CB)) > 0)
+															{
+																FDIR_POINT_TRIG data_trig = {0};
+																data_trig.trig_type = TRIG_TYPE_SIMU;
+																PSBOB::DV psbob_dv = {0};
+																if (GetDv(cb.st_id, "st", psbob_dv) == OO_FAIL)
+																{
+																	TRACE("»ñÈ¡³§Õ¾%ldµÄÀ¡ÏßĞÅÏ¢Ê§°Ü£¡\r\n", data_trig.alarm.st_id);
+																	continue;
+																}
 
-															data_trig.alarm.dev = ALARM_BREAKER;
-															data_trig.alarm.name = data_trig.psbob_data.point.name;
-															data_trig.simu_plan_id = simu.plan_id;
+																data_trig.dv_id = psbob_dv.id;
+																data_trig.alarm.key_id = sig_id;
+																data_trig.damode = GetDvDamode(psbob_dv.id);
+																if (data_trig.damode <= FDIR_MODE_FORBID)
+																{
+																	TRACE("À¡Ïß%ld(%s)Îª½ûÖ¹DA´¦Àí(%d)\r\n", psbob_dv.id, psbob_dv.name, psbob_dv.damode);
+																	continue;
+																}
 
-															//½«¸Ã¿ª¹Ø¼ÓÈë¹ıÁ÷¿ª¹ØÁĞ±í
-															pthread_mutex_lock(&trig_list_mutex);
-															g_lstTrig.push_back(data_trig);
-															pthread_mutex_unlock(&trig_list_mutex);
-															TRACE("Ä£Äâ¹ÊÕÏĞÅºÅ%ldÒÑ¼ÓÈë¹ıÁ÷ĞÅºÅÁĞ±í£¡\r\n", data_trig.alarm.key_id);
+																gettimeofday(&data_trig.tm_add, NULL);
+
+																KEY_STRU ks = { 0 };
+																CCommon::long_to_keyid(data_trig.alarm.key_id, &ks);
+																ks.field_id = 0;
+																CCommon::keyid_to_long(&ks, &data_trig.alarm.key_id);
+																if (oodbread_rk(&data_trig.psbob_data.point, &data_trig.alarm.key_id, const_cast<TB_DESCR*>(g_db_psbob->GetTB("breaker")), sizeof(data_trig.psbob_data.point)) == OO_FAIL)
+																{
+																	TRACE("¶ÁÈ¡¿ª¹Ø±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", data_trig.alarm.key_id);
+																	continue;
+																}
+
+																data_trig.alarm.dev = ALARM_BREAKER;
+																data_trig.alarm.name = data_trig.psbob_data.point.name;
+																data_trig.simu_plan_id = simu.plan_id;
+
+																//½«¸Ã¿ª¹Ø¼ÓÈë¹ıÁ÷¿ª¹ØÁĞ±í
+																pthread_mutex_lock(&trig_list_mutex);
+																g_lstTrig.push_back(data_trig);
+																pthread_mutex_unlock(&trig_list_mutex);
+																TRACE("Ä£Äâ¹ÊÕÏĞÅºÅ%ldÒÑ¼ÓÈë¹ıÁ÷ĞÅºÅÁĞ±í£¡\r\n", data_trig.alarm.key_id);
+															}
+															else
+															{
+																TRACE("¶ÁÈ¡¶ÏÂ·Æ÷±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", sig_id);
+															}
 														}
 														else
 														{
-															TRACE("¶ÁÈ¡¶ÏÂ·Æ÷±í¹Ø¼ü×ÖÎª%ldµÄ¼ÇÂ¼Ê§°Ü£¡\r\n", sig_id);
+															TRACE("ĞÅºÅ%ld,status:%d, type:%d±»¹ıÂË£¡\r\n", sig_id, status, type);
 														}
 													}
 													else
 													{
-														TRACE("ĞÅºÅ%ld,status:%d, type:%d±»¹ıÂË£¡\r\n", sig_id, status, type);
-													}													
+													}
 
 												}
 
 												simu_node = simu_node->NextSibling();
-											}					
+											}
 
 										}
 									}
@@ -8825,7 +8857,7 @@ void HandlerMessage(void *para)
 														{
 															AddControlItem(porderelement->Attribute("fault_id"), lstcb.begin()->point_id, lstcb.begin()->bOpen, lstcb.begin()->stage);
 														}
-														//
+															//
 														else
 														{
 														}
@@ -8949,7 +8981,7 @@ void HandlerMessage(void *para)
 													else if (strcasecmp(porderelement->Attribute("op_type"), "pass") == 0)		//Ìø¹ıÖ¸¶¨Ò£¿Ø²½Öè
 													{
 														SetPassControl(porderelement->Attribute("fault_id"), atol(porderelement->Attribute("cb")), STATUS_FDIR_STEP_PASS,
-																atoi(porderelement->Attribute("stage")));
+																	   atoi(porderelement->Attribute("stage")));
 														UpdateExtStatus(porderelement->Attribute("fault_id"));
 
 														//ÖÃ´¦ÀíÍê³É±êÖ¾
@@ -8996,14 +9028,14 @@ void HandlerMessage(void *para)
 														{
 															pthread_mutex_lock(&task_list_mutex);
 															AddReturnControl(porderelement->Attribute("fault_id"), atol(porderelement->Attribute("cb")), atoi(porderelement->Attribute("op_type")) - 1,
-																	atoi(porderelement->Attribute("stage")));
+																			 atoi(porderelement->Attribute("stage")));
 															pthread_mutex_unlock(&task_list_mutex);
 														}
 														else
 														{
 															pthread_mutex_lock(&task_list_mutex);
 															AddControlItem(porderelement->Attribute("fault_id"), atol(porderelement->Attribute("cb")), atoi(porderelement->Attribute("op_type")) - 1,
-																	atoi(porderelement->Attribute("stage")));
+																		   atoi(porderelement->Attribute("stage")));
 															pthread_mutex_unlock(&task_list_mutex);
 														}
 													}
@@ -9013,7 +9045,7 @@ void HandlerMessage(void *para)
 											}
 										}
 									}
-									//·ÀÎó±ÕËøÅĞ¶Ï
+										//·ÀÎó±ÕËøÅĞ¶Ï
 									else if (strcasecmp(Header, "misoperation") == 0)
 									{
 										if (strcasecmp(bodyelement->Value(), "operation") == 0)
@@ -9194,57 +9226,57 @@ void HandlerMessage(void *para)
 															//·¢ËÍÉè±¸ĞÅÏ¢
 															switch (Result)
 															{
-															//ºÏ¡¢½â»·
-															case 1:
-															case 2:
-															{
-																list<PSBOB::DV>::iterator it;
-
-																for (it = data_mis.dv1.begin(); it != data_mis.dv1.end(); it++)
+																//ºÏ¡¢½â»·
+																case 1:
+																case 2:
 																{
-																	sprintf(ret_buf, "<Record id=\"%ld\" descr=\"%s\" tablename=\"subcontrolarea\" />\r\n", it->id, it->name);
-																	cout << ret_buf << endl;
-																	ret = tcptools->Send(newsockfd, ret_buf, strlen(ret_buf));
-																	if (ret <= 0)
+																	list<PSBOB::DV>::iterator it;
+
+																	for (it = data_mis.dv1.begin(); it != data_mis.dv1.end(); it++)
 																	{
-																		cout << "·¢ËÍÊı¾İÊ§°Ü£¬" << strerror(errno) << endl;
-																		goto RE_RECV;
+																		sprintf(ret_buf, "<Record id=\"%ld\" descr=\"%s\" tablename=\"subcontrolarea\" />\r\n", it->id, it->name);
+																		cout << ret_buf << endl;
+																		ret = tcptools->Send(newsockfd, ret_buf, strlen(ret_buf));
+																		if (ret <= 0)
+																		{
+																			cout << "·¢ËÍÊı¾İÊ§°Ü£¬" << strerror(errno) << endl;
+																			goto RE_RECV;
+																		}
+
 																	}
 
-																}
-
-																for (it = data_mis.dv2.begin(); it != data_mis.dv2.end(); it++)
-																{
-																	sprintf(ret_buf, "<Record id=\"%ld\" descr=\"%s\" tablename=\"subcontrolarea\" />\r\n", it->id, it->name);
-																	cout << ret_buf << endl;
-																	ret = tcptools->Send(newsockfd, ret_buf, strlen(ret_buf));
-																	if (ret <= 0)
+																	for (it = data_mis.dv2.begin(); it != data_mis.dv2.end(); it++)
 																	{
-																		cout << "·¢ËÍÊı¾İÊ§°Ü£¬" << strerror(errno) << endl;
-																		goto RE_RECV;
+																		sprintf(ret_buf, "<Record id=\"%ld\" descr=\"%s\" tablename=\"subcontrolarea\" />\r\n", it->id, it->name);
+																		cout << ret_buf << endl;
+																		ret = tcptools->Send(newsockfd, ret_buf, strlen(ret_buf));
+																		if (ret <= 0)
+																		{
+																			cout << "·¢ËÍÊı¾İÊ§°Ü£¬" << strerror(errno) << endl;
+																			goto RE_RECV;
+																		}
 																	}
+																	break;
 																}
-																break;
-															}
-															//³ä¡¢Ê§µç
-															case 3:
-															case 4:
-															{
-																for (list<CLS_LD>::iterator it = lst_ld.begin(); it != lst_ld.end(); it++)
+																	//³ä¡¢Ê§µç
+																case 3:
+																case 4:
 																{
-																	sprintf(ret_buf, "<Record id=\"%ld\" descr=\"%s\" tablename=\"energyconsumer\" />\r\n", it->id, it->descr);
-																	cout << ret_buf << endl;
-																	ret = tcptools->Send(newsockfd, ret_buf, strlen(ret_buf));
-																	if (ret <= 0)
+																	for (list<CLS_LD>::iterator it = lst_ld.begin(); it != lst_ld.end(); it++)
 																	{
-																		cout << "·¢ËÍÊı¾İÊ§°Ü£¬" << strerror(errno) << endl;
-																		goto RE_RECV;
+																		sprintf(ret_buf, "<Record id=\"%ld\" descr=\"%s\" tablename=\"energyconsumer\" />\r\n", it->id, it->descr);
+																		cout << ret_buf << endl;
+																		ret = tcptools->Send(newsockfd, ret_buf, strlen(ret_buf));
+																		if (ret <= 0)
+																		{
+																			cout << "·¢ËÍÊı¾İÊ§°Ü£¬" << strerror(errno) << endl;
+																			goto RE_RECV;
+																		}
 																	}
+																	break;
 																}
-																break;
-															}
-															default:
-																break;
+																default:
+																	break;
 															}
 
 															strcpy(ret_buf, "</Result>\r\n");
@@ -9331,41 +9363,41 @@ void HandlerMessage(void *para)
 													}
 													else if (strcasecmp("breaker", porderelement->Attribute("tablename")) == 0)
 													{
-													FHZG *fhzg = new FHZG(g_bob);
+														FHZG *fhzg = new FHZG(g_bob);
 
-													int fhzg_ret = fhzg->Do(atol(porderelement->Attribute("id")));
+														int fhzg_ret = fhzg->Do(atol(porderelement->Attribute("id")));
 
-													switch (fhzg_ret)
-													{
-													case 0: //×ª¹©³É¹¦
+														switch (fhzg_ret)
 														{
-															//Ğ´¸ººÉ×ª¹©¹ØÏµ¿â±í
-															fill_fhzg_db(atol(cb_id), fhzg_id, fhzg, true);
-															sprintf(error, "%f", fhzg->fhzg_capacity);
-													        ret_err = 0;
-															break;
-														}
+															case 0: //×ª¹©³É¹¦
+															{
+																//Ğ´¸ººÉ×ª¹©¹ØÏµ¿â±í
+																fill_fhzg_db(atol(cb_id), fhzg_id, fhzg, true);
+																sprintf(error, "%f", fhzg->fhzg_capacity);
+																ret_err = 0;
+																break;
+															}
 
-													case FHZG_FAIL_NO_SO:
-														{
-															strcpy(error, "Ã»ÓĞ¿É¹©×ª¹©µÄµçÔ´£¬×ª¹©Ê§°Ü£¡");
-														    ret_err = -1 ;
-															break;
-														}
+															case FHZG_FAIL_NO_SO:
+															{
+																strcpy(error, "Ã»ÓĞ¿É¹©×ª¹©µÄµçÔ´£¬×ª¹©Ê§°Ü£¡");
+																ret_err = -1 ;
+																break;
+															}
 
-													case FHZG_FAIL_SO_FULL:
-														{
-															strcpy(error, "ËùÓĞ¿É×ª¹©µÄµçÔ´Ê£ÓàÈİÁ¿²»×ã£¬×ª¹©Ê§°Ü£¡");
-															ret_err = -1;
-															break;
+															case FHZG_FAIL_SO_FULL:
+															{
+																strcpy(error, "ËùÓĞ¿É×ª¹©µÄµçÔ´Ê£ÓàÈİÁ¿²»×ã£¬×ª¹©Ê§°Ü£¡");
+																ret_err = -1;
+																break;
+															}
+															case FHZG_FAIL_NO_IVALUE:
+															{
+																strcpy(error, "Ã»ÓĞ»ñÈ¡µ½Òª×ª¹©¿ª¹ØµÄµçÁ÷Öµ£¬×ª¹©Ê§°Ü£¡");
+																ret_err = -1;
+																break;
+															}
 														}
-													case FHZG_FAIL_NO_IVALUE:
-													    {
-														  strcpy(error, "Ã»ÓĞ»ñÈ¡µ½Òª×ª¹©¿ª¹ØµÄµçÁ÷Öµ£¬×ª¹©Ê§°Ü£¡");
-														  ret_err = -1;
-														  break;
-													    }
-												 }
 
 														delete fhzg;
 													}
@@ -9466,39 +9498,39 @@ void HandlerMessage(void *para)
 													cmd = atoi(porderelement->Attribute("operate_type"));
 													switch (cmd)
 													{
-													case 0: //±£´æµäĞÍ·½Ê½
-													{
-														timeval tval = { 0 };
-														gettimeofday(&tval, NULL);
-														tm *ptm = localtime(&tval.tv_sec);
-														sprintf(id, "%04d/%02d/%02d %02d:%02d:%02d.%06ld", 1900 + ptm->tm_year, ptm->tm_mon + 1, ptm->tm_mday, ptm->tm_hour, ptm->tm_min, ptm->tm_sec,
-																tval.tv_usec);
-														typical *typi = new typical(g_fdir_r, id);
-
-														if(typi->typical_save(atol(porderelement->Attribute("cb_id")), machine, userid))
+														case 0: //±£´æµäĞÍ·½Ê½
 														{
-															result = 0;
+															timeval tval = { 0 };
+															gettimeofday(&tval, NULL);
+															tm *ptm = localtime(&tval.tv_sec);
+															sprintf(id, "%04d/%02d/%02d %02d:%02d:%02d.%06ld", 1900 + ptm->tm_year, ptm->tm_mon + 1, ptm->tm_mday, ptm->tm_hour, ptm->tm_min, ptm->tm_sec,
+																	tval.tv_usec);
+															typical *typi = new typical(g_fdir_r, id);
+
+															if(typi->typical_save(atol(porderelement->Attribute("cb_id")), machine, userid))
+															{
+																result = 0;
+															}
+
+															break;
+														}
+														case 1: //»Ö¸´µäĞÍ·½Ê½
+														{
+															typical *typi = new typical(g_fdir_r, id);
+
+															if(typi->typical_restore(atol(porderelement->Attribute("cb_id")), machine, userid, dv_id, res_time))
+															{
+																result = 0;
+															}
+															struct tm tmtime;
+															localtime_r(&res_time,&tmtime);
+															sprintf(ch_time,"%04d/%02d/%02d %02d:%02d:%02d",(tmtime.tm_year + 1900),(tmtime.tm_mon + 1), tmtime.tm_mday, tmtime.tm_hour, tmtime.tm_min, tmtime.tm_sec);
+															strcpy(id, dv_id.c_str());
+															break;
 														}
 
-														break;
-													}
-													case 1: //»Ö¸´µäĞÍ·½Ê½
-													{
-														typical *typi = new typical(g_fdir_r, id);
-
-														if(typi->typical_restore(atol(porderelement->Attribute("cb_id")), machine, userid, dv_id, res_time))
-														{
-															result = 0;
-														}
-														struct tm tmtime;
-														localtime_r(&res_time,&tmtime);
-														sprintf(ch_time,"%04d/%02d/%02d %02d:%02d:%02d",(tmtime.tm_year + 1900),(tmtime.tm_mon + 1), tmtime.tm_mday, tmtime.tm_hour, tmtime.tm_min, tmtime.tm_sec);
-														strcpy(id, dv_id.c_str());
-														break;
-													}
-
-													default:
-														break;
+														default:
+															break;
 													}
 												}
 												else
@@ -9913,40 +9945,40 @@ void fill_fhzg_db(const long cb_id, const char *fhzg_id, FHZG *fhzg, bool bhas_f
 		}
 		switch (fhzg_type)
 		{
-		case FHZG_TYPE_ALL: //¶ÀÁ¢×ª¹©
-		{
-			cout << "¶ÀÁ¢×ª¹©¡­¡­" << endl;
-
-			//Ğ´¿ÉÌá¹©¶ÀÁ¢×ª¹©µÄµçÔ´±í
-			const LIST_TREENODE *lst_so = fhzg->GetSO();
-
-			LIST_TREENODE::const_iterator it;
-
-			for (it = lst_so->begin(); it != lst_so->end(); it++)
+			case FHZG_TYPE_ALL: //¶ÀÁ¢×ª¹©
 			{
-				long so_name = (*it)->data.node_so.so_name;
-				long cb_to_so = (*it)->data.node_so.cb_id;
+				cout << "¶ÀÁ¢×ª¹©¡­¡­" << endl;
 
-				id_to_pid(so_name);
-				id_to_pid(cb_to_so);
+				//Ğ´¿ÉÌá¹©¶ÀÁ¢×ª¹©µÄµçÔ´±í
+				const LIST_TREENODE *lst_so = fhzg->GetSO();
 
-				sprintf(sql, "Insert into FHZG_SO (ID, SO_ID, SO_DESCR, TYPE, FULL_CAPACITY, LEFT_CAPACITY, CB_ID, ORG_WLOSS, NEW_WLOSS,ZG_CAPACITY) Values (\'%s\', \'%ld\', \'%s\', %d, %f, %f, \'%ld\', %f, %f, %f)", fhzg_id, so_name, (*it)->data.node_so.so_descr, 1/*¶ÀÁ¢×ª¹©*/,
-						(*it)->data.node_so.full_capacity, (*it)->data.node_so.left_capacity, cb_to_so, (*it)->data.node_so.org_wloss, (*it)->data.node_so.new_wloss,fhzg->fhzg_capacity);
-            
-				ExecSQL(sql);
-				istep = 0;
-				for (list<long>::const_iterator it_cut_step = cut_step->begin(); it_cut_step != cut_step->end(); it_cut_step++)
+				LIST_TREENODE::const_iterator it;
+
+				for (it = lst_so->begin(); it != lst_so->end(); it++)
 				{
-					long id = *it_cut_step;
+					long so_name = (*it)->data.node_so.so_name;
+					long cb_to_so = (*it)->data.node_so.cb_id;
 
-					id_to_pid(id);
+					id_to_pid(so_name);
+					id_to_pid(cb_to_so);
 
-					sprintf(sql, "Insert into FHZG_STEP (ID, CB_ID, OPERATION, STEP, STATUS, SO_ID, CONTROL) Values ('%s', '%ld', %d, %d, 0, '%ld', 1)", fhzg_id, *it_cut_step, 1, istep, so_name);
+					sprintf(sql, "Insert into FHZG_SO (ID, SO_ID, SO_DESCR, TYPE, FULL_CAPACITY, LEFT_CAPACITY, CB_ID, ORG_WLOSS, NEW_WLOSS,ZG_CAPACITY) Values (\'%s\', \'%ld\', \'%s\', %d, %f, %f, \'%ld\', %f, %f, %f)", fhzg_id, so_name, (*it)->data.node_so.so_descr, 1/*¶ÀÁ¢×ª¹©*/,
+							(*it)->data.node_so.full_capacity, (*it)->data.node_so.left_capacity, cb_to_so, (*it)->data.node_so.org_wloss, (*it)->data.node_so.new_wloss,fhzg->fhzg_capacity);
+
 					ExecSQL(sql);
-					istep++;
-				}
+					istep = 0;
+					for (list<long>::const_iterator it_cut_step = cut_step->begin(); it_cut_step != cut_step->end(); it_cut_step++)
+					{
+						long id = *it_cut_step;
 
-				//Ö»ÓĞoracleÊı¾İ¿âÖ§³ÖÕâÖÖ²åÈë¿âµÄsqlÓï¾ä£¬ÆäËûÊı¾İ¿â»¹ÊÇÒ»ÌõÒ»ÌõµÄ¼ÇÂ¼²åÈëtianyq
+						id_to_pid(id);
+
+						sprintf(sql, "Insert into FHZG_STEP (ID, CB_ID, OPERATION, STEP, STATUS, SO_ID, CONTROL) Values ('%s', '%ld', %d, %d, 0, '%ld', 1)", fhzg_id, *it_cut_step, 1, istep, so_name);
+						ExecSQL(sql);
+						istep++;
+					}
+
+					//Ö»ÓĞoracleÊı¾İ¿âÖ§³ÖÕâÖÖ²åÈë¿âµÄsqlÓï¾ä£¬ÆäËûÊı¾İ¿â»¹ÊÇÒ»ÌõÒ»ÌõµÄ¼ÇÂ¼²åÈëtianyq
 #ifdef _ORACLE_
 				sprintf(sql, "Insert into FHZG_SO_ZONE (ID, IZONE, SO_ID, DEV_ID, DEV_TABLE, CB_TO_SO) ");
 				memset(sqltemp, 0, sizeof(sqltemp));
@@ -9964,46 +9996,46 @@ void fill_fhzg_db(const long cb_id, const char *fhzg_id, FHZG *fhzg, bool bhas_f
 				strncat(sql, sqltemp, (strlen(sqltemp)-10));
 				ExecSQL(sql);
 #else
-				for (list<long>::iterator it_lst_so_zones = (*it)->data.node_so.lst_zones.begin(); it_lst_so_zones != (*it)->data.node_so.lst_zones.end(); it_lst_so_zones++)
+					for (list<long>::iterator it_lst_so_zones = (*it)->data.node_so.lst_zones.begin(); it_lst_so_zones != (*it)->data.node_so.lst_zones.end(); it_lst_so_zones++)
+					{
+						list<FAULT_ITEM> lst_dev;
+
+						fhzg->get_zone_devs(*it_lst_so_zones, lst_dev);
+
+						for (list<FAULT_ITEM>::iterator it_devs = lst_dev.begin(); it_devs != lst_dev.end(); it_devs++)
+						{
+							sprintf(sql, "Insert into FHZG_SO_ZONE (ID, IZONE, SO_ID, DEV_ID, DEV_TABLE) Values (\'%s\', %ld, \'%ld\', \'%ld\', \'%s\')", fhzg_id, *it_lst_so_zones, so_name, it_devs->eq_id, it_devs->table.c_str());
+							ExecSQL(sql);
+						}
+					}
+#endif
+					//ÉèÖÃ±ß½ç¿ª¹Ø
+					sprintf(sql, "update fhzg_so_zone set edge = 1 where id = \'%s\' and so_id = \'%ld\' and dev_id in (select dev_id from (select dev_id,count(dev_id) as num from  FHZG_SO_ZONE where id = \'%s\' and dev_table='CB' and so_id = \'%ld\' group by dev_id) where num =1)", fhzg_id,
+							so_name, fhzg_id, so_name);
+					ExecSQL(sql);
+
+					if (bhas_fhzg_cb)
+					{
+						sprintf(sql, "Insert into FHZG_STEP (ID, CB_ID, OPERATION, STEP, STATUS, SO_ID, CONTROL) Values (\'%s\', \'%ld\', %d, %d, 0, \'%ld\', 1)", fhzg_id, cb_id, 1, istep, so_name);
+						ExecSQL(sql);
+					}
+
+					sprintf(sql, "Insert into FHZG_STEP (ID, CB_ID, OPERATION, STEP, STATUS, SO_ID, CONTROL) Values (\'%s\', \'%ld\', %d, %d, 0, \'%ld\', 1)", fhzg_id, cb_to_so, 2, istep + 1, so_name);
+					ExecSQL(sql);
+
+				}
+
+				const LIST_TREENODE *lst_down_zone = fhzg->GetDownZones();
+
+				for (it = lst_down_zone->begin(); it != lst_down_zone->end(); it++)
 				{
 					list<FAULT_ITEM> lst_dev;
 
-					fhzg->get_zone_devs(*it_lst_so_zones, lst_dev);
-
-					for (list<FAULT_ITEM>::iterator it_devs = lst_dev.begin(); it_devs != lst_dev.end(); it_devs++)
+					for (it_map_zn_ld = (*it)->data.node_zn.map_zn_ld.begin(); it_map_zn_ld != (*it)->data.node_zn.map_zn_ld.end(); it_map_zn_ld++)
 					{
-						sprintf(sql, "Insert into FHZG_SO_ZONE (ID, IZONE, SO_ID, DEV_ID, DEV_TABLE) Values (\'%s\', %ld, \'%ld\', \'%ld\', \'%s\')", fhzg_id, *it_lst_so_zones, so_name, it_devs->eq_id, it_devs->table.c_str());
-						ExecSQL(sql);
-					}
-				}
-#endif
-				//ÉèÖÃ±ß½ç¿ª¹Ø
-				sprintf(sql, "update fhzg_so_zone set edge = 1 where id = \'%s\' and so_id = \'%ld\' and dev_id in (select dev_id from (select dev_id,count(dev_id) as num from  FHZG_SO_ZONE where id = \'%s\' and dev_table='CB' and so_id = \'%ld\' group by dev_id) where num =1)", fhzg_id,
-						so_name, fhzg_id, so_name);
-				ExecSQL(sql);
+						fhzg->get_zone_devs(it_map_zn_ld->first, lst_dev);
 
-				if (bhas_fhzg_cb)
-				{
-					sprintf(sql, "Insert into FHZG_STEP (ID, CB_ID, OPERATION, STEP, STATUS, SO_ID, CONTROL) Values (\'%s\', \'%ld\', %d, %d, 0, \'%ld\', 1)", fhzg_id, cb_id, 1, istep, so_name);
-					ExecSQL(sql);
-				}
-
-				sprintf(sql, "Insert into FHZG_STEP (ID, CB_ID, OPERATION, STEP, STATUS, SO_ID, CONTROL) Values (\'%s\', \'%ld\', %d, %d, 0, \'%ld\', 1)", fhzg_id, cb_to_so, 2, istep + 1, so_name);
-				ExecSQL(sql);
-
-			}
-
-			const LIST_TREENODE *lst_down_zone = fhzg->GetDownZones();
-
-			for (it = lst_down_zone->begin(); it != lst_down_zone->end(); it++)
-			{
-				list<FAULT_ITEM> lst_dev;
-
-				for (it_map_zn_ld = (*it)->data.node_zn.map_zn_ld.begin(); it_map_zn_ld != (*it)->data.node_zn.map_zn_ld.end(); it_map_zn_ld++)
-				{
-					fhzg->get_zone_devs(it_map_zn_ld->first, lst_dev);
-
-					//Ö»ÓĞoracleÊı¾İ¿âÖ§³ÖÕâÖÖ²åÈë¿âµÄsqlÓï¾ä£¬ÆäËûÊı¾İ¿â»¹ÊÇÒ»ÌõÒ»ÌõµÄ¼ÇÂ¼²åÈëtianyq
+						//Ö»ÓĞoracleÊı¾İ¿âÖ§³ÖÕâÖÖ²åÈë¿âµÄsqlÓï¾ä£¬ÆäËûÊı¾İ¿â»¹ÊÇÒ»ÌõÒ»ÌõµÄ¼ÇÂ¼²åÈëtianyq
 #ifdef _ORACLE_
 					sprintf(sql, "Insert into FHZG_ZONE (ID, IZONE, SO_ID, DEV_ID, DEV_TABLE) ");
 					memset(sqltemp, 0, sizeof(sqltemp));
@@ -10016,15 +10048,15 @@ void fill_fhzg_db(const long cb_id, const char *fhzg_id, FHZG *fhzg, bool bhas_f
 					ExecSQL(sql);
 
 #else
-					for (list<FAULT_ITEM>::iterator it_devs = lst_dev.begin(); it_devs != lst_dev.end(); it_devs++)
-					{
-						sprintf(sql, "Insert into FHZG_ZONE (ID, IZONE, DEV_ID, DEV_TABLE) Values (\'%s\', %d, \'%ld\', \'%s\')", fhzg_id, it_map_zn_ld->first, it_devs->eq_id, it_devs->table.c_str());
-						ExecSQL(sql);
-					}
+						for (list<FAULT_ITEM>::iterator it_devs = lst_dev.begin(); it_devs != lst_dev.end(); it_devs++)
+						{
+							sprintf(sql, "Insert into FHZG_ZONE (ID, IZONE, DEV_ID, DEV_TABLE) Values (\'%s\', %d, \'%ld\', \'%s\')", fhzg_id, it_map_zn_ld->first, it_devs->eq_id, it_devs->table.c_str());
+							ExecSQL(sql);
+						}
 #endif
-					list<CLS_LD>::const_iterator it_ld;
+						list<CLS_LD>::const_iterator it_ld;
 
-					//Ö»ÓĞoracleÊı¾İ¿âÖ§³ÖÕâÖÖ²åÈë¿âµÄsqlÓï¾ä£¬ÆäËûÊı¾İ¿â»¹ÊÇÒ»ÌõÒ»ÌõµÄ¼ÇÂ¼²åÈëtianyq
+						//Ö»ÓĞoracleÊı¾İ¿âÖ§³ÖÕâÖÖ²åÈë¿âµÄsqlÓï¾ä£¬ÆäËûÊı¾İ¿â»¹ÊÇÒ»ÌõÒ»ÌõµÄ¼ÇÂ¼²åÈëtianyq
 #ifdef _ORACLE_
 					if(it_map_zn_ld->second.size() > 0)
 					{
@@ -10040,97 +10072,97 @@ void fill_fhzg_db(const long cb_id, const char *fhzg_id, FHZG *fhzg, bool bhas_f
 						ExecSQL(sql);
 					}
 #else
-					for (it_ld = it_map_zn_ld->second.begin(); it_ld != it_map_zn_ld->second.end(); it_ld++)
-					{
-						sprintf(sql, "Insert into FHZG_LOAD (ID, LD_ID, LD_DESCR, LD_PRIOR, LD_AMOUNT, IZONE) Values (\'%s\', \'%ld\', \'%s\', %d, %f, %d)", fhzg_id, it_ld->pid, it_ld->descr, (*it)->data.node_zn.prio, it_ld->w, it_map_zn_ld->first);
+						for (it_ld = it_map_zn_ld->second.begin(); it_ld != it_map_zn_ld->second.end(); it_ld++)
+						{
+							sprintf(sql, "Insert into FHZG_LOAD (ID, LD_ID, LD_DESCR, LD_PRIOR, LD_AMOUNT, IZONE) Values (\'%s\', \'%ld\', \'%s\', %d, %f, %d)", fhzg_id, it_ld->pid, it_ld->descr, (*it)->data.node_zn.prio, it_ld->w, it_map_zn_ld->first);
 
-						ExecSQL(sql);
-					}
+							ExecSQL(sql);
+						}
 #endif
+					}
 				}
+
+				sprintf(sql, "update fhzg_zone set edge = 1 where id = \'%s\' and dev_id in (select dev_id from (select dev_id,count(dev_id) as num from  FHZG_ZONE where id = \'%s\' and dev_table='CB' group by dev_id) where num =1)", fhzg_id, fhzg_id);
+				ExecSQL(sql);
+
+				break;
 			}
 
-			sprintf(sql, "update fhzg_zone set edge = 1 where id = \'%s\' and dev_id in (select dev_id from (select dev_id,count(dev_id) as num from  FHZG_ZONE where id = \'%s\' and dev_table='CB' group by dev_id) where num =1)", fhzg_id, fhzg_id);
-			ExecSQL(sql);
+			case FHZG_TYPE_SHARE:
+			{
+				cout << "·ÖÌ¯×ª¹©¡­¡­" << endl;
 
-			break;
-		}
-
-		case FHZG_TYPE_SHARE:
-		{
-			cout << "·ÖÌ¯×ª¹©¡­¡­" << endl;
-
-			//Ğ´¿ÉÌá¹©·ÖÌ¯×ª¹©µÄµçÔ´±í
+				//Ğ´¿ÉÌá¹©·ÖÌ¯×ª¹©µÄµçÔ´±í
 //			const LIST_TREENODE *lst_so = fhzg->GetSO();
 //
 //			LIST_TREENODE::const_iterator it;
 
-			const map<TreeNode<DataType>*, LIST_TREENODE> *m_so_zone = fhzg->GetSoFhzgZone();
-			map<TreeNode<DataType>*, LIST_TREENODE>::const_iterator it_m_so_zone;
+				const map<TreeNode<DataType>*, LIST_TREENODE> *m_so_zone = fhzg->GetSoFhzgZone();
+				map<TreeNode<DataType>*, LIST_TREENODE>::const_iterator it_m_so_zone;
 
-			//Ğ´²Ù×÷²½Öè±í
-			const list<_OPERATION_STEP> *opera_step = fhzg->GetOperation();
+				//Ğ´²Ù×÷²½Öè±í
+				const list<_OPERATION_STEP> *opera_step = fhzg->GetOperation();
 
-			list<_OPERATION_STEP>::const_iterator it_step;
+				list<_OPERATION_STEP>::const_iterator it_step;
 
-			for (list<long>::const_iterator it_cut_step = cut_step->begin(); it_cut_step != cut_step->end(); it_cut_step++)
-			{
-				long id = *it_cut_step;
+				for (list<long>::const_iterator it_cut_step = cut_step->begin(); it_cut_step != cut_step->end(); it_cut_step++)
+				{
+					long id = *it_cut_step;
 
-				id_to_pid(id);
+					id_to_pid(id);
 
-				sprintf(sql, "Insert into FHZG_STEP (ID, CB_ID, OPERATION, STEP, STATUS, SO_ID, CONTROL) Values ('%s', '%ld', %d, %d, 0, 0, 1)", fhzg_id, id, 1, istep);
-				ExecSQL(sql);
-				istep++;
-			}
+					sprintf(sql, "Insert into FHZG_STEP (ID, CB_ID, OPERATION, STEP, STATUS, SO_ID, CONTROL) Values ('%s', '%ld', %d, %d, 0, 0, 1)", fhzg_id, id, 1, istep);
+					ExecSQL(sql);
+					istep++;
+				}
 
-			map<long, long> m_tmp_close_steps;
-			map<long, long>::iterator it_m_close;
-			for (it_step = opera_step->begin(); it_step != opera_step->end(); it_step++, istep++)
-			{
-				long id = it_step->open_cb;
+				map<long, long> m_tmp_close_steps;
+				map<long, long>::iterator it_m_close;
+				for (it_step = opera_step->begin(); it_step != opera_step->end(); it_step++, istep++)
+				{
+					long id = it_step->open_cb;
 
-				id_to_pid(id);
+					id_to_pid(id);
 
-				sprintf(sql, "Insert into FHZG_STEP (ID, CB_ID, OPERATION, STEP, STATUS, SO_ID, CONTROL) Values ('%s', '%ld', %d, %d, 0, '%ld', 1)", fhzg_id, id, 1, istep, it_step->so_id);
-				ExecSQL(sql);
-				istep++;
-				m_tmp_close_steps[it_step->close_cb] = it_step->so_id;
-			}
+					sprintf(sql, "Insert into FHZG_STEP (ID, CB_ID, OPERATION, STEP, STATUS, SO_ID, CONTROL) Values ('%s', '%ld', %d, %d, 0, '%ld', 1)", fhzg_id, id, 1, istep, it_step->so_id);
+					ExecSQL(sql);
+					istep++;
+					m_tmp_close_steps[it_step->close_cb] = it_step->so_id;
+				}
 
-			for (it_m_close = m_tmp_close_steps.begin(); it_m_close != m_tmp_close_steps.end(); it_m_close++)
-			{
-				long id = it_m_close->first;
+				for (it_m_close = m_tmp_close_steps.begin(); it_m_close != m_tmp_close_steps.end(); it_m_close++)
+				{
+					long id = it_m_close->first;
 
-				id_to_pid(id);
+					id_to_pid(id);
 
-				sprintf(sql, "Insert into FHZG_STEP (ID, CB_ID, OPERATION, STEP, STATUS, SO_ID, CONTROL) Values ('%s', '%ld', %d, %d, 0, '%ld', 1)", fhzg_id, id, 2, istep, it_m_close->second);
-				ExecSQL(sql);
-				istep++;
-			}
+					sprintf(sql, "Insert into FHZG_STEP (ID, CB_ID, OPERATION, STEP, STATUS, SO_ID, CONTROL) Values ('%s', '%ld', %d, %d, 0, '%ld', 1)", fhzg_id, id, 2, istep, it_m_close->second);
+					ExecSQL(sql);
+					istep++;
+				}
 
 
-			for (it_m_so_zone = m_so_zone->begin(); it_m_so_zone != m_so_zone->end(); it_m_so_zone++)
-			{
-				long so_name = it_m_so_zone->first->data.node_so.so_name;
-				long cb_to_so = cb_to_so;
-                float zg_capacity = 0.0;
-				id_to_pid(so_name);
-				id_to_pid(cb_to_so);
-				
-               list<TreeNode<DataType>*> ::const_iterator it_m_so_zone_data;
-			   for(it_m_so_zone_data = it_m_so_zone->second.begin();it_m_so_zone_data != it_m_so_zone->second.end();it_m_so_zone_data++)
-			   {
-			       zg_capacity += (*it_m_so_zone_data)->data.node_zn.ldamount;
-				  
-			   }
+				for (it_m_so_zone = m_so_zone->begin(); it_m_so_zone != m_so_zone->end(); it_m_so_zone++)
+				{
+					long so_name = it_m_so_zone->first->data.node_so.so_name;
+					long cb_to_so = cb_to_so;
+					float zg_capacity = 0.0;
+					id_to_pid(so_name);
+					id_to_pid(cb_to_so);
 
-				sprintf(sql, "Insert into FHZG_SO (ID, SO_ID, SO_DESCR, TYPE, FULL_CAPACITY, LEFT_CAPACITY, CB_ID,ZG_CAPACITY) Values (\'%s\', \'%ld\', \'%s\', %d, %f, %f, \'%ld\',%f)", fhzg_id, so_name, it_m_so_zone->first->data.node_so.so_descr, 2/*·ÖÌ¯×ª¹©*/,
-						it_m_so_zone->first->data.node_so.full_capacity, it_m_so_zone->first->data.node_so.left_capacity, cb_to_so,zg_capacity);
+					list<TreeNode<DataType>*> ::const_iterator it_m_so_zone_data;
+					for(it_m_so_zone_data = it_m_so_zone->second.begin();it_m_so_zone_data != it_m_so_zone->second.end();it_m_so_zone_data++)
+					{
+						zg_capacity += (*it_m_so_zone_data)->data.node_zn.ldamount;
 
-				ExecSQL(sql);
+					}
 
-				//Ö»ÓĞoracleÊı¾İ¿âÖ§³ÖÕâÖÖ²åÈë¿âµÄsqlÓï¾ä£¬ÆäËûÊı¾İ¿â»¹ÊÇÒ»ÌõÒ»ÌõµÄ¼ÇÂ¼²åÈëtianyq
+					sprintf(sql, "Insert into FHZG_SO (ID, SO_ID, SO_DESCR, TYPE, FULL_CAPACITY, LEFT_CAPACITY, CB_ID,ZG_CAPACITY) Values (\'%s\', \'%ld\', \'%s\', %d, %f, %f, \'%ld\',%f)", fhzg_id, so_name, it_m_so_zone->first->data.node_so.so_descr, 2/*·ÖÌ¯×ª¹©*/,
+							it_m_so_zone->first->data.node_so.full_capacity, it_m_so_zone->first->data.node_so.left_capacity, cb_to_so,zg_capacity);
+
+					ExecSQL(sql);
+
+					//Ö»ÓĞoracleÊı¾İ¿âÖ§³ÖÕâÖÖ²åÈë¿âµÄsqlÓï¾ä£¬ÆäËûÊı¾İ¿â»¹ÊÇÒ»ÌõÒ»ÌõµÄ¼ÇÂ¼²åÈëtianyq
 #ifdef _ORACLE_
 				sprintf(sql, "Insert into FHZG_SO_ZONE (ID, IZONE, SO_ID, DEV_ID, DEV_TABLE, CB_TO_SO) ");
 				memset(sqltemp, 0, sizeof(sqltemp));
@@ -10148,41 +10180,41 @@ void fill_fhzg_db(const long cb_id, const char *fhzg_id, FHZG *fhzg, bool bhas_f
 				strncat(sql, sqltemp, (strlen(sqltemp)-10));
 				ExecSQL(sql);
 #else
-				for (list<long>::iterator it_lst_so_zones = it_m_so_zone->first->data.node_so.lst_zones.begin(); it_lst_so_zones != it_m_so_zone->first->data.node_so.lst_zones.end(); it_lst_so_zones++)
-				{
-					list<FAULT_ITEM> lst_dev;
-
-					fhzg->get_zone_devs(*it_lst_so_zones, lst_dev);
-
-					for (list<FAULT_ITEM>::iterator it_devs = lst_dev.begin(); it_devs != lst_dev.end(); it_devs++)
+					for (list<long>::iterator it_lst_so_zones = it_m_so_zone->first->data.node_so.lst_zones.begin(); it_lst_so_zones != it_m_so_zone->first->data.node_so.lst_zones.end(); it_lst_so_zones++)
 					{
-						sprintf(sql, "Insert into FHZG_SO_ZONE (ID, IZONE, SO_ID, DEV_ID, DEV_TABLE) Values (\'%s\', %ld, \'%ld\', \'%ld\', \'%s\')", fhzg_id, *it_lst_so_zones, so_name, it_devs->eq_id, it_devs->table.c_str());
-						ExecSQL(sql);
+						list<FAULT_ITEM> lst_dev;
+
+						fhzg->get_zone_devs(*it_lst_so_zones, lst_dev);
+
+						for (list<FAULT_ITEM>::iterator it_devs = lst_dev.begin(); it_devs != lst_dev.end(); it_devs++)
+						{
+							sprintf(sql, "Insert into FHZG_SO_ZONE (ID, IZONE, SO_ID, DEV_ID, DEV_TABLE) Values (\'%s\', %ld, \'%ld\', \'%ld\', \'%s\')", fhzg_id, *it_lst_so_zones, so_name, it_devs->eq_id, it_devs->table.c_str());
+							ExecSQL(sql);
+						}
 					}
-				}
 #endif
 
-				//ÉèÖÃ±ß½ç¿ª¹Ø
-				sprintf(sql, "update fhzg_so_zone set edge = 1 where id = \'%s\' and so_id = \'%ld\' and dev_id in (select dev_id from (select dev_id,count(dev_id) as num from  FHZG_SO_ZONE where id = \'%s\' and dev_table='CB' and so_id = \'%ld\' group by dev_id) where num =1)", fhzg_id,
-						so_name, fhzg_id, so_name);
-				ExecSQL(sql);
+					//ÉèÖÃ±ß½ç¿ª¹Ø
+					sprintf(sql, "update fhzg_so_zone set edge = 1 where id = \'%s\' and so_id = \'%ld\' and dev_id in (select dev_id from (select dev_id,count(dev_id) as num from  FHZG_SO_ZONE where id = \'%s\' and dev_table='CB' and so_id = \'%ld\' group by dev_id) where num =1)", fhzg_id,
+							so_name, fhzg_id, so_name);
+					ExecSQL(sql);
 
 //				const LIST_TREENODE *lst_so_zone = fhzg->GetZoneBySO((*it)->data.node_so.dv_id);
 //
 //				if (lst_so_zone == NULL)
 //					continue;
 
-				LIST_TREENODE::const_iterator it_zone;
+					LIST_TREENODE::const_iterator it_zone;
 
-				for (it_zone = it_m_so_zone->second.begin(); it_zone != it_m_so_zone->second.end(); it_zone++)
-				{
-					list<FAULT_ITEM> lst_dev;
-
-					for (it_map_zn_ld = (*it_zone)->data.node_zn.map_zn_ld.begin(); it_map_zn_ld != (*it_zone)->data.node_zn.map_zn_ld.end(); it_map_zn_ld++)
+					for (it_zone = it_m_so_zone->second.begin(); it_zone != it_m_so_zone->second.end(); it_zone++)
 					{
-						fhzg->get_zone_devs(it_map_zn_ld->first, lst_dev);
+						list<FAULT_ITEM> lst_dev;
 
-						//Ö»ÓĞoracleÊı¾İ¿âÖ§³ÖÕâÖÖ²åÈë¿âµÄsqlÓï¾ä£¬ÆäËûÊı¾İ¿â»¹ÊÇÒ»ÌõÒ»ÌõµÄ¼ÇÂ¼²åÈëtianyq
+						for (it_map_zn_ld = (*it_zone)->data.node_zn.map_zn_ld.begin(); it_map_zn_ld != (*it_zone)->data.node_zn.map_zn_ld.end(); it_map_zn_ld++)
+						{
+							fhzg->get_zone_devs(it_map_zn_ld->first, lst_dev);
+
+							//Ö»ÓĞoracleÊı¾İ¿âÖ§³ÖÕâÖÖ²åÈë¿âµÄsqlÓï¾ä£¬ÆäËûÊı¾İ¿â»¹ÊÇÒ»ÌõÒ»ÌõµÄ¼ÇÂ¼²åÈëtianyq
 #ifdef _ORACLE_
 						sprintf(sql, "Insert into FHZG_ZONE (ID, IZONE, SO_ID, DEV_ID, DEV_TABLE) ");
 						memset(sqltemp, 0, sizeof(sqltemp));
@@ -10195,15 +10227,15 @@ void fill_fhzg_db(const long cb_id, const char *fhzg_id, FHZG *fhzg, bool bhas_f
 						ExecSQL(sql);
 
 #else
-						for (list<FAULT_ITEM>::iterator it_devs = lst_dev.begin(); it_devs != lst_dev.end(); it_devs++)
-						{
-							sprintf(sql, "Insert into FHZG_ZONE (ID, IZONE, SO_ID, DEV_ID, DEV_TABLE) Values (\'%s\', %d, \'%ld\', \'%ld\', \'%s\')", fhzg_id, it_map_zn_ld->first, so_name, it_devs->eq_id, it_devs->table.c_str());
-							ExecSQL(sql);
-						}
+							for (list<FAULT_ITEM>::iterator it_devs = lst_dev.begin(); it_devs != lst_dev.end(); it_devs++)
+							{
+								sprintf(sql, "Insert into FHZG_ZONE (ID, IZONE, SO_ID, DEV_ID, DEV_TABLE) Values (\'%s\', %d, \'%ld\', \'%ld\', \'%s\')", fhzg_id, it_map_zn_ld->first, so_name, it_devs->eq_id, it_devs->table.c_str());
+								ExecSQL(sql);
+							}
 #endif
-						list<CLS_LD>::const_iterator it_ld;
+							list<CLS_LD>::const_iterator it_ld;
 
-						//Ö»ÓĞoracleÊı¾İ¿âÖ§³ÖÕâÖÖ²åÈë¿âµÄsqlÓï¾ä£¬ÆäËûÊı¾İ¿â»¹ÊÇÒ»ÌõÒ»ÌõµÄ¼ÇÂ¼²åÈëtianyq
+							//Ö»ÓĞoracleÊı¾İ¿âÖ§³ÖÕâÖÖ²åÈë¿âµÄsqlÓï¾ä£¬ÆäËûÊı¾İ¿â»¹ÊÇÒ»ÌõÒ»ÌõµÄ¼ÇÂ¼²åÈëtianyq
 #ifdef _ORACLE_
 						if(it_map_zn_ld->second.size() > 0)
 						{
@@ -10220,23 +10252,23 @@ void fill_fhzg_db(const long cb_id, const char *fhzg_id, FHZG *fhzg, bool bhas_f
 						}
 #else
 
-						for (it_ld = it_map_zn_ld->second.begin(); it_ld != it_map_zn_ld->second.end(); it_ld++)
-						{
-							sprintf(sql, "Insert into FHZG_LOAD (ID, LD_ID, LD_DESCR, LD_PRIOR, LD_AMOUNT, IZONE) Values (\'%s\', \'%ld\', \'%s\', %d, %f, %d)", fhzg_id, it_ld->pid, it_ld->descr, (*it_zone)->data.node_zn.prio, it_ld->w, it_map_zn_ld->first);
+							for (it_ld = it_map_zn_ld->second.begin(); it_ld != it_map_zn_ld->second.end(); it_ld++)
+							{
+								sprintf(sql, "Insert into FHZG_LOAD (ID, LD_ID, LD_DESCR, LD_PRIOR, LD_AMOUNT, IZONE) Values (\'%s\', \'%ld\', \'%s\', %d, %f, %d)", fhzg_id, it_ld->pid, it_ld->descr, (*it_zone)->data.node_zn.prio, it_ld->w, it_map_zn_ld->first);
 
-							ExecSQL(sql);
-						}
+								ExecSQL(sql);
+							}
 #endif
+						}
 					}
+
+					sprintf(sql, "update fhzg_zone set edge = 1 where id = \'%s\' and so_id = \'%ld\' and dev_id in (select dev_id from (select dev_id,count(dev_id) as num from  FHZG_ZONE where id = \'%s\' and dev_table='CB' and so_id = \'%ld\' group by dev_id) where num =1)", fhzg_id,
+							so_name, fhzg_id, so_name);
+					ExecSQL(sql);
+
 				}
-
-				sprintf(sql, "update fhzg_zone set edge = 1 where id = \'%s\' and so_id = \'%ld\' and dev_id in (select dev_id from (select dev_id,count(dev_id) as num from  FHZG_ZONE where id = \'%s\' and dev_table='CB' and so_id = \'%ld\' group by dev_id) where num =1)", fhzg_id,
-						so_name, fhzg_id, so_name);
-				ExecSQL(sql);
-
+				break;
 			}
-			break;
-		}
 
 		}
 	}
@@ -10371,7 +10403,7 @@ int GetFHZGLeftStep(const char *FHZG_id, list<CB_CONTROL> &lstcb)
 				{
 					cur_sel = i;
 				}
-				//Ã»ÓĞÖ´ĞĞÖĞµÄ·½°¸£¬ÔòÕÒÒ»¸ö»¹Ã»ÓĞ¿ªÊ¼Ö´ĞĞµÄ·½°¸
+					//Ã»ÓĞÖ´ĞĞÖĞµÄ·½°¸£¬ÔòÕÒÒ»¸ö»¹Ã»ÓĞ¿ªÊ¼Ö´ĞĞµÄ·½°¸
 				else
 				{
 					for (i = 0; i < rec_num1; i++)
@@ -10407,7 +10439,7 @@ int GetFHZGLeftStep(const char *FHZG_id, list<CB_CONTROL> &lstcb)
 					{
 						cur_sel = i;
 					}
-					//ÒÑ¾­Ã»ÓĞ·½°¸¿ÉÑ¡ÁË£¨¿ÉÄÜÒÑ¾­È«²¿Ö´ĞĞÍê³É»òÖ´ĞĞÊ§°Ü£©
+						//ÒÑ¾­Ã»ÓĞ·½°¸¿ÉÑ¡ÁË£¨¿ÉÄÜÒÑ¾­È«²¿Ö´ĞĞÍê³É»òÖ´ĞĞÊ§°Ü£©
 					else
 						return 0;
 				}
@@ -10745,7 +10777,7 @@ int GetStbyDv(long dvid, PSBOB::ST &st)
 		{
 
 			if (HasMask(g_db_psbob->GetTB("substation"), "st_type", psbob_st[j].st_type, MENU_FAC_TYPE_FEEDVIR)
-					|| HasMask(g_db_psbob->GetTB("substation"), "st_type", psbob_st[j].st_type, MENU_FAC_TYPE_SUBSTN))
+				|| HasMask(g_db_psbob->GetTB("substation"), "st_type", psbob_st[j].st_type, MENU_FAC_TYPE_SUBSTN))
 			{
 				memcpy(&st, &psbob_st[j], sizeof(PSBOB::ST));
 
@@ -10966,7 +10998,7 @@ void write_fhzg_step(const char* groupid, const char* table_name, list<list<MAP_
 					for (map<int, list<CLS_LD> >::iterator it_map_zn_ld = it_zones->map_zn_ld.begin(); it_map_zn_ld != it_zones->map_zn_ld.end(); it_map_zn_ld++)
 					{
 						fdir_r->get_zone_devs(it_map_zn_ld->first, lst_dev);
-	//Ö»ÓĞoracleÊı¾İ¿âÖ§³ÖÕâÖÖ²åÈë¿âµÄsqlÓï¾ä£¬ÆäËûÊı¾İ¿â»¹ÊÇÒ»ÌõÒ»ÌõµÄ¼ÇÂ¼²åÈëtianyq
+						//Ö»ÓĞoracleÊı¾İ¿âÖ§³ÖÕâÖÖ²åÈë¿âµÄsqlÓï¾ä£¬ÆäËûÊı¾İ¿â»¹ÊÇÒ»ÌõÒ»ÌõµÄ¼ÇÂ¼²åÈëtianyq
 #ifdef _ORACLE_
 						sprintf(sql, "Insert into FHZG_ZONE%s (ID, IZONE, SO_ID, DEV_ID, DEV_TABLE) ", table_name);
 						memset(sqltemp, 0, sizeof(sqltemp));
@@ -10988,7 +11020,7 @@ void write_fhzg_step(const char* groupid, const char* table_name, list<list<MAP_
 						}
 #endif
 						list<CLS_LD>::const_iterator it_ld;
-	//Ö»ÓĞoracleÊı¾İ¿âÖ§³ÖÕâÖÖ²åÈë¿âµÄsqlÓï¾ä£¬ÆäËûÊı¾İ¿â»¹ÊÇÒ»ÌõÒ»ÌõµÄ¼ÇÂ¼²åÈëtianyq
+						//Ö»ÓĞoracleÊı¾İ¿âÖ§³ÖÕâÖÖ²åÈë¿âµÄsqlÓï¾ä£¬ÆäËûÊı¾İ¿â»¹ÊÇÒ»ÌõÒ»ÌõµÄ¼ÇÂ¼²åÈëtianyq
 #ifdef _ORACLE_
 						if(it_map_zn_ld->second.size() > 0)
 						{
@@ -11013,7 +11045,7 @@ void write_fhzg_step(const char* groupid, const char* table_name, list<list<MAP_
 							strcat(sql,"\0");
 							ExecSQL(sql);
 							if (fhzg_index == 0)
-							lst_ld.push_back(FAULT_ITEM(0, it_ld->pid, "ld", it_ld->descr));
+								lst_ld.push_back(FAULT_ITEM(0, it_ld->pid, "ld", it_ld->descr));
 						}
 #endif
 					}
@@ -11160,7 +11192,7 @@ void write_fhzg_step(const char* groupid, const char* table_name, list<list<MAP_
 			}
 
 
-	//Ö»ÓĞoracleÊı¾İ¿âÖ§³ÖÕâÖÖ²åÈë¿âµÄsqlÓï¾ä£¬ÆäËûÊı¾İ¿â»¹ÊÇÒ»ÌõÒ»ÌõµÄ¼ÇÂ¼²åÈëtianyq
+			//Ö»ÓĞoracleÊı¾İ¿âÖ§³ÖÕâÖÖ²åÈë¿âµÄsqlÓï¾ä£¬ÆäËûÊı¾İ¿â»¹ÊÇÒ»ÌõÒ»ÌõµÄ¼ÇÂ¼²åÈëtianyq
 #ifdef _ORACLE_
 			sprintf(sql, "Insert into FHZG_SO_ZONE%s (ID, IZONE, SO_ID, DEV_ID, DEV_TABLE) ", table_name);
 			memset(sqltemp, 0, sizeof(sqltemp));
@@ -11877,155 +11909,166 @@ void thread_simu_return(void* param)
 {
 	int newsockfd = *((int*)param);
 
-	pthread_mutex_lock(&simu_sync_mutex);
-	if (g_is_write_to_lib)
+	while (true)
 	{
-		int rec_num, attr_num;
-		char* buf = NULL;
-		struct ORA_ATTR *attrs = NULL;
-		int his_count = 0;
-		sprintf(sql, "SELECT ID FROM PMS_PARAM.FDIR_FDIRECT ORDER BY ID DESC");
-		pthread_mutex_lock(&oci_mutex);
-		int ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
-		pthread_mutex_unlock(&oci_mutex);
-		std::string cur_fault_id;
-		int query_count = 0;
-
-		if (ret != OCI_ERROR && rec_num > 0)
+		pthread_mutex_lock(&simu_sync_mutex);
+		if (g_is_write_to_lib)
 		{
-			cur_fault_id = buf;
-		}
+			int rec_num, attr_num;
+			char* buf = NULL;
+			struct ORA_ATTR *attrs = NULL;
+			int his_count = 0;
+			sprintf(sql, "SELECT ID FROM PMS_PARAM.FDIR_FDIRECT ORDER BY ID DESC");
+			pthread_mutex_lock(&oci_mutex);
+			int ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
+			pthread_mutex_unlock(&oci_mutex);
+			std::string cur_fault_id;
+			int query_count = 0;
 
-		//Í¨¹ı¹ÊÕÏID²éÕÒ¹ÊÕÏĞÅºÅ£¬ÈôÆä¶ÔÓ¦µÄ¹ÊÕÏĞÅºÅ°üº¬ÁË»úÆ÷Ãû·¢³öµÄËùÓĞ¹ÊÕÏĞÅºÅ£¬ÊÓÎª¹ÊÕÏ´¦Àí·½°¸¼ÆËãÍê³É£¬ÏòÈË»ú·µ»Ø±¨ÎÄ
-		buf = NULL;
-		attrs = NULL;
-		char return_str[1024] = {0};
-		sprintf(sql, "SELECT TM_ADD, KEY_ID FROM PMS_PARAM.FDIR_ALARM WHERE ID=\'%s\'", cur_fault_id.c_str());
-		FDIR_POINT_TRIG_LIST pt_trig;
-		pthread_mutex_lock(&oci_mutex);
-		ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
-		pthread_mutex_unlock(&oci_mutex);
-
-		if (ret > 0 && rec_num > 0)
-		{
-			for (int i = 0; i < rec_num; i++)
+			if (ret != OCI_ERROR && rec_num > 0)
 			{
-				FDIR_POINT_TRIG his_trig = {0};
-				his_trig.tm_add = *(timeval*)(buf + i * (attrs[0].col_width + attrs[1].col_width));
-				his_trig.alarm.key_id = *(long*)(buf + i * (attrs[0].col_width + attrs[1].col_width) + attrs[0].col_width);
-				pt_trig.push_back(his_trig);
+				cur_fault_id = buf;
 			}
-		}
 
-		if (simu_mac_trig.size() > 0 && pt_trig.size() > 0)
-		{
-			std::map<std::string, FDIR_POINT_TRIG_LIST>::iterator it_map = simu_mac_trig.begin();
-			std::list<FDIR_POINT_TRIG>::iterator it_trig = pt_trig.begin();
-			for (;it_map != simu_mac_trig.end(); it_map++)
+			//Í¨¹ı¹ÊÕÏID²éÕÒ¹ÊÕÏĞÅºÅ£¬ÈôÆä¶ÔÓ¦µÄ¹ÊÕÏĞÅºÅ°üº¬ÁË»úÆ÷Ãû·¢³öµÄËùÓĞ¹ÊÕÏĞÅºÅ£¬ÊÓÎª¹ÊÕÏ´¦Àí·½°¸¼ÆËãÍê³É£¬ÏòÈË»ú·µ»Ø±¨ÎÄ
+			buf = NULL;
+			attrs = NULL;
+			char return_str[1024] = {0};
+			char simu_sql[1024] = {0};
+			sprintf(simu_sql, "SELECT TM_ADD, KEY_ID FROM PMS_PARAM.FDIR_ALARM WHERE ID=\'%s\'", cur_fault_id.c_str());
+			FDIR_POINT_TRIG_LIST pt_trig;
+			pthread_mutex_lock(&oci_mutex);
+			ret = g_oci->ReadWithBind(simu_sql, &buf, &rec_num, &attr_num, &attrs);
+			pthread_mutex_unlock(&oci_mutex);
+
+			if (ret >= 0 && rec_num > 0)
 			{
-				std::list<FDIR_POINT_TRIG>::iterator it_map_trig = it_map->second.begin();
-				for (; it_trig != pt_trig.end(); it_trig++)
+				for (int i = 0; i < rec_num; i++)
 				{
-					for (; it_map_trig != it_map->second.end();)
+					FDIR_POINT_TRIG his_trig = {0};
+					his_trig.tm_add.tv_sec = *(long*)(buf + i * (attrs[0].col_width + attrs[1].col_width));
+					his_trig.alarm.key_id = *(long*)(buf + i * (attrs[0].col_width + attrs[1].col_width) + attrs[0].col_width);
+					pt_trig.push_back(his_trig);
+				}
+			}
+
+			if (simu_mac_trig.size() > 0 && pt_trig.size() > 0)
+			{
+				std::map<std::string, FDIR_POINT_TRIG_LIST>::iterator it_map = simu_mac_trig.begin();
+				std::list<FDIR_POINT_TRIG>::iterator it_trig = pt_trig.begin();
+				for (;it_map != simu_mac_trig.end(); it_map++)
+				{
+					std::list<FDIR_POINT_TRIG>::iterator it_map_trig = it_map->second.begin();
+					for (; it_trig != pt_trig.end(); it_trig++)
 					{
-						if (it_trig->tm_add.tv_sec == it_map_trig->tm_add.tv_sec && it_trig->alarm.key_id == it_map_trig->alarm.key_id)
+						for (; it_map_trig != it_map->second.end();)
 						{
-							it_map->second.erase(it_map_trig++);
+							if (it_trig->tm_add.tv_sec == it_map_trig->tm_add.tv_sec && it_trig->alarm.key_id == it_map_trig->alarm.key_id)
+							{
+								it_map->second.erase(it_map_trig++);
+							}
+							else
+							{
+								it_map_trig++;
+								continue;
+							}
 						}
-						else
+
+						if (it_trig != pt_trig.end() && it_map->second.size() > 0)
 						{
+							it_map_trig = it_map->second.begin();
 							continue;
 						}
-					}
 
-					string cur_machine = it_map->first;
-					if (it_map->second.size() == 0)
-					{
-						//»ñÈ¡Ä£Äâ·½°¸ĞÅÏ¢
-						buf = NULL;
-						attrs = NULL;
-						sprintf(sql, "SELECT T1.ID, T1.TYPE, T1.NAME, T1.USERID FROM PMS_PARAM.FDIR_SIG_SUMMARY T1, PMS_PARAM.FDIR_SIG_FAULT T2 WHERE T2.FAULT_ID=\'%s\' AND T1.ID=T2.ID",
-							cur_fault_id.c_str());
-						pthread_mutex_lock(&oci_mutex);
-						ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
-						pthread_mutex_unlock(&oci_mutex);
-						if (ret > 0 && rec_num > 0)
+						string cur_machine = it_map->first;
+						if (it_map->second.size() == 0)
 						{
-							char cur_plan_id[50] = {0};
-							memcpy(cur_plan_id, buf, attrs[0].col_width);
-							int plan_type = *(int*)(buf + attrs[0].col_width);
-							char plan_name[100] = {0};
-							char cur_usr[50] = {0};
-							memcpy(plan_name, buf + attrs[0].col_width + attrs[1].col_width, attrs[2].col_width);
-							memcpy(cur_usr, buf + attrs[0].col_width + attrs[1].col_width + attrs[2].col_width, attrs[3].col_width);
-							//·¢ËÍXMLÏìÓ¦Í·
-							cout << head_xml_simu_exec << endl;
-							ret = tcptools->Send(newsockfd, head_xml_simu_exec, strlen(head_xml_simu_exec));
-							if (ret <= 0)
-							{
-								cout << "·¢ËÍÊı¾İÊ§°Ü£¬" << strerror(errno) << endl;
-								goto RE_RECV;
-							}
-
-							//²éÕÒgroup_id
-							sprintf(sql, "SELECT GROUPID FROM PMS_PARAM.FDIR_FDIRECT WHERE ID=\'%s\'", cur_fault_id.c_str());
+							//»ñÈ¡Ä£Äâ·½°¸ĞÅÏ¢
 							buf = NULL;
 							attrs = NULL;
+							sprintf(simu_sql, "SELECT T1.ID, T1.TYPE, T1.NAME, T1.USERID FROM PMS_PARAM.FDIR_SIG_SUMMARY T1, PMS_PARAM.FDIR_SIG_FAULT T2 WHERE T2.FAULT_ID=\'%s\' AND T1.ID=T2.ID",
+									cur_fault_id.c_str());
 							pthread_mutex_lock(&oci_mutex);
-							int ret = g_oci->ReadWithBind(sql, &buf, &rec_num, &attr_num, &attrs);
+							ret = g_oci->ReadWithBind(simu_sql, &buf, &rec_num, &attr_num, &attrs);
 							pthread_mutex_unlock(&oci_mutex);
-							std::string cur_group_id;
-
-							if (ret != OCI_ERROR && rec_num > 0)
+							if (ret >= 0 && rec_num > 0)
 							{
-								cur_group_id = buf;
+								char cur_plan_id[50] = {0};
+								memcpy(cur_plan_id, buf, attrs[0].col_width);
+								int plan_type = *(int*)(buf + attrs[0].col_width);
+								char plan_name[100] = {0};
+								char cur_usr[50] = {0};
+								memcpy(plan_name, buf + attrs[0].col_width + attrs[1].col_width, attrs[2].col_width);
+								memcpy(cur_usr, buf + attrs[0].col_width + attrs[1].col_width + attrs[2].col_width, attrs[3].col_width);
+								//·¢ËÍXMLÏìÓ¦Í·
+								cout << head_xml_simu_exec << endl;
+								ret = tcptools->Send(newsockfd, head_xml_simu_exec, strlen(head_xml_simu_exec));
+								if (ret <= 0)
+								{
+									cout << "·¢ËÍÊı¾İÊ§°Ü£¬" << strerror(errno) << endl;
+								}
+
+								//²éÕÒgroup_id
+								sprintf(simu_sql, "SELECT GROUPID FROM PMS_PARAM.FDIR_FDIRECT WHERE ID=\'%s\'", cur_fault_id.c_str());
+								buf = NULL;
+								attrs = NULL;
+								pthread_mutex_lock(&oci_mutex);
+								int ret = g_oci->ReadWithBind(simu_sql, &buf, &rec_num, &attr_num, &attrs);
+								pthread_mutex_unlock(&oci_mutex);
+								std::string cur_group_id;
+
+								if (ret != OCI_ERROR && rec_num > 0)
+								{
+									cur_group_id = buf;
+								}
+
+								//·¢ËÍÏìÓ¦ÇëÇóÉÏÏÂÎÄĞÅÏ¢
+								sprintf(return_str, "<Simu_Plan  id=\"%s\" group_id=\"%s\" type=\"%d\" name=\"%s\" machine=\"%s\" user=\"%s\">\r\n",
+										cur_plan_id, cur_group_id.c_str(), plan_type, plan_name, cur_machine.c_str(), cur_usr);
+
+								cout << return_str << endl;
+								ret = tcptools->Send(newsockfd, return_str, strlen(return_str));
+								if (ret <= 0)
+								{
+									cout << "·¢ËÍÊı¾İÊ§°Ü£¬" << strerror(errno) << endl;
+								}
+
+								//·¢ËÍXMLÏìÓ¦Î²
+								cout << tail_xml_simu << endl;
+								ret = tcptools->Send(newsockfd, tail_xml_simu, strlen(tail_xml_simu));
+								if (ret <= 0)
+								{
+									cout << "·¢ËÍÊı¾İÊ§°Ü£¬" << strerror(errno) << endl;
+								}
+
+								g_is_write_to_lib = false;
+
+								//É¾³ıÁÙÊ±´´½¨µ«²»±£´æµÄ·½°¸
+								if (strstr(cur_plan_id, "1970/01/01") != NULL)
+								{
+									sprintf(simu_sql, "DELETE FROM PMS_PARAM.FDIR_SIG_SUMMARY WHERE ID=\'%s\'", cur_plan_id);
+									ExecSQL(simu_sql);
+								}
+
+								pthread_mutex_unlock(&simu_sync_mutex);
+								pthread_exit(0);
+
 							}
-
-							//·¢ËÍÏìÓ¦ÇëÇóÉÏÏÂÎÄĞÅÏ¢
-							sprintf(return_str, "<Simu_Plan  id=\"%s\" group_id=\"%s\" type=\"%d\" name=\"%s\" machine=\"%s\" user=\"%s\">\r\n",
-								cur_plan_id, cur_group_id.c_str(), plan_type, plan_name, cur_machine.c_str(), cur_usr);
-
-							cout << return_str << endl;
-							ret = tcptools->Send(newsockfd, return_str, strlen(return_str));
-							if (ret <= 0)
+							else
 							{
-								cout << "·¢ËÍÊı¾İÊ§°Ü£¬" << strerror(errno) << endl;
-								goto RE_RECV;
-							}
-
-							//·¢ËÍXMLÏìÓ¦Î²
-							cout << tail_xml_simu << endl;
-							ret = tcptools->Send(newsockfd, tail_xml_simu, strlen(tail_xml_simu));
-							if (ret <= 0)
-							{
-								cout << "·¢ËÍÊı¾İÊ§°Ü£¬" << strerror(errno) << endl;
-								goto RE_RECV;
-							}
-
-							g_is_write_to_lib = false;
-
-							//É¾³ıÁÙÊ±´´½¨µ«²»±£´æµÄ·½°¸
-							if (strstr(cur_plan_id, "1970/01/01") != NULL)
-							{
-								sprintf(sql, "DELETE FROM PMS_PARAM.FDIR_SIG_SUMMARY WHERE ID=\'%s\'", cur_plan_id);
-								ExecSQL(sql);
+								TRACE("¹ÊÕÏÄ£ÄâÊ§°Ü£¡\r\n");
 							}
 
 						}
-						else
-						{
-							TRACE("¹ÊÕÏÄ£ÄâÊ§°Ü£¡\r\n");
-						}
-
 					}
-				}
 
+				}
 			}
 		}
-	}
-	pthread_mutex_unlock(&simu_sync_mutex);
+		pthread_mutex_unlock(&simu_sync_mutex);
+		usleep(1000);
 
-	pthread_exit(0);
+	}
 }
 
 

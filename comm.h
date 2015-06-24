@@ -12,8 +12,8 @@
 
 typedef struct PDR_POINT_TRIG_EVT
 {
-        long            point_name;
-        unsigned        char type;
+	long            point_name;
+	unsigned        char type;
 }PDR_POINT_TRIG_EVT;
 
 class FDIR_R2;
@@ -47,12 +47,12 @@ extern int version;	//0:真实态   1：模拟态
 typedef struct _HEAD
 {
 	_HEAD()
-		{
+	{
 		type = 0;
 		size = 0;
-			bzero(fault_id, sizeof(fault_id));
-			bzero(group_id, sizeof(group_id));
-		}
+		bzero(fault_id, sizeof(fault_id));
+		bzero(group_id, sizeof(group_id));
+	}
 
 	int type;			//命令类型
 	int size;			//数据包大小
@@ -88,8 +88,8 @@ struct ALARM
 	char tabname[30];
 	char fault_info[30];
 	ALARM_DEV dev;
-    time_t gtime;            //报警发生秒级时刻
-    time_t gmtime;           //报警发生时刻毫秒数
+	time_t gtime;            //报警发生秒级时刻
+	time_t gmtime;           //报警发生时刻毫秒数
 };
 
 //过流信号
@@ -260,7 +260,7 @@ public:
 	int type; //RTE启动方式：负荷开关跳闸，进线开关重合闸，母线电压越下限
 	int fault_zone;
 	FDIR_R2 *fdir_r;
-	FDIR_POINT_TRIG_LIST	trig_list;	//本故障用到的故障信号列表	
+	FDIR_POINT_TRIG_LIST	trig_list;	//本故障用到的故障信号列表
 	std::string simu_plan_id;	//模拟故障信号对应的方案ID
 	int signal_type;					//故障类型
 };
@@ -443,7 +443,7 @@ struct TScaTokenOp
 
 typedef struct FDIR_MSG_ISO_REC
 {
- 	char fault_id[FAULT_ID_LENGTH]; //故障ID
+	char fault_id[FAULT_ID_LENGTH]; //故障ID
 	long dv_id;
 	long st_id;
 	char operate;	//操作 0：故障处理完成
